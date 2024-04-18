@@ -18,10 +18,10 @@ phases:
       - cd $CODEBUILD_SRC_DIR/www
       - ASSET_HASH=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 32)
 
-      - export REACT_APP_GRAPHQL_URI=https://$ENV-v1-us-east-1-api.schematical.com/chaoscrawler
+      - export NEXT_PUBLIC_GRAPHQL_URI=https://$ENV-v1-us-east-1-api.schematical.com/chaoscrawler
       # - export PUBLIC_URL=https://assets-$ENV.schematical.com/$ASSET_HASH
 
-      - export REACT_APP_ENVIRONMENT $ENV
+      - export NEXT_PUBLIC_ENVIRONMENT $ENV
       # - echo $EXTRA_ENV_VARS
       - |
         # Read the environment variable containing JSON

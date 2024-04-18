@@ -137,7 +137,7 @@ export function generateGrid<T extends Block = Block>(
 export async function getDiagrams(username: string) {
     const headers = await getHeaders();
     const res = await axios.get(
-        `${process.env.REACT_APP_SERVER_URL}/api/${username}/diagrams`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/${username}/diagrams`,
         {
             headers
         }
@@ -156,7 +156,7 @@ export async function getHeaders() {
 export async function putDiagram(diagram: Diagram) {
     const headers = await getHeaders();
     const res = await axios.post(
-        process.env.REACT_APP_SERVER_URL + '/api/' +  diagram.username + '/diagrams/' + diagram._id,
+        process.env.NEXT_PUBLIC_SERVER_URL + '/api/' +  diagram.username + '/diagrams/' + diagram._id,
         diagram,
         {
             headers
@@ -167,7 +167,7 @@ export async function putDiagram(diagram: Diagram) {
 export async function getDiagramById(username: string, diagramId: string) {
     const headers = await getHeaders();
     const res = await axios.get(
-        process.env.REACT_APP_SERVER_URL + '/api/' +  username + '/diagrams/' + diagramId,
+        process.env.NEXT_PUBLIC_SERVER_URL + '/api/' +  username + '/diagrams/' + diagramId,
         {
             headers
         }
@@ -177,7 +177,7 @@ export async function getDiagramById(username: string, diagramId: string) {
 export async function getNetworkMapFlows(username: string,  diagramId: string) {
     const headers = await getHeaders();
     const res = await axios.get(
-        `${process.env.REACT_APP_SERVER_URL}/api/${username}/diagrams/${diagramId}/flows`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/${username}/diagrams/${diagramId}/flows`,
         {
             headers
         }
@@ -188,7 +188,7 @@ export async function getNetworkMapFlows(username: string,  diagramId: string) {
 export async function getMapFlowById(username: string, diagramId: string, flowId: string) {
     const headers = await getHeaders();
     const res = await axios.get(
-        process.env.REACT_APP_SERVER_URL + '/api/' +  username + '/diagrams/' + diagramId + '/flows/' + flowId,
+        process.env.NEXT_PUBLIC_SERVER_URL + '/api/' +  username + '/diagrams/' + diagramId + '/flows/' + flowId,
         {
             headers
         }
@@ -198,7 +198,7 @@ export async function getMapFlowById(username: string, diagramId: string, flowId
 export async function putMapFlow(diagramFlow: DiagramFlow) {
     const token = await getJwt();
     const res = await axios.post(
-        process.env.REACT_APP_SERVER_URL + '/api/' +  diagramFlow.username + '/diagrams/' + diagramFlow.parentUri + '/flows/' + diagramFlow._id,
+        process.env.NEXT_PUBLIC_SERVER_URL + '/api/' +  diagramFlow.username + '/diagrams/' + diagramFlow.parentUri + '/flows/' + diagramFlow._id,
         diagramFlow,
         {
             headers: {
@@ -211,7 +211,7 @@ export async function putMapFlow(diagramFlow: DiagramFlow) {
 export async function getDiagramObjects(username: string) {
     const headers = await getHeaders();
     const res = await axios.get(
-        `${process.env.REACT_APP_SERVER_URL}/api/${username}/diagramobjects`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/${username}/diagramobjects`,
         {
             headers
         }
@@ -222,7 +222,7 @@ export async function getDiagramObjects(username: string) {
 export async function putDiagramObject(diagramObject: DiagramObject) {
     const headers = await getHeaders();
     const res = await axios.post(
-        process.env.REACT_APP_SERVER_URL + '/api/' +  diagramObject.parentUri + '/diagramobjects/' + diagramObject._id,
+        process.env.NEXT_PUBLIC_SERVER_URL + '/api/' +  diagramObject.parentUri + '/diagramobjects/' + diagramObject._id,
         diagramObject,
         {
             headers

@@ -8,7 +8,7 @@ import {
     detachStripePaymentMethod,
     finishSignUp,
     getDiagramById,
-    getDiagramFlowById, getProductPage,
+    getDiagramFlowById, getDiagramObjectById, getProductPage,
     getStripeSubscriptionPrice,
     listDiagram, listDiagramFlow,
     listDiagramObject,
@@ -18,7 +18,7 @@ import {
     quickSetupStripeSubscription,
     refresh,
     signUp,
-    updateDiagram
+    updateDiagram, updateDiagramObject
 } from "./graphql";
 
 export class GQLService {
@@ -159,6 +159,23 @@ export class GQLService {
         return response?.data?.listDiagramObject;
 
     }
+    public static async getDiagramObjectById(query: any) {
+        await this.checkAuth()
+
+        const response = await client
+            .query({
+                query: gql( getDiagramObjectById),
+                variables: {
+                    input: query,
+                },
+
+            })
+            .catch(GQLService.catchError);
+
+        return response?.data?.getDiagramObjectById;
+
+    }
+
     public static async getDiagramById(query: { _id: string, parentUri: string }) {
         await this.checkAuth()
 
@@ -221,6 +238,22 @@ export class GQLService {
             .catch(GQLService.catchError);
 
         return response?.data?.createDiagramObject;
+
+    }
+    public static async updateDiagramObject(query: any) {
+        await this.checkAuth()
+
+        const response = await client
+            .mutate({
+                mutation: gql( updateDiagramObject),
+                variables: {
+                    input: query,
+                },
+
+            })
+            .catch(GQLService.catchError);
+
+        return response?.data?.updateDiagramObject;
 
     }
     public static async listDiagramFlow(query: any) {

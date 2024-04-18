@@ -34,7 +34,7 @@ const DiagramObjectEditPage =  () => {
             })
             return
         }
-        const res = await axios.get(  `${process.env.REACT_APP_SERVER_URL}/api/${params.username}/diagramobjects/${params.objectId}`);
+        const res = await axios.get(  `${process.env.NEXT_PUBLIC_SERVER_URL}/api/${params.username}/diagramobjects/${params.objectId}`);
         setState({
             loaded: true,
            // ...state,
@@ -63,7 +63,7 @@ const DiagramObjectEditPage =  () => {
         event.preventDefault();
         const token = await getJwt();
         const res = await axios.post(
-            `${process.env.REACT_APP_SERVER_URL}/api/${params.username}/diagramobjects/${state.diagramobject.ObjectId}`,
+            `${process.env.NEXT_PUBLIC_SERVER_URL}/api/${params.username}/diagramobjects/${state.diagramobject.ObjectId}`,
             state.diagramobject,
             {
                 headers: {
@@ -97,7 +97,7 @@ const DiagramObjectEditPage =  () => {
                 break;
         }
         const res = await axios.post(
-            `${process.env.REACT_APP_SERVER_URL}/api/${params.username}/diagramobjects/${state.diagramobject.ObjectId}/upload`,
+            `${process.env.NEXT_PUBLIC_SERVER_URL}/api/${params.username}/diagramobjects/${state.diagramobject.ObjectId}/upload`,
             {
                 extension,
                 key

@@ -86,6 +86,21 @@ query listDiagramObject($input: DiagramObjectFilterInput) {
   }
 }
 `;
+export const getDiagramObjectById = `
+query getDiagramObjectById($input: BasicFilterInput!) {
+  getDiagramObjectById(input: $input) {
+    _id
+    parentUri
+    createdAt
+    updatedAt
+    title
+    imageSrc
+    jsonSrc
+    description
+  }
+}
+`;
+
 export const getDiagramById = `
 query getDiagramById($input: BasicFilterInput!) {
   getDiagramById(input: $input) {
@@ -131,6 +146,20 @@ mutation updateDiagram( $input: DiagramUpdateInput!) {
 export const createDiagramObject = `
 mutation createDiagramObject($input: DiagramObjectCreateInput!) {
   createDiagramObject(input: $input) {
+    _id
+    parentUri
+    createdAt
+    updatedAt
+    title
+    imageSrc
+    jsonSrc
+    description
+  }
+}
+`;
+export const updateDiagramObject = `
+mutation updateDiagramObject($input: DiagramObjectUpdateInput!) {
+  updateDiagramObject(input: $input) {
     _id
     parentUri
     createdAt

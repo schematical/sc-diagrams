@@ -38,7 +38,7 @@ const NetworkMapEditPage =  () => {
             })
             return
         }
-        const res = await axios.get(  `${process.env.REACT_APP_SERVER_URL}/api/${params.username}/diagrams/${params.diagramId}`);
+        const res = await axios.get(  `${process.env.NEXT_PUBLIC_SERVER_URL}/api/${params.username}/diagrams/${params.diagramId}`);
         setState({
             loaded: true,
            // ...state,
@@ -68,7 +68,7 @@ const NetworkMapEditPage =  () => {
         event.preventDefault();
         const token = await getJwt();
         const res = await axios.post(
-            `${process.env.REACT_APP_SERVER_URL}/api/${params.username}/diagrams/${state.diagram._id}`,
+            `${process.env.NEXT_PUBLIC_SERVER_URL}/api/${params.username}/diagrams/${state.diagram._id}`,
             state.diagram,
             {
                 headers: {

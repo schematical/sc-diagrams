@@ -132,7 +132,7 @@ const DiagramObjectListPage = (props: DiagramObjectListPageProps) => {
                 break;
         }
         const res = await axios.post(
-            `${process.env.REACT_APP_SERVER_URL}/api/${params.username}/diagramobjects/${state.selectedDiagramObject._id}/upload`,
+            `${process.env.NEXT_PUBLIC_SERVER_URL}/api/${params.username}/diagramobjects/${state.selectedDiagramObject._id}/upload`,
             {
                 extension,
                 key

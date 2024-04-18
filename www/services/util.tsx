@@ -3,6 +3,7 @@ import ReactGA from 'react-ga4';
 import {decodeToken, isExpired} from "react-jwt";
 import axios from "axios";
 const getJwt = async () => {
+    throw new Error("DONT USE THIS");
     const token = localStorage.getItem('accessToken');
     if (token) {
         const isMyTokenExpired = isExpired(token);
@@ -21,7 +22,7 @@ const getJwt = async () => {
         username: localStorage.getItem('user'),
         refreshToken
     }
-    const res = await axios.post(process.env.REACT_APP_SERVER_URL + '/api/refresh', query);
+    const res = await axios.post(process.env.NEXT_PUBLIC_SERVER_URL + '/api/refresh', query);
     const newToken = res?.data?.accessToken;
     localStorage.setItem("accessToken", newToken);
     localStorage.setItem("refreshToken", res.data.refreshToken);
