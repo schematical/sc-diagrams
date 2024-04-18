@@ -1,13 +1,65 @@
+"use client";
+import {useParams} from "next/navigation";
+
+/*
 export const metadata = {
   title: 'Sign In - Mosaic',
   description: 'Page description',
 }
+*/
 
 import Link from 'next/link'
 import AuthHeader from '../auth-header'
 import AuthImage from '../auth-image'
-
+import { GQLService } from '@/services/GQLService';
+import {ChangeEvent, useState} from "react";
+interface SignInPageState{
+  loaded?: boolean;
+  username?: string;
+  password?: string;
+  errors?: {
+    message: string
+  }[]
+}
 export default function SignIn() {
+
+  const params = useParams();
+
+  const [state, setState] = useState<SignInPageState>({
+
+  });
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    let newState: any = {
+      ...state
+    };
+    newState[event.target.name] = event.target.value;
+    setState({
+      // ...state,
+      ...newState
+    });
+  }
+  const onLogin = async (event: { preventDefault: () => void; }) => {
+    event.preventDefault();
+
+    try {
+      const res = await GQLService.login({
+        username: state.username,
+        password: state.password
+      });
+      document.location.href = `/${state.username}/diagrams`;
+    }catch(err: any) {
+
+      setState({
+        ...state,
+        errors: [err]
+      });
+      return;
+
+    }
+
+
+  }
   return (
     <main className="bg-white dark:bg-slate-900">
 
@@ -26,18 +78,18 @@ export default function SignIn() {
                 <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium mb-1" htmlFor="email">Email Address</label>
-                    <input id="email" className="form-input w-full" type="email" />
+                    <input id="username" name="username" className="form-input w-full" type="text"  onChange={handleChange} />
                   </div>
                   <div>
                     <label className="block text-sm font-medium mb-1" htmlFor="password">Password</label>
-                    <input id="password" className="form-input w-full" type="password" autoComplete="on" />
+                    <input id="password"  name="password" className="form-input w-full" type="password" autoComplete="on" onChange={handleChange} />
                   </div>
                 </div>
                 <div className="flex items-center justify-between mt-6">
                   <div className="mr-1">
                     <Link className="text-sm underline hover:no-underline" href="/reset-password">Forgot Password?</Link>
                   </div>
-                  <Link className="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-3" href="/">Sign In</Link>
+                  <button className="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-3" onClick={onLogin}>Sign In</button>
                 </div>
               </form>
               {/* Footer */}

@@ -1,7 +1,5 @@
 import {Diagram, DiagramLayer, Resource} from "./util";
 import React, {ChangeEvent, useState} from "react";
-import {ButtonGroup} from "react-bootstrap";
-import Button from "react-bootstrap/Button";
 import { DiagramPageState } from "../../pages/diagrams/DiagramPage";
 
 interface DiagramLayersListComponentProps {

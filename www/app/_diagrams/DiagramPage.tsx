@@ -816,8 +816,8 @@ const DiagramPage = (props: DiagramPageProps) => {
                                 </div>
                             </div>
                             <div className="input-group">
-                                <select name="selectedDiagramObjectId" className="custom-select"
-                                        id="inputGroupSelect04" onChange={handleChange}>
+                                <select name="selectedDiagramObjectId" className="form-select"
+                                        id="selectedDiagramObjectId" onChange={handleChange}>
                                     <option value="NONE">None</option>
                                     {
                                         state.diagramObjects && state.diagramObjects.map((diagramObject, index) => {

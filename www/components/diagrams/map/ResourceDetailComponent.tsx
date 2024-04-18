@@ -1,11 +1,9 @@
 import React, {ChangeEvent, FormEvent, useState} from 'react';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
+
 
 import {FlowEvent, FlowEventInteraction, FlowEventInteractionEvent, Resource} from "../util";
 import MDEditor from "@uiw/react-md-editor";
 import {ContextStore} from "@uiw/react-md-editor/src/Context";
-import {ButtonGroup} from "react-bootstrap";
 
 interface ResourceDetailComponentProps {
     pageMode: 'view' | 'edit';
@@ -114,17 +112,17 @@ const ResourceDetailComponent = (props: ResourceDetailComponentProps) => {
                                    id="sizeMultiplier" name="sizeMultiplier" type="number" value={state.resource.sizeMultiplier} onChange={handleChange}/>
                         </div>
 
-                        <ButtonGroup>
-                            <Button variant="primary" onClick={onSave}>Save changes</Button>
-                            <button className="btn btn-outline-primary" type="button"
-                                    onClick={() => setState({...state, showEdit: true })}>Notes
+                        <div className="flex flex-wrap -space-x-px">
+                            <button className='btn bg-indigo-600 text-white rounded-none border-l-indigo-400 first:rounded-l last:rounded-r first:border-l-transparent' onClick={onSave}>Save changes</button>
+                            <button className="btn bg-indigo-500 hover:bg-indigo-600 text-indigo-100 rounded-none border-l-indigo-400 first:rounded-l last:rounded-r first:border-r-transparent" type="button"
+                                    onClick={() => setState({...state, showEdit: true})}>Notes
                             </button>
-                            <button className="btn btn-outline-danger" type="button"
+                            <button className="btn bg-indigo-500 hover:bg-indigo-600 text-indigo-100 rounded-none border-l-indigo-400 first:rounded-l last:rounded-r first:border-r-transparent" type="button"
                                     onClick={onDelete}>Delete
                             </button>
-                        </ButtonGroup>
+                        </div>
                     </div>
-                    <div
+                    {/*<div
                         className="modal show"
                         style={{ display: 'block', position: 'initial' }}
                     >
@@ -147,7 +145,7 @@ const ResourceDetailComponent = (props: ResourceDetailComponentProps) => {
                                 <Button variant="primary" onClick={onSave}>Save changes</Button>
                             </Modal.Footer>
                         </Modal>
-                    </div>
+                    </div>*/}
                 </>
             }
             {

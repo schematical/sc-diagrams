@@ -171,6 +171,20 @@ mutation updateDiagramObject($input: DiagramObjectUpdateInput!) {
   }
 }
 `;
+export const uploadDiagramObject = `
+mutation uploadDiagramObject($input: DiagramObjectUploadInput!) {
+  uploadDiagramObject(input: $input) {
+    _id
+    parentUri
+    createdAt
+    updatedAt
+    title
+    imageSrc
+    jsonSrc
+    description
+  }
+}
+`;
 export const listDiagramFlow = `
 query listDiagramFlow($input: DiagramFlowFilterInput) {
   listDiagramFlow(input: $input) {

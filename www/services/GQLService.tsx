@@ -18,7 +18,7 @@ import {
     quickSetupStripeSubscription,
     refresh,
     signUp,
-    updateDiagram, updateDiagramObject
+    updateDiagram, updateDiagramObject, uploadDiagramObject
 } from "./graphql";
 
 export class GQLService {
@@ -254,6 +254,22 @@ export class GQLService {
             .catch(GQLService.catchError);
 
         return response?.data?.updateDiagramObject;
+
+    }
+    public static async uploadDiagramObject(query: any) {
+        await this.checkAuth()
+
+        const response = await client
+            .mutate({
+                mutation: gql( uploadDiagramObject),
+                variables: {
+                    input: query,
+                },
+
+            })
+            .catch(GQLService.catchError);
+
+        return response?.data?.uploadDiagramObject;
 
     }
     public static async listDiagramFlow(query: any) {

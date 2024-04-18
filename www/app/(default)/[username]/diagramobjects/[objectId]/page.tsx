@@ -90,7 +90,7 @@ const DiagramObjectEditPage = () => {
     const handleUploadChange = async (event: any) => {
         event.preventDefault();
 
-        const token = await getJwt();
+        // const token = await getJwt();
         const files = event.dataTransfer ? event.dataTransfer.files : event.target.files;
         const extension = files[0].name.split('.').pop().toLowerCase();
         const reader = new FileReader();
@@ -106,7 +106,7 @@ const DiagramObjectEditPage = () => {
                 key = files[0].name.substr(0, files[0].name.length - (extension.length + 1))
                 break;
         }
-        const res = await axios.post(
+        /*const res = await axios.post(
             `${process.env.NEXT_PUBLIC_SERVER_URL}/api/${params.username}/diagramobjects/${state.diagramobject.ObjectId}/upload`,
             {
                 extension,
@@ -117,8 +117,14 @@ const DiagramObjectEditPage = () => {
                     Authorization: token
                 }
             }
-        );
-        const signedUrl = res.data.signedUrl;
+        );*/
+        const res = await GQLService.uploadDiagramObject({
+            _id: state.diagramobject._id,
+            parentUri: state.diagramobject.parentUri,
+            extension,
+            key
+        })
+        const signedUrl = res.signedUrl;
         const result = await fetch(signedUrl, {
             method: "PUT",
             body: dataURItoBlob(reader.result as string),
