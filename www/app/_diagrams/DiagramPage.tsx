@@ -80,6 +80,7 @@ interface DiagramPageProps {
 }
 
 const DiagramPage = (props: DiagramPageProps) => {
+
     PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
     /*    PIXI.settings.RESOLUTION = 4;
         PIXI.settings.PRECISION_FRAGMENT = PRECISION.HIGH;
@@ -662,7 +663,7 @@ const DiagramPage = (props: DiagramPageProps) => {
                 })
             }}>
                 <Sprite
-                    image={process.env.PUBLIC_URL + "/images/diagrams/bkgdSky.png"}
+                    image={process.env.NEXT_PUBLIC_ASSET_URL + "/images/diagrams/bkgdSky.png"}
                     height={window.innerHeight}
                     width={window.innerWidth}
                     x={0}

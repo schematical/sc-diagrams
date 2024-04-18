@@ -27,12 +27,12 @@ const TileComponent = (props: TileComponentProps) => {
     const app = useApp();
 
     const [state, setState] = useState<TileComponentState>({
-        image: process.env.PUBLIC_URL + TileImages.Floor2
+        image: process.env.NEXT_PUBLIC_ASSET_URL + TileImages.Floor2
     });
     const onmouseover = (event: any) => {
         setState({
             ...state,
-            image: process.env.PUBLIC_URL + TileImages.FloorSelected
+            image: process.env.NEXT_PUBLIC_ASSET_URL + TileImages.FloorSelected
         })
         if(!props.onTileInteraction) {
             return;
@@ -47,7 +47,7 @@ const TileComponent = (props: TileComponentProps) => {
     const onmouseout = (event: any) => {
         setState({
             ...state,
-            image: process.env.PUBLIC_URL + TileImages.Floor2
+            image: process.env.NEXT_PUBLIC_ASSET_URL + TileImages.Floor2
         });
 
     }

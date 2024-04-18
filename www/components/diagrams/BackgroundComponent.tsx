@@ -118,7 +118,7 @@ const BackgroundComponent = (props: BackgroundComponentProps) => {
 
                    return <Sprite
                         key={index}
-                        image={process.env.PUBLIC_URL + "/images/diagrams/starSpriteBase.png"}
+                        image={process.env.NEXT_PUBLIC_ASSET_URL + "/images/diagrams/starSpriteBase.png"}
                         height={16 * (star.sizeMultiplier || 1)}
                         width={16 * (star.sizeMultiplier || 1)}
                         x={star.x} // + app.screen.width / 2} // center horizontally

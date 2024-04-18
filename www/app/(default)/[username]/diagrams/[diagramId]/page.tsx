@@ -119,6 +119,7 @@ const DiagramPage = (props: DiagramPageProps) => {
   window.addEventListener("resize", resize);
   resize();
   const refreshData = async () => {
+
     if (
         !params.username ||
         !params.diagramId
@@ -670,7 +671,7 @@ const DiagramPage = (props: DiagramPageProps) => {
           })
         }}>
           <Sprite
-              image={process.env.PUBLIC_URL + "/images/diagrams/bkgdSky.png"}
+              image={process.env.NEXT_PUBLIC_ASSET_URL + "/images/diagrams/bkgdSky.png"}
               height={window.innerHeight}
               width={window.innerWidth}
               x={0}
