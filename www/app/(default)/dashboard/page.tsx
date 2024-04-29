@@ -27,8 +27,6 @@ import {
   getResourceFromMapFlowEventId, FlowEventDecisionOption, generateGrid, DiagramLayer, TileGroup
 } from "../../../components/diagrams/util";
 import * as PIXI from "pixi.js";
-import Offcanvas from "react-bootstrap/Offcanvas";
-import {ButtonGroup, Container, Form, Nav, Navbar} from 'react-bootstrap';
 import ResourceDetailComponent from "../../../components/diagrams/map/ResourceDetailComponent";
 import DiagramBreadcrumbComponent from "../../../components/diagrams/DiagramBreadcrumbComponent";
 import {PixiViewportComponent, PixiViewportComponentExt} from '../../../components/diagrams/PixiViewportComponent';
@@ -94,7 +92,7 @@ const DiagramPage = (props: DiagramPageProps) => {
       PIXI.settings.ROUND_PIXELS = true;*/
 
   /*   useEffect(() => resize(), []);*/
-  const params = {username: 'schematical', diagramId: 'redis'}// useParams<DiagramPageParams>();
+  const params = {username: 'schematical', diagramId: 'redis', flowId: undefined}// useParams<DiagramPageParams>();
   const [notationState, setNotationState] = useState<NotationState>({
     currentNotations: [],
   });
@@ -756,169 +754,6 @@ const DiagramPage = (props: DiagramPageProps) => {
           }
 
         </Stage>
-        <Offcanvas show={shouldShowMenu()} onHide={onCloseMenuClick} placement='start'>
-          <Offcanvas.Header closeButton>
-            <Offcanvas.Title>Schematical</Offcanvas.Title>
-          </Offcanvas.Header>
-          <Offcanvas.Body>
-
-
-            {
-                state.menuMode === 'mainMenu' &&
-                <>
-                  <ul className="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
-                      id="menu">
-
-                    <li className="nav-item">
-                      <a href={`/${params.username}/diagrams/${params.diagramId}/flows/${params.flowId}/swimlane`}
-                         className="nav-link align-middle px-0">
-                        <i className="fs-4 bi-house"></i>
-                        <span className="ms-1 d-none d-sm-inline">
-                                                    Swim Lane
-                                                </span>
-                      </a>
-                      <a href="#" className="nav-link align-middle px-0" onClick={() => setState({
-                        ...state,
-                        menuMode: 'mapFlowEventList'
-                      })}>
-                        <i className="fs-4 bi-house"></i>
-                        <span className="ms-1 d-none d-sm-inline">
-                                                    Event List
-                                                </span>
-                      </a>
-                      <a href="#" className="nav-link align-middle px-0" onClick={() => setState({
-                        ...state,
-                        menuMode: 'diagramLayersList'
-                      })}>
-                        <i className="fs-4 bi-house"></i>
-                        <span className="ms-1 d-none d-sm-inline">
-                                                    Layers List
-                                                </span>
-                      </a>
-                    </li>
-                  </ul>
-
-                </>
-            }
-
-            {
-                state.menuMode === 'tileDetail' &&
-                <>
-                  <h3>Tile Details</h3>
-                  <div className="form-group">
-                    <div className="input-group mb-3">
-                      <div className="input-group-prepend">
-                        <span className="input-group-text" id="basic-addon1">X</span>
-                      </div>
-                      <input type="text" readOnly={true} className="form-control"
-                             id="selectedTileX" value={state.selectedTile?.x}/>
-                    </div>
-
-                    <div className="input-group mb-3">
-                      <div className="input-group-prepend">
-                        <span className="input-group-text" id="basic-addon1">Y</span>
-                      </div>
-                      <input type="text" readOnly={true} className="form-control"
-                             id="selectedTileY" value={state.selectedTile?.y}/>
-                    </div>
-                  </div>
-                  <div className="input-group">
-                    <select name="selectedDiagramObjectId" className="custom-select"
-                            id="inputGroupSelect04" onChange={handleChange}>
-                      <option value="NONE">None</option>
-                      {
-                          state.diagramObjects && state.diagramObjects.map((diagramObject, index) => {
-                            return <option key={index} value={diagramObject._id}>
-                              {diagramObject.title}
-                            </option>
-                          })
-                      }
-
-                    </select>
-                    <div className="input-group-append">
-                      <button className="btn btn-outline-secondary" type="button"
-                              onClick={onSetResourceClick}>Add
-                      </button>
-                    </div>
-                  </div>
-                </>
-            }
-            {
-                state.menuMode === 'resourceDetail' &&
-                state.selectedResource &&
-                <ResourceDetailComponent
-                    resource={state.selectedResource}
-                    onDelete={onDeleteResourceClick}
-                    onSave={onSaveDiagramClick}
-                    pageMode={state.pageMode}
-                />
-            }
-            {
-                state.menuMode === 'diagramLayersList' &&
-                state.diagram &&
-                <DiagramLayersListComponent
-                    diagramPageState={state}
-                    onSave={updateDiagramLayer}
-                    onDelete={(diagramLayer: DiagramLayer) => {
-                      let layers = state.diagram?.data?.layers || [];
-                      // if (!layers) throw new Error("Missing `layers`");
-                      layers = layers.filter((layer)=> layer.id !== diagramLayer.id);
-                      if (!state.diagram?.data?.resources) throw new Error("Missing `state.diagram.data.resources`");
-                      setState({
-                        ...state,
-                        diagram: {
-                          ...state.diagram,
-                          data: {
-                            ...state.diagram?.data,
-                            layers
-                          }
-                        }
-                      })
-                    }}
-                    onSelectDiagramLayer={(diagramLayer: DiagramLayer) => {
-                      setState({
-                        ...state,
-                        selectedDiagramLayer: diagramLayer,
-                        menuMode: 'diagramLayersDetail'
-                      });
-                    }}
-                />
-            }
-            {
-                state.menuMode === 'diagramLayersDetail' &&
-                state.selectedDiagramLayer &&
-                <DiagramLayersDetailComponent
-                    diagramPageState={state}
-                    onSelectDiagramLayerTileGroup={(tileGroup: TileGroup) => {
-                      setState({
-                        ...state,
-                        selectedDiagramLayerTileGroup: tileGroup
-                      });
-                    }}
-                    onSelectBoarders={(tileGroup: TileGroup) => {
-                      setState({
-                        ...state,
-                        selectedDiagramLayerTileGroup: tileGroup,
-                        menuMode: 'none',
-                        menuState: 'layer_boarder_select_start'
-                      })
-                    }}
-                    onSave={updateDiagramLayerTileGroup}
-                    onDelete={(tileGroup: TileGroup) => {
-                      let tileGroups = state.selectedDiagramLayer?.tileGroups || [];
-                      tileGroups = tileGroups.filter((t)=> t.id !== tileGroup.id);
-                      if(!state.selectedDiagramLayer) throw new Error("Missing `state.selectedDiagramLayer`");
-                      let diagramLayer = {
-                        ...state.selectedDiagramLayer,
-                        tileGroups
-                      };
-                      updateDiagramLayer(diagramLayer);
-
-                    }}
-                />
-            }
-          </Offcanvas.Body>
-        </Offcanvas>
         {/*<FooterComponent/>*/}
       </div>
   );

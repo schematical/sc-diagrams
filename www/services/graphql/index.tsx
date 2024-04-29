@@ -174,14 +174,8 @@ mutation updateDiagramObject($input: DiagramObjectUpdateInput!) {
 export const uploadDiagramObject = `
 mutation uploadDiagramObject($input: DiagramObjectUploadInput!) {
   uploadDiagramObject(input: $input) {
-    _id
-    parentUri
-    createdAt
-    updatedAt
-    title
-    imageSrc
-    jsonSrc
-    description
+   url
+   signedUrl
   }
 }
 `;

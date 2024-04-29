@@ -101,10 +101,23 @@ const DiagramObjectEditPage = () => {
             reader.readAsDataURL(files[0]);
         });
         let key = event.target.name;
+
         switch (key) {
-            case('imageSrc'):
-                key = files[0].name.substr(0, files[0].name.length - (extension.length + 1))
+            case('imageSrcFile'):
+                key = files[0].name.substr(0, files[0].name.length - (extension.length + 1));
                 break;
+        }
+        let propertyName = null;
+        switch (event.target.name) {
+            case('imageSrcFile'):
+                propertyName = 'imageSrc';
+                break;
+            case('jsonSrcFile'):
+                propertyName = 'jsonSrc';
+                break;
+            default:
+                throw new Error(`Unsure what to do with '${event.target.name}'`);
+
         }
         /*const res = await axios.post(
             `${process.env.NEXT_PUBLIC_SERVER_URL}/api/${params.username}/diagramobjects/${state.diagramobject.ObjectId}/upload`,
@@ -129,14 +142,15 @@ const DiagramObjectEditPage = () => {
             method: "PUT",
             body: dataURItoBlob(reader.result as string),
         });
-
-        setState({
+        const newState = {
             ...state,
             diagramobject: {
                 ...state.diagramobject,
-                [event.target.name]: res.data.url
+                [propertyName]: res.url
             }
-        });
+        };
+        console.log("newState: ", newState);
+        setState(newState);
     }
 
     function dataURItoBlob(dataURI: string) {
