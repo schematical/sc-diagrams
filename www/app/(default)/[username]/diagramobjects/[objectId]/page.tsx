@@ -21,11 +21,12 @@ const DiagramObjectEditPage = () => {
     });
 
     const refreshData = async () => {
-        if (!params.objectId) {
+        if (!params.objectId || params.objectId === 'new') {
             setState({
                 loaded: true,
                 // ...state,
                 diagramobject: {
+                    parentUri: params.username,
                     Username: params.username
                 }
             })
@@ -76,7 +77,7 @@ const DiagramObjectEditPage = () => {
         const res: DiagramObject = (await GQLService.updateDiagramObject({
             _id: state.diagramobject._id,
             parentUri: state.diagramobject.parentUri,
-            // title: state.diagramobject.title,
+            title: state.diagramobject.title,
             description: state.diagramobject.description,
             imageSrc: state.diagramobject.imageSrc,
             jsonSrc: state.diagramobject.jsonSrc
@@ -204,7 +205,7 @@ const DiagramObjectEditPage = () => {
                             <div className="sm:flex sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 mt-5">
                                 <div className="sm:w-1/3">
                                     <label className="block text-sm font-medium mb-1" htmlFor="name">ObjectId</label>
-                                    <input id="ObjectId" className="form-input w-full" name="ObjectId"
+                                    <input id="_id" className="form-input w-full" name="_id"
                                            value={state.diagramobject._id}
                                            onChange={handleChange} type='text'/>
                                 </div>

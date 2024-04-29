@@ -1,12 +1,9 @@
 import React, {ChangeEvent, createRef, FormEvent, useEffect, useMemo, useState} from 'react';
-import 'bootstrap/dist/js/bootstrap.bundle.min';
 import * as PIXI from 'pixi.js';
 import {AnimatedSprite, Container, NineSlicePlane, PixiComponent, Sprite, Stage, Text, useApp} from '@pixi/react';
 import {Viewport } from 'pixi-viewport'
 import { matrix, multiply } from "mathjs";
 // import axios from "axios";
-import '@pixi/gif';
-
 import {Block, Notation, screen_to_isometric} from '../util';
 import {TextStyle} from "pixi.js";
 import {OutlineFilter} from "@pixi/filter-outline";
@@ -54,12 +51,12 @@ const SwimlaneArrowComponent = (props: SwimlaneArrowComponentProps) => {
 
     const downHeight = Math.abs(props.startPos.y - props.endPos.y);
     const horzWidth = props.startPos.x - props.endPos.x;
-    let imageUri = process.env.PUBLIC_URL + "/images/diagrams/SwimlaneArrowRight.png";
+    let imageUri = process.env.NEXT_PUBLIC_ASSET_URL + "/images/diagrams/SwimlaneArrowRight.png";
     if (
         props.dir === 'left' ||
         horzWidth > 0
     ){
-        imageUri = process.env.PUBLIC_URL + "/images/diagrams/SwimlaneArrowLeft.png";
+        imageUri = process.env.NEXT_PUBLIC_ASSET_URL + "/images/diagrams/SwimlaneArrowLeft.png";
     }
     return (
         <>

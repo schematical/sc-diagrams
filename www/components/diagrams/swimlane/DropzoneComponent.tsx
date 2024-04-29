@@ -1,5 +1,4 @@
 import React, {ChangeEvent, createRef, FormEvent, useEffect, useMemo, useState} from 'react';
-import 'bootstrap/dist/js/bootstrap.bundle.min';
 import * as PIXI from 'pixi.js';
 import {
     AnimatedSprite,
@@ -12,14 +11,9 @@ import {
     useApp,
     useTick
 } from '@pixi/react';
-import {Viewport } from 'pixi-viewport'
-import { matrix, multiply } from "mathjs";
-// import axios from "axios";
-import '@pixi/gif';
 
 import {Block, DiagramObject, GlobalState, Notation, Resource, screen_to_isometric} from '../util';
-import {Assets, FederatedEventHandler, FederatedPointerEvent, TextStyle} from "pixi.js";
-import {OutlineFilter} from "@pixi/filter-outline";
+
 
 
 interface DropzoneComponentState{
@@ -113,7 +107,7 @@ const width = props.width || 200;
                 height={props.height || 800}
                 x={props.pos.x}
                 y={props.pos.y}
-                image={process.env.PUBLIC_URL + "/images/diagrams/dropArea.png"}
+                image={"/images/diagrams/dropArea.png"}
                 alpha={.1}
                 onclick={onClick}
                 onmouseover={onmouseover}

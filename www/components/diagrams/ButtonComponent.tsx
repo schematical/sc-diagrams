@@ -63,7 +63,7 @@ const ButtonComponent = (props: ButtonComponentProps) => {
                 height={props.height}
                 x={props.x}
                 y={props.y }
-                image={process.env.PUBLIC_URL + "/images/diagrams/button.png"}
+                image={process.env.NEXT_PUBLIC_ASSET_URL + "/images/diagrams/button.png"}
                 onclick={props.onClick}
                 onmouseover={onmouseover}
                 onmouseout={onmouseout}

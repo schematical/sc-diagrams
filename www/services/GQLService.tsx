@@ -143,6 +143,7 @@ export class GQLService {
         return response?.data?.listDiagram;
 
     }
+
     public static async listDiagramObject(query: any) {
         await this.checkAuth()
 

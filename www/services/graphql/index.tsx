@@ -70,6 +70,23 @@ query listDiagram($input: DiagramFilterInput) {
   }
 }
 `;
+export const listDiagramFlow = `
+query listDiagramFlow($input: DiagramFlowFilterInput) {
+  listDiagramFlow(input: $input) {
+    Items {
+      _id
+      parentUri
+      createdAt
+      updatedAt
+      name
+      description
+      username
+      diagramId
+      data
+    }
+  }
+}
+`;
 export const listDiagramObject = `
 query listDiagramObject($input: DiagramObjectFilterInput) {
   listDiagramObject(input: $input) {
@@ -179,21 +196,7 @@ mutation uploadDiagramObject($input: DiagramObjectUploadInput!) {
   }
 }
 `;
-export const listDiagramFlow = `
-query listDiagramFlow($input: DiagramFlowFilterInput) {
-  listDiagramFlow(input: $input) {
-    Items {
-      _id
-      parentUri
-      name
-      description
-      username
-      diagramId
-      data
-    }
-  }
-}
-`;
+
 export const getDiagramFlowById = `
 query getDiagramFlowById($input: BasicFilterInput!) {
   getDiagramFlowById(input: $input) {

@@ -1,10 +1,7 @@
 import React, {ChangeEvent, createRef, FormEvent, useEffect, useMemo, useState} from 'react';
-import 'bootstrap/dist/js/bootstrap.bundle.min';
 import * as PIXI from 'pixi.js';
 import {AnimatedSprite, Container, NineSlicePlane, PixiComponent, Sprite, Stage, Text, useApp} from '@pixi/react';
-import {Viewport } from 'pixi-viewport'
-import { matrix, multiply } from "mathjs";
-import '@pixi/gif';
+
 
 import {TextStyle} from "pixi.js";
 import {OutlineFilter} from "@pixi/filter-outline";
@@ -57,7 +54,7 @@ const FlowEventComponent = (props:FlowEventComponentProps) => {
                     height={props.height * .75}
                     x={props.x + props.width * .25}
                     y={props.y}
-                    image={process.env.PUBLIC_URL + "/images/diagrams/decisionDiamond.png"}
+                    image={process.env.NEXT_PUBLIC_ASSET_URL + "/images/diagrams/decisionDiamond.png"}
                     interactive={true}
                     onmouseover={onmouseover}
                     onmouseout={onmouseout}
@@ -72,7 +69,7 @@ const FlowEventComponent = (props:FlowEventComponentProps) => {
                         return <>
                             <Sprite
                                 key={index}
-                                image={process.env.PUBLIC_URL + "/images/diagrams/decisionChoice.png"}
+                                image={process.env.NEXT_PUBLIC_ASSET_URL + "/images/diagrams/decisionChoice.png"}
                                 width={width}
                                 height={props.height}
                                 x={x}
@@ -142,7 +139,7 @@ const FlowEventComponent = (props:FlowEventComponentProps) => {
                         height={props.height}
                         x={props.x}
                         y={props.y}
-                        image={process.env.PUBLIC_URL + "/images/diagrams/button.png"}
+                        image={process.env.NEXT_PUBLIC_ASSET_URL + "/images/diagrams/button.png"}
                         interactive={true}
                         onmouseover={onmouseover}
                         onmouseout={onmouseout}

@@ -66,7 +66,7 @@ const NotationComponent = (props: NotationComponentProps) => {
                 height={HEIGHT}
                 x={x}
                 y={y}
-                image={process.env.PUBLIC_URL + "/images/diagrams/button.png"}
+                image={process.env.NEXT_PUBLIC_ASSET_URL + "/images/diagrams/button.png"}
             ></NineSlicePlane>
             <Text
                 text={props.notation.text  || "NotationComp"}

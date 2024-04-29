@@ -102,7 +102,7 @@ const DiagramLayerComponent = (props: DiagramLayerComponentProps) => {
                             const color =  new Color(tileGroup.color).toArray();
                             tileSprites.push(<Sprite
                                 interactive={true}
-                                image={process.env.PUBLIC_URL + '/images/diagrams/floor-group-purplet.png'}
+                                image={process.env.NEXT_PUBLIC_ASSET_URL + '/images/diagrams/floor-group-purplet.png'}
                                 x={screenX} // + app.screen.width / 2} // center horizontally
                                 y={screenY} // + app.screen.height / 4} // align the y axis to one fourth of the screen
                                 anchor={{ x: .5, y: 1}}

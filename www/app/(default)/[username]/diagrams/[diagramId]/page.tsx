@@ -605,7 +605,7 @@ const DiagramPage = (props: DiagramPageProps) => {
                                                     }`}
                                                     onClick={(e) => {
                                                         e.preventDefault();
-                                                        // expandOnly ? setSidebarExpanded(true) : handleClick()
+                                                        handleClick()
                                                     }}
                                                 >
                                                     Test

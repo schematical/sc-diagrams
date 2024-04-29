@@ -1,5 +1,4 @@
 import React, {ChangeEvent, createRef, FormEvent, useEffect, useMemo, useState} from 'react';
-import 'bootstrap/dist/js/bootstrap.bundle.min';
 import * as PIXI from 'pixi.js';
 import {
     AnimatedSprite,
@@ -15,8 +14,6 @@ import {
 import {Viewport } from 'pixi-viewport'
 import { matrix, multiply } from "mathjs";
 // import axios from "axios";
-import '@pixi/gif';
-
 import {Block, DiagramObject, GlobalState, Notation, Resource, screen_to_isometric} from '../util';
 import {Assets, TextStyle} from "pixi.js";
 import {OutlineFilter} from "@pixi/filter-outline";
@@ -127,7 +124,7 @@ const SwimlaneLaneComponent = (props: SwimlaneLaneComponentProps) => {
                 height={props.height || 800}
                 x={props.pos.x}
                 y={props.pos.y}
-                image={process.env.PUBLIC_URL + "/images/diagrams/SwimlaneLaneRight.png"}
+                image={"/images/diagrams/SwimlaneLaneRight.png"}
                 // onclick={props.onClick}
                 /*interactive={true}
                 onmouseover={onmouseover}

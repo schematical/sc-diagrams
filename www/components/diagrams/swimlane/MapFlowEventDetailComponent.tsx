@@ -1,8 +1,6 @@
 import React, {ChangeEvent, FormEvent, useState} from 'react';
-
-import 'bootstrap/dist/js/bootstrap.bundle.min';
 import {FlowEvent, FlowEventDecisionOption, FlowEventInteraction} from "../util";
-import {ButtonGroup, InputGroup} from "react-bootstrap";
+
 interface MapFlowEventDetailComponentProps {
     mapFlowEvent: FlowEvent;
     onUpdate: (mapFlowEvent: FlowEvent) => void;
@@ -101,7 +99,7 @@ const MapFlowEventDetailComponent = (props: MapFlowEventDetailComponentProps) =>
                     </select>
                 </div>
 
-                <ButtonGroup>
+                <div>
                     <button className="btn btn-outline-secondary" type="button"
                             onClick={onUpdate}>Update
                     </button>
@@ -120,7 +118,7 @@ const MapFlowEventDetailComponent = (props: MapFlowEventDetailComponentProps) =>
                     <button className="btn btn-outline-danger" type="button"
                             onClick={onDelete}>Delete
                     </button>
-                </ButtonGroup>
+                </div>
             </div>
             <form>
                 {
@@ -131,7 +129,7 @@ const MapFlowEventDetailComponent = (props: MapFlowEventDetailComponentProps) =>
                     state.mapFlowEvent.options &&
                     state.mapFlowEvent.options.map((option, index) => {
                         return <div className="form-row">
-                            <InputGroup size="sm">
+                            <div>
                                 <input type="text"
                                        className="form-control"
                                        placeholder="Option Name"
@@ -176,7 +174,7 @@ const MapFlowEventDetailComponent = (props: MapFlowEventDetailComponentProps) =>
                                 }}>
                                     Delete
                                 </button>
-                            </InputGroup>
+                            </div>
                         </div>
                     })
                 }
