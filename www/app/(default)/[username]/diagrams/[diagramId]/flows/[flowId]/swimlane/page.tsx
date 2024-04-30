@@ -491,16 +491,18 @@ const SwimlanePage = () => {
     return (
         <FlyoutProvider>
 
-            {/* <Navbar expand="lg" className="bg-body-tertiary" fixed="bottom">
-                <Container>
+            <div className="sticky bottom-0 z-30">
+                <div
+                    className="flex items-center justify-between bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-700 px-4 sm:px-6 md:px-5 h-16">
+
                     <div className="row ">
                         <div className="col-12">
-                            <DiagramBreadcrumbComponent params={params} />
+                            <DiagramBreadcrumbComponent params={params}/>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-12">
-                            <ButtonGroup>
+                            <div>
                                 <a className="btn btn-outline-secondary" type="button"
                                    href={state.dataUri}
                                    target="_blank"
@@ -519,11 +521,11 @@ const SwimlanePage = () => {
                                 >
                                     <i className="fa fa-map-o" aria-hidden="true"></i>
                                 </a>
-                            </ButtonGroup>
+                            </div>
                         </div>
                     </div>
-                </Container>
-            </Navbar>*/}
+                </div>
+            </div>
 
             <Stage id="pixi-canvas" style={{display: 'inline'}} onMount={(app) => {
                 console.log("pixiCanvas-onMount")

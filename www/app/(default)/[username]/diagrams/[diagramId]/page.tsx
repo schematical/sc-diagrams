@@ -27,8 +27,6 @@ import {
     getResourceFromMapFlowEventId, FlowEventDecisionOption, generateGrid, DiagramLayer, TileGroup
 } from "@/components/diagrams/util";
 import * as PIXI from "pixi.js";
-import Offcanvas from "react-bootstrap/Offcanvas";
-import {ButtonGroup, Container, Form, Nav, Navbar} from 'react-bootstrap';
 import ResourceDetailComponent from "@/components/diagrams/map/ResourceDetailComponent";
 import DiagramBreadcrumbComponent from "@/components/diagrams/DiagramBreadcrumbComponent";
 import {PixiViewportComponent, PixiViewportComponentExt} from '@/components/diagrams/PixiViewportComponent';
@@ -923,6 +921,7 @@ const DiagramPage = (props: DiagramPageProps) => {
                             state.pageMode === 'view' &&
                             state.mapFlow &&
                             <>
+
                                 {
                                     globalState.playMode === "playing" &&
                                     <button type="button" className="btn btn-outline-primary"
@@ -932,9 +931,11 @@ const DiagramPage = (props: DiagramPageProps) => {
                                 }
                                 {
                                     globalState.playMode === "paused" &&
-                                    <button type="button" className="btn btn-outline-primary"
-                                            onClick={() => play()}>
-                                        <i className=" fa fa-play" aria-hidden="true"/>
+                                    <button
+                                        className="btn bg-indigo-500 hover:bg-indigo-600 text-white"
+                                        onClick={() => play()}>
+                                        Play
+                                        <i className="fa fa-play" aria-hidden="true"/>
                                     </button>
                                 }
 

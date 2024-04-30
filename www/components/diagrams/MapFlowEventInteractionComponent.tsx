@@ -83,11 +83,27 @@ const MapFlowEventInteractionComponent = (props: MapFlowEventInteractionComponen
         },
         speed: 0
     });
+    const deltaX = state.startPos.x - state.endPos.x;
+    const deltaY = state.startPos.y - state.endPos.y;
+    const scale = state.count;
+    const screenX = state.startPos.x - (scale * deltaX);
+    const screenY = state.startPos.y - (scale * deltaY);
     useTick(delta => {
 
         if (props.globalState.playMode === "paused") {
             return;
         }
+        /* if (spriteRef.current) {
+            props.viewport.follow(spriteRef.current as DisplayObject);
+        }*/
+        props.viewport.moveCenter(
+            screenX, //  + app.screen.width / 2,
+            screenY // + app.screen.height / 4
+        );
+        props.viewport.setZoom(
+            2,
+            true
+        );
         let count = state.count + (state.speed * delta);
         let cycleCount = state.cycleCount;
         if (count > 1) {
@@ -99,6 +115,7 @@ const MapFlowEventInteractionComponent = (props: MapFlowEventInteractionComponen
                     diagramFlowEventInteraction: props.diagramFlowEventInteraction,
                     type: 'cycle_done'
                 });
+
             }
         }
         setState({
@@ -163,11 +180,11 @@ const MapFlowEventInteractionComponent = (props: MapFlowEventInteractionComponen
     if(!state.mapFlowEventInteractionId) {
         return <></>;
     }
-    const deltaX = state.startPos.x - state.endPos.x;
+ /*   const deltaX = state.startPos.x - state.endPos.x;
     const deltaY = state.startPos.y - state.endPos.y;
     const scale = state.count;
     const screenX = state.startPos.x - (scale * deltaX);
-    const screenY = state.startPos.y - (scale * deltaY);
+    const screenY = state.startPos.y - (scale * deltaY);*/
 
     if(
         props.globalState.playMode === 'playing' &&
@@ -175,17 +192,17 @@ const MapFlowEventInteractionComponent = (props: MapFlowEventInteractionComponen
     ) {
 
         // console.log('screenXY:', screenX, ' / ', screenY);
-        props.viewport.moveCenter(
+       /* props.viewport.moveCenter(
             screenX, //  + app.screen.width / 2,
             screenY // + app.screen.height / 4
-        );
+        );*/
        /* if (spriteRef.current) {
             props.viewport.follow(spriteRef.current as DisplayObject);
         }*/
-         props.viewport.setZoom(
+        /* props.viewport.setZoom(
              2,
              true
-         );
+         );*/
         /*props.viewport.scale.x = 2;
         props.viewport.scale.y = 2;*/
     }

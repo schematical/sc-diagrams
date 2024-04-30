@@ -24,8 +24,8 @@ export const PixiViewportComponent = PixiComponent('Viewport', {
             console.log("CREATING VIEW PORT")
         const viewport = new Viewport({
             events: props.app.renderer.events,
-            screenWidth: window.innerWidth, // props.width,
-            screenHeight: window.innerHeight, // props.height,
+            screenWidth: props.app.view.width, // window.innerWidth, // props.width,
+            screenHeight: props.app.view.height, // window.innerHeight, // props.height,
             worldWidth: props.width * 2,
             worldHeight: props.height * 2,
             ticker: props.app.ticker,
