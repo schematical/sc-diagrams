@@ -70,6 +70,7 @@ export interface DiagramPageState {
 
     viewport?: Viewport;
     pixiApp?: PIXI.Application<PIXI.ICanvas>;
+    window?: Window
 }
 
 export interface DiagramPageParams extends Params {
@@ -124,8 +125,15 @@ const DiagramPage = (props: DiagramPageProps) => {
     const resize = () => {
         state.pixiApp?.renderer.resize(window.innerWidth, window.innerHeight);
     }
-    window.addEventListener("resize", resize);
-    resize();
+    useEffect(() => {
+        window.addEventListener("resize", resize);
+        resize();
+        document.body.style.overflow = "hidden";
+        setState({
+            ...state,
+            window
+        })
+    }, []);
     const refreshData = async () => {
 
         if (
@@ -534,7 +542,6 @@ const DiagramPage = (props: DiagramPageProps) => {
 
     const grid = useMemo(() => generateGrid(16, 16, (x, y) => ({x, y})), [])
     const viewportRef = useRef<any>();
-    document.body.style.overflow = "hidden"
 
     const updateDiagramLayer = (diagramLayer: DiagramLayer, tileGroup?: TileGroup) => {
         let layers = state.diagram?.data?.layers || [];
@@ -656,229 +663,235 @@ const DiagramPage = (props: DiagramPageProps) => {
                             </SidebarLinkGroup>
                         </div>
 
-                            {
-                                state.menuMode === 'tileDetail' &&
-                                <div className="px-5 py-4">
-                                    {/* Search form */}
-                                    <form className="relative">
-                                        <div>
-                                            <label className="block text-sm font-medium mb-1"
-                                                   htmlFor="selectedTileX">
-                                                X
-                                            </label>
-                                            <input className="form-input w-full pl-9 bg-white dark:bg-slate-800"
-                                                   type="text" readOnly={true}
-                                                   id="selectedTileX" value={state.selectedTile?.x}/>
-                                        </div>
-                                        <div>
-                                            <label className="block text-sm font-medium mb-1" htmlFor="selectedTileY">
-                                                Y
-                                            </label>
-                                            <input className="form-input w-full pl-9 bg-white dark:bg-slate-800"
-                                                   type="text" readOnly={true}
-                                                   id="selectedTileY" value={state.selectedTile?.y}/>
-                                        </div>
-                                        <div>
-                                            <label className="block text-sm font-medium mb-1" htmlFor="selectedTileY">
-                                                Object:
-                                            </label>
-                                            <select name="selectedDiagramObjectId" className="custom-select"
-                                                    id="inputGroupSelect04" onChange={handleChange}>
-                                                <option value="NONE">None</option>
-                                                {
-                                                    state.diagramObjects && state.diagramObjects.map((diagramObject, index) => {
-                                                        return <option key={index} value={diagramObject._id}>
-                                                            {diagramObject.title}
-                                                        </option>
-                                                    })
-                                                }
-
-                                            </select>
-
-                                            <button className="btn" type="button"
-                                                    onClick={onSetResourceClick}>Add
-                                            </button>
-
-                                        </div>
-
-                                    </form>
-                                </div>
-                            }
-
-
-                            {
-                                state.menuMode === 'resourceDetail' &&
-                                state.selectedResource &&
-                                <ResourceDetailComponent
-                                    resource={state.selectedResource}
-                                    onDelete={onDeleteResourceClick}
-                                    onSave={onSaveDiagramClick}
-                                    pageMode={state.pageMode}
-                                />
-                            }
-                            {
-                                state.menuMode === 'diagramLayersList' &&
-                                state.diagram &&
-                                <DiagramLayersListComponent
-                                    diagramPageState={state}
-                                    onSave={updateDiagramLayer}
-                                    onDelete={(diagramLayer: DiagramLayer) => {
-                                        let layers = state.diagram?.data?.layers || [];
-                                        // if (!layers) throw new Error("Missing `layers`");
-                                        layers = layers.filter((layer) => layer.id !== diagramLayer.id);
-                                        if (!state.diagram?.data?.resources) throw new Error("Missing `state.diagram.data.resources`");
-                                        setState({
-                                            ...state,
-                                            diagram: {
-                                                ...state.diagram,
-                                                data: {
-                                                    ...state.diagram?.data,
-                                                    layers
-                                                }
+                        {
+                            state.menuMode === 'tileDetail' &&
+                            <div className="px-5 py-4">
+                                {/* Search form */}
+                                <form className="relative">
+                                    <div>
+                                        <label className="block text-sm font-medium mb-1"
+                                               htmlFor="selectedTileX">
+                                            X
+                                        </label>
+                                        <input className="form-input w-full pl-9 bg-white dark:bg-slate-800"
+                                               type="text" readOnly={true}
+                                               id="selectedTileX" value={state.selectedTile?.x}/>
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium mb-1" htmlFor="selectedTileY">
+                                            Y
+                                        </label>
+                                        <input className="form-input w-full pl-9 bg-white dark:bg-slate-800"
+                                               type="text" readOnly={true}
+                                               id="selectedTileY" value={state.selectedTile?.y}/>
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium mb-1" htmlFor="selectedTileY">
+                                            Object:
+                                        </label>
+                                        <select name="selectedDiagramObjectId" className="custom-select"
+                                                id="inputGroupSelect04" onChange={handleChange}>
+                                            <option value="NONE">None</option>
+                                            {
+                                                state.diagramObjects && state.diagramObjects.map((diagramObject, index) => {
+                                                    return <option key={index} value={diagramObject._id}>
+                                                        {diagramObject.title}
+                                                    </option>
+                                                })
                                             }
-                                        })
-                                    }}
-                                    onSelectDiagramLayer={(diagramLayer: DiagramLayer) => {
-                                        setState({
-                                            ...state,
-                                            selectedDiagramLayer: diagramLayer,
-                                            menuMode: 'diagramLayersDetail'
-                                        });
-                                    }}
-                                />
-                            }
-                            {
-                                state.menuMode === 'diagramLayersDetail' &&
-                                state.selectedDiagramLayer &&
-                                <DiagramLayersDetailComponent
-                                    diagramPageState={state}
-                                    onSelectDiagramLayerTileGroup={(tileGroup: TileGroup) => {
-                                        setState({
-                                            ...state,
-                                            selectedDiagramLayerTileGroup: tileGroup
-                                        });
-                                    }}
-                                    onSelectBoarders={(tileGroup: TileGroup) => {
-                                        setState({
-                                            ...state,
-                                            selectedDiagramLayerTileGroup: tileGroup,
-                                            menuMode: 'none',
-                                            menuState: 'layer_boarder_select_start'
-                                        })
-                                    }}
-                                    onSave={updateDiagramLayerTileGroup}
-                                    onDelete={(tileGroup: TileGroup) => {
-                                        let tileGroups = state.selectedDiagramLayer?.tileGroups || [];
-                                        tileGroups = tileGroups.filter((t) => t.id !== tileGroup.id);
-                                        if (!state.selectedDiagramLayer) throw new Error("Missing `state.selectedDiagramLayer`");
-                                        let diagramLayer = {
-                                            ...state.selectedDiagramLayer,
-                                            tileGroups
-                                        };
-                                        updateDiagramLayer(diagramLayer);
 
-                                    }}
-                                />
-                            }
+                                        </select>
+
+                                        <button className="btn" type="button"
+                                                onClick={onSetResourceClick}>Add
+                                        </button>
+
+                                    </div>
+
+                                </form>
+                            </div>
+                        }
+
+
+                        {
+                            state.menuMode === 'resourceDetail' &&
+                            state.selectedResource &&
+                            <ResourceDetailComponent
+                                resource={state.selectedResource}
+                                onDelete={onDeleteResourceClick}
+                                onSave={onSaveDiagramClick}
+                                pageMode={state.pageMode}
+                            />
+                        }
+                        {
+                            state.menuMode === 'diagramLayersList' &&
+                            state.diagram &&
+                            <DiagramLayersListComponent
+                                diagramPageState={state}
+                                onSave={updateDiagramLayer}
+                                onDelete={(diagramLayer: DiagramLayer) => {
+                                    let layers = state.diagram?.data?.layers || [];
+                                    // if (!layers) throw new Error("Missing `layers`");
+                                    layers = layers.filter((layer) => layer.id !== diagramLayer.id);
+                                    if (!state.diagram?.data?.resources) throw new Error("Missing `state.diagram.data.resources`");
+                                    setState({
+                                        ...state,
+                                        diagram: {
+                                            ...state.diagram,
+                                            data: {
+                                                ...state.diagram?.data,
+                                                layers
+                                            }
+                                        }
+                                    })
+                                }}
+                                onSelectDiagramLayer={(diagramLayer: DiagramLayer) => {
+                                    setState({
+                                        ...state,
+                                        selectedDiagramLayer: diagramLayer,
+                                        menuMode: 'diagramLayersDetail'
+                                    });
+                                }}
+                            />
+                        }
+                        {
+                            state.menuMode === 'diagramLayersDetail' &&
+                            state.selectedDiagramLayer &&
+                            <DiagramLayersDetailComponent
+                                diagramPageState={state}
+                                onSelectDiagramLayerTileGroup={(tileGroup: TileGroup) => {
+                                    setState({
+                                        ...state,
+                                        selectedDiagramLayerTileGroup: tileGroup
+                                    });
+                                }}
+                                onSelectBoarders={(tileGroup: TileGroup) => {
+                                    setState({
+                                        ...state,
+                                        selectedDiagramLayerTileGroup: tileGroup,
+                                        menuMode: 'none',
+                                        menuState: 'layer_boarder_select_start'
+                                    })
+                                }}
+                                onSave={updateDiagramLayerTileGroup}
+                                onDelete={(tileGroup: TileGroup) => {
+                                    let tileGroups = state.selectedDiagramLayer?.tileGroups || [];
+                                    tileGroups = tileGroups.filter((t) => t.id !== tileGroup.id);
+                                    if (!state.selectedDiagramLayer) throw new Error("Missing `state.selectedDiagramLayer`");
+                                    let diagramLayer = {
+                                        ...state.selectedDiagramLayer,
+                                        tileGroups
+                                    };
+                                    updateDiagramLayer(diagramLayer);
+
+                                }}
+                            />
+                        }
 
                     </ DiagramSidebarComponent>
                 }
 
                 <div className="grow flex flex-col md:translate-x-0 transition-transform duration-300 ease-in-out">
-                    <Stage style={{display: 'inline'}} onMount={(app) => {
-                        setState({
-                            ...state,
-                            pixiApp: app
-                        })
-                    }}>
-                        <Sprite
-                            image={process.env.NEXT_PUBLIC_ASSET_URL + "/images/diagrams/bkgdSky.png"}
-                            height={window.innerHeight}
-                            width={window.innerWidth}
-                            x={0}
-                            y={0}
+                    {
+                        state.window &&
+                        <>
 
-                        />
-                        {
-                            state.diagram &&
-                            state.diagramObjects &&
-                            state.pixiApp &&
-                            <PixiViewportComponentExt
-                                // app={state.pixiApp}
-                                height={1000} // state.pixiApp.screen.height}
-                                width={1000} //state.pixiApp.screen.width}
-                                ref={viewportRef}
-                            >
-                                <BackgroundComponent/>
-                                {
-                                    state.diagram?.data?.layers?.map((diagramLayer: DiagramLayer) => {
-                                        if (!state.diagram) throw new Error("Missing `state.diagram`");
-                                        return <DiagramLayerComponent diagramLayer={diagramLayer}/>;
-                                    })
-                                }
-                                {
-                                    globalState.diagramMode === "map" &&
-                                    grid.map(({x, y}, index) => {
-                                        // convert the screen coordinate to isometric coordinate
+                            <Stage style={{display: 'inline'}} onMount={(app) => {
+                                setState({
+                                    ...state,
+                                    pixiApp: app
+                                })
+                            }}>
+                                <Sprite
+                                    image={process.env.NEXT_PUBLIC_ASSET_URL + "/images/diagrams/bkgdSky.png"}
+                                    height={state.window.innerHeight}
+                                    width={state.window.innerWidth}
+                                    x={0}
+                                    y={0}
 
-                                        return (
-                                            <TileComponent
-                                                key={index}
-                                                onTileInteraction={onTileInteraction}
-                                                x={x}
-                                                y={y}
-                                            />
-                                        )
-                                    })
-                                }
-
+                                />
                                 {
-                                    state.mapFlow?.data?.interactions.map((mapFlowEventInteraction, index) => {
-                                        if (!state.diagram) throw new Error("Missing `state.diagram`")
-                                        if (
-                                            state.selectedMapFlowEventInteraction?.id !== mapFlowEventInteraction.id
-                                        ) {
-                                            return <></>;
+                                    state.diagram &&
+                                    state.diagramObjects &&
+                                    state.pixiApp &&
+                                    <PixiViewportComponentExt
+                                        // app={state.pixiApp}
+                                        height={1000} // state.pixiApp.screen.height}
+                                        width={1000} //state.pixiApp.screen.width}
+                                        ref={viewportRef}
+                                    >
+                                        <BackgroundComponent/>
+                                        {
+                                            state.diagram?.data?.layers?.map((diagramLayer: DiagramLayer) => {
+                                                if (!state.diagram) throw new Error("Missing `state.diagram`");
+                                                return <DiagramLayerComponent diagramLayer={diagramLayer}/>;
+                                            })
                                         }
-                                        return <MapFlowEventInteractionComponent
-                                            key={index}
-                                            diagram={state.diagram}
-                                            mapFlow={state.mapFlow as DiagramFlow}
-                                            diagramFlowEventInteraction={mapFlowEventInteraction}
-                                            diagramObject={getDiagramObject('file-basic')}
-                                            onMapFlowEventInteractionClick={onMapFlowEventInteractionEvent}
-                                            globalState={globalState}
-                                            viewport={viewportRef.current as Viewport}
-                                        />
-                                    })
+                                        {
+                                            globalState.diagramMode === "map" &&
+                                            grid.map(({x, y}, index) => {
+                                                // convert the screen coordinate to isometric coordinate
+
+                                                return (
+                                                    <TileComponent
+                                                        key={index}
+                                                        onTileInteraction={onTileInteraction}
+                                                        x={x}
+                                                        y={y}
+                                                    />
+                                                )
+                                            })
+                                        }
+
+                                        {
+                                            state.mapFlow?.data?.interactions.map((mapFlowEventInteraction, index) => {
+                                                if (!state.diagram) throw new Error("Missing `state.diagram`")
+                                                if (
+                                                    state.selectedMapFlowEventInteraction?.id !== mapFlowEventInteraction.id
+                                                ) {
+                                                    return <></>;
+                                                }
+                                                return <MapFlowEventInteractionComponent
+                                                    key={index}
+                                                    diagram={state.diagram}
+                                                    mapFlow={state.mapFlow as DiagramFlow}
+                                                    diagramFlowEventInteraction={mapFlowEventInteraction}
+                                                    diagramObject={getDiagramObject('file-basic')}
+                                                    onMapFlowEventInteractionClick={onMapFlowEventInteractionEvent}
+                                                    globalState={globalState}
+                                                    viewport={viewportRef.current as Viewport}
+                                                />
+                                            })
+                                        }
+                                        {
+                                            state.diagram.data?.resources.map((resource, index) => {
+
+
+                                                return <ResourceComponent
+                                                    key={index}
+                                                    resource={resource}
+                                                    diagramObject={getDiagramObject(resource.objectId)}
+                                                    onResourceInteraction={onResourceInteraction}
+                                                    globalState={globalState}
+                                                />
+                                            })
+                                        }
+
+
+                                        {
+                                            notationState.currentNotations.map((notationData, index) => {
+                                                return <NotationComponent index={index} notation={notationData.notation}
+                                                                          block={notationData.block}
+                                                                          utilFunctions={utilFunctions}/>
+                                            })
+
+                                        }
+                                    </PixiViewportComponentExt>
                                 }
-                                {
-                                    state.diagram.data?.resources.map((resource, index) => {
 
-
-                                        return <ResourceComponent
-                                            key={index}
-                                            resource={resource}
-                                            diagramObject={getDiagramObject(resource.objectId)}
-                                            onResourceInteraction={onResourceInteraction}
-                                            globalState={globalState}
-                                        />
-                                    })
-                                }
-
-
-                                {
-                                    notationState.currentNotations.map((notationData, index) => {
-                                        return <NotationComponent index={index} notation={notationData.notation}
-                                                                  block={notationData.block}
-                                                                  utilFunctions={utilFunctions}/>
-                                    })
-
-                                }
-                            </PixiViewportComponentExt>
-                        }
-
-                    </Stage>
+                            </Stage>
+                        </>
+                    }
                 </div>
 
                 <div className="sticky bottom-0 z-30">

@@ -22,7 +22,7 @@
     "mathjs": "^12.4.1",
     "next": "^14.0.3",
     "next-themes": "^0.2.1",
-    "pixi-viewport": "^5.1.0",
+    "pixi-viewport": "^5.0.3",
     "pixi.js": "^7.3.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",

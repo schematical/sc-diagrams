@@ -44,6 +44,7 @@ import DiagramLayerComponent from "../../../components/diagrams/DiagramLayerComp
 import {Params} from "next/dist/shared/lib/router/utils/route-matcher";
 
 export interface DiagramPageState {
+  window?: any;
   loaded?: boolean;
   selectedTile?: Tile,
   selectedResource?: Resource,
@@ -91,7 +92,7 @@ const DiagramPage = (props: DiagramPageProps) => {
       PIXI.settings.PRECISION_FRAGMENT = PRECISION.HIGH;
       PIXI.settings.ROUND_PIXELS = true;*/
 
-  /*   useEffect(() => resize(), []);*/
+
   const params = {username: 'schematical', diagramId: 'redis', flowId: undefined}// useParams<DiagramPageParams>();
   const [notationState, setNotationState] = useState<NotationState>({
     currentNotations: [],
@@ -114,8 +115,15 @@ const DiagramPage = (props: DiagramPageProps) => {
   const resize = () => {
     state.pixiApp?.renderer.resize(window.innerWidth, window.innerHeight);
   }
-  window.addEventListener("resize", resize);
-  resize();
+  useEffect(() => {
+    window.addEventListener("resize", resize);
+    resize();
+    document.body.style.overflow = "hidden";
+    setState({
+      ...state,
+      window
+    })
+  }, []);
   const refreshData = async () => {
     if (
         !params.username ||
@@ -522,7 +530,7 @@ const DiagramPage = (props: DiagramPageProps) => {
 
   const grid = useMemo(() => generateGrid(16, 16, (x, y) => ({x, y})), [])
   const viewportRef = useRef<any>();
-  document.body.style.overflow = "hidden"
+
 
   const updateDiagramLayer = (diagramLayer: DiagramLayer, tileGroup?: TileGroup) => {
     let layers = state.diagram?.data?.layers || [];
@@ -661,99 +669,104 @@ const DiagramPage = (props: DiagramPageProps) => {
                     </div>
                 </div>
             </div>*/}
-        <Stage style={{display: 'inline'}} onMount={(app) => {
-          setState({
-            ...state,
-            pixiApp: app
-          })
-        }}>
-          <Sprite
-              image={process.env.PUBLIC_URL + "/images/diagrams/bkgdSky.png"}
-              height={window.innerHeight}
-              width={window.innerWidth}
-              x={0}
-              y={0}
+        {
+          state.window &&
+            <>
+            <Stage style={{display: 'inline'}} onMount={(app) => {
+            setState({
+              ...state,
+              pixiApp: app
+            })
+          }}>
+            <Sprite
+                image={process.env.PUBLIC_URL + "/images/diagrams/bkgdSky.png"}
+                height={state.window.innerHeight}
+                width={state.window.innerWidth}
+                x={0}
+                y={0}
 
-          />
-          {
-              state.diagram &&
-              state.diagramObjects &&
-              state.pixiApp &&
-              <PixiViewportComponentExt
-                  // app={state.pixiApp}
-                  height={1000} // state.pixiApp.screen.height}
-                  width={1000} //state.pixiApp.screen.width}
-                  ref={viewportRef}
-              >
-                <BackgroundComponent/>
-                {
-                  state.diagram?.data?.layers?.map((diagramLayer: DiagramLayer) => {
-                    if (!state.diagram) throw new Error("Missing `state.diagram`");
-                    return <DiagramLayerComponent diagramLayer={diagramLayer} />;
-                  })
-                }
-                {
-                    globalState.diagramMode === "map" &&
-                    grid.map(({x, y}, index) => {
-                      // convert the screen coordinate to isometric coordinate
-
-                      return (
-                          <TileComponent
-                              key={index}
-                              onTileInteraction={onTileInteraction}
-                              x={x}
-                              y={y}
-                          />
-                      )
+            />
+            {
+                state.diagram &&
+                state.diagramObjects &&
+                state.pixiApp &&
+                <PixiViewportComponentExt
+                    // app={state.pixiApp}
+                    height={1000} // state.pixiApp.screen.height}
+                    width={1000} //state.pixiApp.screen.width}
+                    ref={viewportRef}
+                >
+                  <BackgroundComponent/>
+                  {
+                    state.diagram?.data?.layers?.map((diagramLayer: DiagramLayer) => {
+                      if (!state.diagram) throw new Error("Missing `state.diagram`");
+                      return <DiagramLayerComponent diagramLayer={diagramLayer} />;
                     })
-                }
+                  }
+                  {
+                      globalState.diagramMode === "map" &&
+                      grid.map(({x, y}, index) => {
+                        // convert the screen coordinate to isometric coordinate
 
-                {
-                  state.mapFlow?.data?.interactions.map((mapFlowEventInteraction, index) => {
-                    if (!state.diagram) throw new Error("Missing `state.diagram`")
-                    if (
-                        state.selectedMapFlowEventInteraction?.id !== mapFlowEventInteraction.id
-                    ) {
-                      return <></>;
-                    }
-                    return <MapFlowEventInteractionComponent
-                        key={index}
-                        diagram={state.diagram}
-                        mapFlow={state.mapFlow as DiagramFlow}
-                        diagramFlowEventInteraction={mapFlowEventInteraction}
-                        diagramObject={getDiagramObject('file-basic')}
-                        onMapFlowEventInteractionClick={onMapFlowEventInteractionEvent}
-                        globalState={globalState}
-                        viewport={viewportRef.current as Viewport}
-                    />
-                  })
-                }
-                {
-                  state.diagram.data?.resources.map((resource, index) => {
+                        return (
+                            <TileComponent
+                                key={index}
+                                onTileInteraction={onTileInteraction}
+                                x={x}
+                                y={y}
+                            />
+                        )
+                      })
+                  }
+
+                  {
+                    state.mapFlow?.data?.interactions.map((mapFlowEventInteraction, index) => {
+                      if (!state.diagram) throw new Error("Missing `state.diagram`")
+                      if (
+                          state.selectedMapFlowEventInteraction?.id !== mapFlowEventInteraction.id
+                      ) {
+                        return <></>;
+                      }
+                      return <MapFlowEventInteractionComponent
+                          key={index}
+                          diagram={state.diagram}
+                          mapFlow={state.mapFlow as DiagramFlow}
+                          diagramFlowEventInteraction={mapFlowEventInteraction}
+                          diagramObject={getDiagramObject('file-basic')}
+                          onMapFlowEventInteractionClick={onMapFlowEventInteractionEvent}
+                          globalState={globalState}
+                          viewport={viewportRef.current as Viewport}
+                      />
+                    })
+                  }
+                  {
+                    state.diagram.data?.resources.map((resource, index) => {
 
 
-                    return <ResourceComponent
-                        key={index}
-                        resource={resource}
-                        diagramObject={getDiagramObject(resource.objectId)}
-                        onResourceInteraction={onResourceInteraction}
-                        globalState={globalState}
-                    />
-                  })
-                }
+                      return <ResourceComponent
+                          key={index}
+                          resource={resource}
+                          diagramObject={getDiagramObject(resource.objectId)}
+                          onResourceInteraction={onResourceInteraction}
+                          globalState={globalState}
+                      />
+                    })
+                  }
 
 
-                {
-                  notationState.currentNotations.map((notationData, index) => {
-                    return <NotationComponent index={index} notation={notationData.notation}
-                                              block={notationData.block} utilFunctions={utilFunctions}/>
-                  })
+                  {
+                    notationState.currentNotations.map((notationData, index) => {
+                      return <NotationComponent index={index} notation={notationData.notation}
+                                                block={notationData.block} utilFunctions={utilFunctions}/>
+                    })
 
-                }
-              </PixiViewportComponentExt>
-          }
+                  }
+                </PixiViewportComponentExt>
+            }
 
-        </Stage>
+          </Stage>
+            </>
+        }
         {/*<FooterComponent/>*/}
       </div>
   );
