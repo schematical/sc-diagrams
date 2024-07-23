@@ -102,7 +102,6 @@ const DiagramPage = (props: DiagramPageProps) => {
         PIXI.settings.PRECISION_FRAGMENT = PRECISION.HIGH;
         PIXI.settings.ROUND_PIXELS = true;*/
 
-    /*   useEffect(() => resize(), []);*/
     const params = useParams<DiagramPageParams>();
     const [notationState, setNotationState] = useState<NotationState>({
         currentNotations: [],
@@ -123,6 +122,7 @@ const DiagramPage = (props: DiagramPageProps) => {
 
     });
     const resize = () => {
+        console.log("RESIZING: ", window.innerWidth, window.innerHeight);
         state.pixiApp?.renderer.resize(window.innerWidth, window.innerHeight);
     }
     useEffect(() => {
@@ -593,7 +593,7 @@ const DiagramPage = (props: DiagramPageProps) => {
         updateDiagramLayer(diagramLayer, tileGroup);
     }
     return (
-        <div>
+        <>
             <FlyoutProvider initialState={true}>
                 {
                     shouldShowMenu() &&
@@ -791,12 +791,12 @@ const DiagramPage = (props: DiagramPageProps) => {
                     </ DiagramSidebarComponent>
                 }
 
-                <div className="grow flex flex-col md:translate-x-0 transition-transform duration-300 ease-in-out">
+                {/*<div className="grow flex flex-col md:translate-x-0 transition-transform duration-300 ease-in-out">*/}
                     {
                         state.window &&
                         <>
 
-                            <Stage style={{display: 'inline'}} onMount={(app) => {
+                            <Stage style={{display: 'inline', width: '100%', height: '100%'}} onMount={(app) => {
                                 setState({
                                     ...state,
                                     pixiApp: app
@@ -816,8 +816,8 @@ const DiagramPage = (props: DiagramPageProps) => {
                                     state.pixiApp &&
                                     <PixiViewportComponentExt
                                         // app={state.pixiApp}
-                                        height={1000} // state.pixiApp.screen.height}
-                                        width={1000} //state.pixiApp.screen.width}
+                                        height={ state.pixiApp.screen.height} // 1000} //
+                                        width={state.pixiApp.screen.width} // 1000} //
                                         ref={viewportRef}
                                     >
                                         <BackgroundComponent/>
@@ -892,9 +892,9 @@ const DiagramPage = (props: DiagramPageProps) => {
                             </Stage>
                         </>
                     }
-                </div>
+                {/*</div>*/}
 
-                <div className="sticky bottom-0 z-30">
+                <div className="fixed bottom-0 z-30">
                     <div
                         className="flex items-center justify-between bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-700 px-4 sm:px-6 md:px-5 h-16">
                         {/*<button
@@ -982,7 +982,7 @@ const DiagramPage = (props: DiagramPageProps) => {
             </FlyoutProvider>
 
 
-        </div>
+        </>
     );
 }
 
