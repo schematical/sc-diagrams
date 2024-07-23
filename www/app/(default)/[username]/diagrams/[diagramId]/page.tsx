@@ -796,7 +796,7 @@ const DiagramPage = (props: DiagramPageProps) => {
                         state.window &&
                         <>
 
-                            <Stage style={{display: 'inline', width: '100%', height: '100%'}} onMount={(app) => {
+                            <Stage style={{display: 'inline', width: state.window.innerWidth, height: state.window.innerHeight }} onMount={(app) => {
                                 setState({
                                     ...state,
                                     pixiApp: app
