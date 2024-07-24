@@ -42,30 +42,9 @@ import {DiagramLayersListComponent} from '../../../components/diagrams/DiagramLa
 import { DiagramLayersDetailComponent } from '../../../components/diagrams/DiagramLayersDetailComponent';
 import DiagramLayerComponent from "../../../components/diagrams/DiagramLayerComponent";
 import {Params} from "next/dist/shared/lib/router/utils/route-matcher";
+import {DiagramPageState} from "@/services/interfaces";
 
-export interface DiagramPageState {
-  window?: any;
-  loaded?: boolean;
-  selectedTile?: Tile,
-  selectedResource?: Resource,
-
-  selectedMapFlowEventInteraction?: FlowEventInteraction,
-  selectedDiagramLayer?: DiagramLayer;
-  selectedDiagramLayerTileGroup?: TileGroup;
-  diagram?: Diagram;
-  mapFlow?: DiagramFlow;
-  diagramObjects?: DiagramObject[]
-  selectedDiagramObjectId?: string;
-  menuState: 'none' | 'layer_boarder_select_start' | 'layer_boarder_select_end';
-  menuMode: 'none' | 'mainMenu' | 'tileDetail' | 'resourceDetail' | 'mapFlowEventList' | 'mapFlowEventDetail' | 'diagramLayersList' | 'diagramLayersDetail';
-  pageMode: 'edit' | 'view';
-
-  selectedResourceJSON?: string
-
-  viewport?: Viewport;
-  pixiApp?: PIXI.Application<PIXI.ICanvas>;
-}
-export interface DiagramPageParams extends Params{
+interface DiagramPageParams extends Params{
   username: string;
   diagramId: string;
   flowId: string;
@@ -86,7 +65,7 @@ interface DiagramPageProps {
   mode: 'view' | 'edit'
 }
 
-const DiagramPage = (props: DiagramPageProps) => {
+const DiagramPage = (/*props: DiagramPageProps*/) => {
   PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
   /*    PIXI.settings.RESOLUTION = 4;
       PIXI.settings.PRECISION_FRAGMENT = PRECISION.HIGH;
@@ -121,7 +100,6 @@ const DiagramPage = (props: DiagramPageProps) => {
     document.body.style.overflow = "hidden";
     setState({
       ...state,
-      window
     })
   }, []);
   const refreshData = async () => {
@@ -669,7 +647,7 @@ const DiagramPage = (props: DiagramPageProps) => {
                     </div>
                 </div>
             </div>*/}
-        {
+        {/*{
           state.window &&
             <>
             <Stage style={{display: 'inline'}} onMount={(app) => {
@@ -766,7 +744,7 @@ const DiagramPage = (props: DiagramPageProps) => {
 
           </Stage>
             </>
-        }
+        }*/}
         {/*<FooterComponent/>*/}
       </div>
   );

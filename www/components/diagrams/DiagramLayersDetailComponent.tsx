@@ -1,6 +1,7 @@
 import {Diagram, DiagramLayer, Resource, TileGroup} from "./util";
 import React, {ChangeEvent, useState} from "react";
-import { DiagramPageState } from "../../pages/diagrams/DiagramPage";
+import {DiagramPageState} from "@/services/interfaces";
+
 
 interface DiagramLayersDetailComponentProps {
     onSelectBoarders:  ( tileGroup: TileGroup) => void;
@@ -85,7 +86,7 @@ export const DiagramLayersDetailComponent = (props: DiagramLayersDetailComponent
                                id="id" name="id" onChange={handleChange}
                                value={state.selectedDiagramLayerTileGroup.id}/>
                     </div>
-                    <div className="input-group mb-3">
+                    {/*<div className="input-group mb-3">
                         <Form.Label htmlFor="exampleColorInput">Color picker</Form.Label>
                         <Form.Control
                             type="color"
@@ -98,22 +99,29 @@ export const DiagramLayersDetailComponent = (props: DiagramLayersDetailComponent
                         />
 
 
+                    </div>*/}
+                    <div className="flex flex-wrap items-center -m-1.5">
+                        <div className="m-1.5">
+                            {/* Start */}
+                            <div className="flex flex-wrap -space-x-px">
+                                <button
+                                    className="btn bg-indigo-600 text-white rounded-none border-l-indigo-400 first:rounded-l last:rounded-r first:border-l-transparent"
+                                    onClick={() => props.onSave(state.selectedDiagramLayerTileGroup as TileGroup)}>
+                                    Save
+                                </button>
+                                <button
+                                    className="btn bg-indigo-500 hover:bg-indigo-600 text-indigo-100 rounded-none border-l-indigo-400 first:rounded-l last:rounded-r first:border-r-transparent"  onClick={() => props.onSelectBoarders(state.selectedDiagramLayerTileGroup as TileGroup)}>
+                                    Select Borders
+                                </button>
+                                <button
+                                    className="btn bg-indigo-500 hover:bg-indigo-600 text-indigo-100 rounded-none border-l-indigo-400 first:rounded-l last:rounded-r first:border-r-transparent"
+                                    onClick={() => props.onDelete(state.selectedDiagramLayerTileGroup as TileGroup)}>
+                                    Delete
+                                </button>
+                            </div>
+                            {/* End */}
+                        </div>
                     </div>
-
-                    <ButtonGroup>
-                        <Button variant="primary"
-                                onClick={() => props.onSave(state.selectedDiagramLayerTileGroup as TileGroup)}>
-                            Save
-                        </Button>
-                        <button className="btn btn-outline-primary" type="button"
-                                onClick={() => props.onSelectBoarders(state.selectedDiagramLayerTileGroup as TileGroup)}>
-                            Select Borders
-                        </button>
-                        <button className="btn btn-outline-danger" type="button"
-                                onClick={() => props.onDelete(state.selectedDiagramLayerTileGroup as TileGroup)}>
-                            Delete
-                        </button>
-                    </ButtonGroup>
                 </div>
             </>
         }

@@ -92,7 +92,7 @@ export default function RealtimeChart({
           },
           tooltip: {
             titleFont: {
-              weight: '600',
+              weight: 'bold',
             },
             callbacks: {
               label: (context) => formatValue(context.parsed.y),

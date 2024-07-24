@@ -1,6 +1,7 @@
 import {Diagram, DiagramLayer, Resource} from "./util";
 import React, {ChangeEvent, useState} from "react";
-import { DiagramPageState } from "../../pages/diagrams/DiagramPage";
+import {DiagramPageState} from "@/services/interfaces";
+
 
 interface DiagramLayersListComponentProps {
     diagramPageState: DiagramPageState;
@@ -75,18 +76,25 @@ export const DiagramLayersListComponent = (props: DiagramLayersListComponentProp
                         <input type="text" className="form-control"
                                id="id" name="id" readOnly={true} onChange={handleChange} value={state.selectedDiagramLayer.id}/>
                     </div>
-
-
-                    <ButtonGroup>
-                        <Button variant="primary" onClick={() => props.onSave(state.selectedDiagramLayer as DiagramLayer)}>Save changes</Button>
-                        <button className="btn btn-outline-primary" type="button"
-                                onClick={() => props.onSelectDiagramLayer(state.selectedDiagramLayer as DiagramLayer) }>
-                            View Groups
-                        </button>
-                        <button className="btn btn-outline-danger" type="button"
-                                onClick={() => props.onSave(state.selectedDiagramLayer as DiagramLayer)}>Delete
-                        </button>
-                    </ButtonGroup>
+                    <div className="flex flex-wrap items-center -m-1.5">
+                        <div className="m-1.5">
+                            {/* Start */}
+                            <div className="flex flex-wrap -space-x-px">
+                                <button className="btn bg-indigo-600 text-white rounded-none border-l-indigo-400 first:rounded-l last:rounded-r first:border-l-transparent" onClick={() => props.onSave(state.selectedDiagramLayer as DiagramLayer)}>
+                                    Save changes
+                                </button>
+                                <button className="btn bg-indigo-500 hover:bg-indigo-600 text-indigo-100 rounded-none border-l-indigo-400 first:rounded-l last:rounded-r first:border-r-transparent"
+                                        onClick={() => props.onSelectDiagramLayer(state.selectedDiagramLayer as DiagramLayer) }>
+                                    View Groups
+                                </button>
+                                <button className="btn bg-indigo-500 hover:bg-indigo-600 text-indigo-100 rounded-none border-l-indigo-400 first:rounded-l last:rounded-r first:border-r-transparent"
+                                        onClick={() => props.onSave(state.selectedDiagramLayer as DiagramLayer)}>
+                                    Delete
+                                </button>
+                            </div>
+                            {/* End */}
+                        </div>
+                    </div>
                 </div>
             </>
         }

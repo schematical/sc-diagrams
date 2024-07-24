@@ -4,7 +4,7 @@ import {decodeToken, isExpired} from "react-jwt";
 import axios from "axios";
 const getJwt = async () => {
     throw new Error("DONT USE THIS");
-    const token = localStorage.getItem('accessToken');
+/*    const token = localStorage.getItem('accessToken');
     if (token) {
         const isMyTokenExpired = isExpired(token);
         if (!isMyTokenExpired) {
@@ -26,7 +26,7 @@ const getJwt = async () => {
     const newToken = res?.data?.accessToken;
     localStorage.setItem("accessToken", newToken);
     localStorage.setItem("refreshToken", res.data.refreshToken);
-    return newToken;
+    return newToken;*/
 }
 const trackClick = (event_name: 'join_group' | 'select_content', params: any) => {
     try {

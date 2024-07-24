@@ -49,30 +49,9 @@ import Image from "next/image";
 import UserImage01 from "@/public/images/user-32-01.jpg";
 import SidebarLink from "@/components/ui/sidebar-link";
 import SidebarLinkGroup from "@/components/ui/sidebar-link-group";
+import {DiagramPageState} from "@/services/interfaces";
 
-export interface DiagramPageState {
-    loaded?: boolean;
-    selectedTile?: Tile,
-    selectedResource?: Resource,
 
-    selectedMapFlowEventInteraction?: FlowEventInteraction,
-    selectedDiagramLayer?: DiagramLayer;
-    selectedDiagramLayerTileGroup?: TileGroup;
-    diagram?: Diagram;
-    mapFlow?: DiagramFlow;
-    diagramObjects?: DiagramObject[]
-    selectedDiagramObjectId?: string;
-    menuState: 'none' | 'layer_boarder_select_start' | 'layer_boarder_select_end';
-    menuMode: 'none' | 'mainMenu' | 'tileDetail' | 'resourceDetail' | 'mapFlowEventList' | 'mapFlowEventDetail' | 'diagramLayersList' | 'diagramLayersDetail';
-    pageMode: 'edit' | 'view';
-
-    selectedResourceJSON?: string
-
-    viewport?: Viewport;
-    pixiApp?: PIXI.Application<PIXI.ICanvas>;
-    innerHeight?: number;
-    innerWidth?: number;
-}
 
 export interface DiagramPageParams extends Params {
     username: string;
@@ -93,11 +72,13 @@ interface NotationState {
 
 }
 
+/*
 interface DiagramPageProps {
     mode: 'view' | 'edit'
 }
+*/
 
-const DiagramPage = (props: DiagramPageProps) => {
+const DiagramPage = (/*props: DiagramPageProps*/) => {
     // PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
     /*    PIXI.settings.RESOLUTION = 4;
         PIXI.settings.PRECISION_FRAGMENT = PRECISION.HIGH;

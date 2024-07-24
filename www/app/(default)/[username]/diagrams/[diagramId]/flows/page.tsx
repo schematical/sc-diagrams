@@ -20,7 +20,7 @@ interface DiagramListPageState {
     selectedDiagramFlow?: DiagramFlow;
 }
 
-export default function DiagramFlowListPage() {
+export default function DiagramFlowListPage(): any {
     const params = useParams();
 
     const [state, setState] = useState<DiagramListPageState>({});
@@ -135,7 +135,7 @@ export default function DiagramFlowListPage() {
 interface DiagramDetailComponentProps {
     diagramFlow: DiagramFlow
 }
-export function DiagramFlowDetailComponent(props: DiagramDetailComponentProps) {
+function DiagramFlowDetailComponent(props: DiagramDetailComponentProps) {
     return <div
         className="bg-white dark:bg-slate-800 shadow-md rounded border border-slate-200 dark:border-slate-700 p-5">
         {/* Header */}

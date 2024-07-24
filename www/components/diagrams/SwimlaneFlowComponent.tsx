@@ -1,9 +1,8 @@
 import React, {ChangeEvent, createRef, FormEvent, forwardRef, useEffect, useMemo, useState} from 'react';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
-import * as PIXI from 'pixi.js';
+
 import { NineSlicePlane, PixiComponent, Sprite, Stage, Text, useApp} from '@pixi/react';
-import {Viewport} from 'pixi-viewport'
-import {Application, Assets, DisplayObject, TextStyle} from 'pixi.js';
+
 import {
     generateGrid,
     screen_to_isometric,
@@ -15,11 +14,8 @@ import {
     UtilFunctions, GlobalState, DiagramFlow, FlowEvent, FlowEventInteraction
 } from '../diagrams/util';
 
-import SwimlaneArrowComponent from "../diagrams/swimlane/SwimlaneArrowComponent";
-import SwimlaneLaneComponent from "./swimlane/SwimlaneLaneComponent";
 import DropzoneComponent, {DropzoneComponentProps} from "./swimlane/DropzoneComponent";
-import FlowEventComponent from "./swimlane/FlowEventComponent";
-import { PixiViewportComponent } from '../../pages/diagrams/PixiViewportComponent';
+
 
 interface SwimlaneFlowComponentProps {
     onFlowEventInteractionClick: (mapFlowEventInteraction: FlowEventInteraction) => void;
