@@ -70,7 +70,8 @@ export interface DiagramPageState {
 
     viewport?: Viewport;
     pixiApp?: PIXI.Application<PIXI.ICanvas>;
-    window?: Window
+    innerHeight?: number;
+    innerWidth?: number;
 }
 
 export interface DiagramPageParams extends Params {
@@ -97,7 +98,7 @@ interface DiagramPageProps {
 }
 
 const DiagramPage = (props: DiagramPageProps) => {
-    PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
+    // PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
     /*    PIXI.settings.RESOLUTION = 4;
         PIXI.settings.PRECISION_FRAGMENT = PRECISION.HIGH;
         PIXI.settings.ROUND_PIXELS = true;*/
@@ -122,7 +123,12 @@ const DiagramPage = (props: DiagramPageProps) => {
 
     });
     const resize = () => {
-        console.log("RESIZING: ", window.innerWidth, window.innerHeight);
+
+        setState({
+            ...state,
+            innerHeight: window.innerHeight,
+            innerWidth: window.innerWidth
+        })
         state.pixiApp?.renderer.resize(window.innerWidth, window.innerHeight);
     }
     useEffect(() => {
@@ -131,7 +137,8 @@ const DiagramPage = (props: DiagramPageProps) => {
         document.body.style.overflow = "hidden";
         setState({
             ...state,
-            window
+            innerHeight: window.innerHeight,
+            innerWidth: window.innerWidth
         })
     }, []);
     const refreshData = async () => {
@@ -793,10 +800,11 @@ const DiagramPage = (props: DiagramPageProps) => {
 
                 {/*<div className="grow flex flex-col md:translate-x-0 transition-transform duration-300 ease-in-out">*/}
                     {
-                        state.window &&
+                        state.innerHeight &&
                         <>
 
-                            <Stage style={{display: 'inline', width: state.window.innerWidth, height: state.window.innerHeight }} onMount={(app) => {
+                            <Stage width={state.innerWidth} height={state.innerHeight} style={{display: 'inline', width: '100%', height: '100%' }} onMount={(app) => {
+                                app.resizeTo = window;
                                 setState({
                                     ...state,
                                     pixiApp: app
@@ -804,8 +812,8 @@ const DiagramPage = (props: DiagramPageProps) => {
                             }}>
                                 <Sprite
                                     image={process.env.NEXT_PUBLIC_ASSET_URL + "/images/diagrams/bkgdSky.png"}
-                                    height={state.window.innerHeight}
-                                    width={state.window.innerWidth}
+                                    height={state.innerHeight}
+                                    width={state.innerWidth}
                                     x={0}
                                     y={0}
 
