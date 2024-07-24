@@ -47,7 +47,7 @@ phases:
       - cp run.sh $CODEBUILD_SRC_DIR/www/.next/standalone
       - cd $CODEBUILD_SRC_DIR/www/.next/standalone
       - zip -r function.zip ./
-      - aws lambda update-function-code --zip-file fileb://function.zip --function-name schematical-com-$ENV-www
+      - aws lambda update-function-code --zip-file fileb://function.zip --function-name sc-diagrams-$ENV-www
       # - docker build -t $REPOSITORY_URI:$ENV .
       # - docker tag $REPOSITORY_URI:$ENV $REPOSITORY_URI:$ENV
       # - docker push $REPOSITORY_URI:$ENV
