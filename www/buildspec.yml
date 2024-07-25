@@ -43,6 +43,10 @@ phases:
       - export S3_PATH=s3://$SERVICE_NAME-$ENV-$REGION-cloudfront/$ASSET_HASH/_next/static
       - echo $S3_PATH
       - aws s3 cp $CODEBUILD_SRC_DIR/www/.next/static $S3_PATH --recursive  --acl public-read
+      - export S3_PATH=s3://$SERVICE_NAME-$ENV-$REGION-cloudfront/$ASSET_HASH/
+      - echo $S3_PATH
+      - aws s3 cp $CODEBUILD_SRC_DIR/www/public $S3_PATH --recursive  --acl public-read
+      -
       - cp run.sh $CODEBUILD_SRC_DIR/www/.next/standalone
       - cd $CODEBUILD_SRC_DIR/www/.next/standalone
       - zip -r function.zip ./
