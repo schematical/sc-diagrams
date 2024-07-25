@@ -35,7 +35,7 @@ phases:
           # Set environment variable
           export "$key"="$value"
         done
-      - export NEXT_PUBLIC_ASSET_URL=https://assets-$ENV.diagrams.schematical.com/$ASSET_HASH
+      - export NEXT_PUBLIC_ASSET_URL=https://$ENV-assets.diagrams.schematical.com/$ASSET_HASH
       - echo $NEXT_PUBLIC_ASSET_URL
       - npm run-script build
       - ls -la .next
