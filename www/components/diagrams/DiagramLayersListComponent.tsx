@@ -36,83 +36,110 @@ export const DiagramLayersListComponent = (props: DiagramLayersListComponentProp
 
     }*/
 
-    return <>
-        <h3>Layers</h3>
-        <ul className="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
-            id="menu">
+    return <div className="border-t border-slate-200 dark:border-slate-700">
+        <div className="space-y-8 mt-8 px-5">
 
-            <li className="nav-item">
-                {
-                    props.diagramPageState.diagram?.data?.layers?.map((diagramLayer: DiagramLayer) => {
-                        return <a href='#'
-                                  className="nav-link align-middle px-0"
-                                  onClick={() => props.onSelectDiagramLayer(diagramLayer) }>
-                            <i className="fs-4 bi-house"></i>
-                            <span className="ms-1 d-none d-sm-inline">
-                                                           {diagramLayer.name}
-                                                        </span>
-                        </a>
-                    })
-                }
-
-            </li>
-        </ul>
-        {
-            state.selectedDiagramLayer &&
-            <>
-                <h3>Resource</h3>
-                <div className="form-group">
-                    <div className="input-group mb-3">
-                        <div className="input-group-prepend">
-                            <span className="input-group-text">Name</span>
-                        </div>
-                        <input type="text" className="form-control"
-                               id="name" name="name" onChange={handleChange} value={state.selectedDiagramLayer.name}/>
-                    </div>
-                    <div className="input-group mb-3">
-                        <div className="input-group-prepend">
-                            <span className="input-group-text">Name</span>
-                        </div>
-                        <input type="text" className="form-control"
-                               id="id" name="id" readOnly={true} onChange={handleChange} value={state.selectedDiagramLayer.id}/>
-                    </div>
-                    <div className="flex flex-wrap items-center -m-1.5">
-                        <div className="m-1.5">
-                            {/* Start */}
-                            <div className="flex flex-wrap -space-x-px">
-                                <button className="btn bg-indigo-600 text-white rounded-none border-l-indigo-400 first:rounded-l last:rounded-r first:border-l-transparent" onClick={() => props.onSave(state.selectedDiagramLayer as DiagramLayer)}>
-                                    Save changes
-                                </button>
-                                <button className="btn bg-indigo-500 hover:bg-indigo-600 text-indigo-100 rounded-none border-l-indigo-400 first:rounded-l last:rounded-r first:border-r-transparent"
-                                        onClick={() => props.onSelectDiagramLayer(state.selectedDiagramLayer as DiagramLayer) }>
-                                    View Groups
-                                </button>
-                                <button className="btn bg-indigo-500 hover:bg-indigo-600 text-indigo-100 rounded-none border-l-indigo-400 first:rounded-l last:rounded-r first:border-r-transparent"
-                                        onClick={() => props.onSave(state.selectedDiagramLayer as DiagramLayer)}>
-                                    Delete
-                                </button>
-                            </div>
-                            {/* End */}
-                        </div>
-                    </div>
+            <div className="mt-4">
+                <div
+                    className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase mb-3">
+                    Layer List
                 </div>
-            </>
-        }
-        {
-            !state.selectedDiagramLayer &&
-            <button className="btn btn-block btn-outline-primary" onClick={() => {
-                const selectedDiagramLayer = {
-                    id: 'dl-' + Math.floor(Math.random() * 99999),
-                    name: "",
-                    tileGroups: []
+                <ul className="mb-6">
+                    {
+                        props.diagramPageState.diagram?.data?.layers?.map((diagramLayer: DiagramLayer) => {
+                            return <li className="pb-2">
+                                <button
+                                    className="flex items-center justify-between w-full p-2 rounded bg-indigo-500/30"
+                                    onClick={() => props.onSelectDiagramLayer(diagramLayer)}
+                                >
+                                    <div className="flex items-center truncate">
+                                        <div className="truncate">
+                                            <span
+                                                className="text-sm font-medium text-slate-800 dark:text-slate-100">
+                                                 {diagramLayer.name}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </button>
+                            </li>
+                        })
+                    }
+
+                </ul>
+
+
+
+                {
+                    state.selectedDiagramLayer &&
+                    <div className="border-t border-slate-200 dark:border-slate-700">
+                        {/* Components */}
+                        <div className="space-y-8 mt-8 px-5">
+                            <h2 className="text-2xl text-slate-800 dark:text-slate-100 font-bold mb-6">
+                                Resource
+                                Detail
+                            </h2>
+
+                            <div>
+                                <label className="block text-sm font-medium mb-1" htmlFor="name">
+                                    Name
+                                </label>
+                                <input className="form-input w-full" type="text" placeholder="ID"
+                                       id="name" name="name" onChange={handleChange} value={state.selectedDiagramLayer.name}
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium mb-1" htmlFor="id">
+                                   ID
+                                </label>
+                                <input className="form-input w-full" type="text" placeholder="ID"
+                                       id="id" name="id" readOnly={true} onChange={handleChange} value={state.selectedDiagramLayer.id}
+                                />
+                            </div>
+
+
+                            <div className="flex flex-wrap items-center -m-1.5">
+                                <div className="m-1.5">
+                                    <div className="flex flex-wrap -space-x-px">
+                                        <button className="btn bg-indigo-600 text-white rounded-none border-l-indigo-400 first:rounded-l last:rounded-r first:border-l-transparent" onClick={() => props.onSave(state.selectedDiagramLayer as DiagramLayer)}>
+                                            Save changes
+                                        </button>
+                                        <button className="btn bg-indigo-500 hover:bg-indigo-600 text-indigo-100 rounded-none border-l-indigo-400 first:rounded-l last:rounded-r first:border-r-transparent"
+                                                onClick={() => props.onSelectDiagramLayer(state.selectedDiagramLayer as DiagramLayer) }>
+                                            View Groups
+                                        </button>
+                                        <button className="btn bg-indigo-500 hover:bg-indigo-600 text-indigo-100 rounded-none border-l-indigo-400 first:rounded-l last:rounded-r first:border-r-transparent"
+                                                onClick={() => props.onSave(state.selectedDiagramLayer as DiagramLayer)}>
+                                            Delete
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 }
-                setState({
-                    ...state,
-                    selectedDiagramLayer
-                });
-            }}>
-                Add New
-            </button>
-        }
-    </>;
+                {
+                    !state.selectedDiagramLayer &&
+                    <button className="btn btn-block btn-outline-primary" onClick={() => {
+                        const selectedDiagramLayer = {
+                            id: 'dl-' + Math.floor(Math.random() * 99999),
+                            name: "",
+                            tileGroups: []
+                        }
+                        setState({
+                            ...state,
+                            selectedDiagramLayer
+                        });
+                    }}>
+                        Add New
+                    </button>
+                }
+
+
+            </div>
+        </div>
+    </div>;
+        {/*
+
+    </>;*/}
 }

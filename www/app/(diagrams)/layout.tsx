@@ -10,7 +10,7 @@ export default function DefaultLayout({
     <div className="flex h-[100dvh] overflow-hidden">
 
       {/* Sidebar */}
-      <Sidebar />
+      {/*<Sidebar />*/}
 
       {/* Content area */}
       <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">

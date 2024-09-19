@@ -44,13 +44,12 @@ import DiagramLayerComponent from "@/components/diagrams/DiagramLayerComponent";
 import {Params} from "next/dist/shared/lib/router/utils/route-matcher";
 import MessagesSidebar from "@/app/(default)/messages/messages-sidebar";
 import {FlyoutProvider} from "@/app/flyout-context";
-import DiagramSidebarComponent from "@/app/(default)/[username]/diagrams/[diagramId]/DiagramSidebarComponent";
+import DiagramSidebarComponent from "@/app/(diagrams)/[username]/diagrams/[diagramId]/DiagramSidebarComponent";
 import Image from "next/image";
-import UserImage01 from "@/public/images/user-32-01.jpg";
 import SidebarLink from "@/components/ui/sidebar-link";
-import SidebarLinkGroup from "@/components/ui/sidebar-link-group";
+
 import {DiagramPageState} from "@/services/interfaces";
-import ChannelMenu from "@/components/channel-menu";
+import UserImage01 from "@/public/images/user-32-01.jpg";
 
 
 export interface DiagramPageParams extends Params {
@@ -589,192 +588,205 @@ const DiagramPage = (/*props: DiagramPageProps*/) => {
                         <div className="flex h-[100dvh] overflow-hidden">
                             <div
                                 className="fixed z-20 flex top-16 bg-white dark:bg-slate-900 overflow-x-hidden overflow-y-auto no-scrollbar shrink-0 border-r border-slate-200 dark:border-slate-700 md:w-[18rem] xl:w-[20rem] h-[calc(100dvh-64px)]">
-                                <div>
 
-                                    <div className="flex h-[100dvh] overflow-hidden">
-                                        {
-                                            state.menuMode === 'mainMenu' &&
-                                            <>
+                                {
+                                    state.menuMode === 'mainMenu' &&
+                                    <div className="border-t border-slate-200 dark:border-slate-700">
+                                        <div className="space-y-8 mt-8 px-5">
 
-                                                <div className="lg:hidden lg:sidebar-expanded:block 2xl:block">
-                                                    <ul className={`pl-9 mt-1 ${!open && 'hidden'}`}>
-                                                        <li className="mb-1 last:mb-0">
-                                                            <SidebarLink
-                                                                href={`/${params.username}/diagrams/${params.diagramId}/flows/${params.flowId}/swimlane`}>
-                                                                      <span
-                                                                          className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                                                         Swim Lane
-                                                                      </span>
-                                                            </SidebarLink>
-                                                        </li>
-                                                        <li className="mb-1 last:mb-0">
-                                                            <SidebarLink
-                                                                href='#'
-                                                                onClick={() => setState({
-                                                                    ...state,
-                                                                    menuMode: 'mapFlowEventList'
-                                                                })}>
-                                                                      <span
-                                                                          className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
+                                            <div className="mt-4">
+                                                <div
+                                                    className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase mb-3">
+                                                    Main Menu
+                                                </div>
+                                                <ul className="mb-6">
+                                                    <li className="pb-2">
+                                                        <a
+                                                            className="flex items-center justify-between w-full p-2 rounded bg-indigo-500/30"
+                                                            href={`/${params.username}/diagrams/${params.diagramId}/flows/${params.flowId}/swimlane`}>
+                                                            <div className="flex items-center truncate">
+                                                                <div className="truncate">
+                                                                        <span
+                                                                            className="text-sm font-medium text-slate-800 dark:text-slate-100">Swim Lane</span>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                    <li className="pb-2">
+                                                        <button
+                                                            className="flex items-center justify-between w-full p-2 rounded bg-indigo-500/30"
+                                                            onClick={() => setState({
+                                                                ...state,
+                                                                menuMode: 'mapFlowEventList'
+                                                            })}>
+                                                            <div className="flex items-center truncate">
+                                                                <div className="truncate">
+                                                                        <span
+                                                                            className="text-sm font-medium text-slate-800 dark:text-slate-100">
                                                                             Event List
-                                                                      </span>
-                                                            </SidebarLink>
-                                                        </li>
-
-                                                        <li className="mb-1 last:mb-0">
-                                                            <SidebarLink
-                                                                href='#'
-                                                                onClick={() => setState({
-                                                                    ...state,
-                                                                    menuMode: 'diagramLayersList'
-                                                                })}>
-                                                                      <span
-                                                                          className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                                                           Layers List
-                                                                      </span>
-                                                            </SidebarLink>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </>
-
-                                        }
-                                        {
-                                            state.menuMode === 'tileDetail' &&
-                                            <div className="border-t border-slate-200 dark:border-slate-700">
-                                                {/* Components */}
-                                                <div className="space-y-8 mt-8 px-5">
-                                                    <h2 className="text-2xl text-slate-800 dark:text-slate-100 font-bold mb-6">
-                                                        Tile
-                                                        Detail
-                                                    </h2>
-                                                    <div>
-                                                        <div>
-                                                            <label className="block text-sm font-medium mb-1"
-                                                                   htmlFor="selectedTileX">
-                                                                X
-                                                            </label>
-                                                            <input className="form-input w-full" type="text"
-                                                                   placeholder="Y"
-                                                                   readOnly={true}
-                                                                   id="selectedTileX" value={state.selectedTile?.x}
-                                                            />
-                                                        </div>
-                                                        <div>
-                                                            <label className="block text-sm font-medium mb-1"
-                                                                   htmlFor="selectedTileY">
-                                                                Y
-                                                            </label>
-                                                            <input className="form-input w-full" type="text"
-                                                                   placeholder="Y"
-                                                                   readOnly={true}
-                                                                   id="selectedTileY" value={state.selectedTile?.y}
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                    <div>
-                                                        <label className="block text-sm font-medium mb-1"
-                                                               htmlFor="country">
-                                                            Object
-                                                        </label>
-                                                        <select className="form-select"
-                                                                id="selectedDiagramObjectId"
-                                                                name="selectedDiagramObjectId"
-                                                                onChange={handleChange}>
-                                                            {
-                                                                state.diagramObjects && state.diagramObjects.map((diagramObject, index) => {
-                                                                    return <option key={index} value={diagramObject._id}>
-                                                                        {diagramObject.title}
-                                                                    </option>
-                                                                })
-                                                            }
-                                                        </select>
-                                                        <button className="btn" type="button"
-                                                                onClick={onSetResourceClick}>Add
+                                                                        </span>
+                                                                </div>
+                                                            </div>
                                                         </button>
-                                                    </div>
-                                                </div>
+                                                    </li>
+                                                    <li className="pb-2">
+                                                        <button
+                                                            className="flex items-center justify-between w-full p-2 rounded bg-indigo-500/30"
+                                                            onClick={() => setState({
+                                                                ...state,
+                                                                menuMode: 'diagramLayersList'
+                                                            })}>
+                                                            <div className="flex items-center truncate">
+                                                                <div className="truncate">
+                                                                        <span
+                                                                            className="text-sm font-medium text-slate-800 dark:text-slate-100">
+                                                                            Layer List
+                                                                        </span>
+                                                                </div>
+                                                            </div>
+                                                        </button>
+                                                    </li>
+                                                </ul>
                                             </div>
 
-                                        }
-
-
-                                        {
-                                            state.menuMode === 'resourceDetail' &&
-                                            state.selectedResource &&
-                                            <ResourceDetailComponent
-                                                resource={state.selectedResource}
-                                                onDelete={onDeleteResourceClick}
-                                                onSave={onSaveDiagramClick}
-                                                pageMode={state.pageMode}
-                                            />
-                                        }
-                                        {
-                                            state.menuMode === 'diagramLayersList' &&
-                                            state.diagram &&
-                                            <DiagramLayersListComponent
-                                                diagramPageState={state}
-                                                onSave={updateDiagramLayer}
-                                                onDelete={(diagramLayer: DiagramLayer) => {
-                                                    let layers = state.diagram?.data?.layers || [];
-                                                    // if (!layers) throw new Error("Missing `layers`");
-                                                    layers = layers.filter((layer) => layer.id !== diagramLayer.id);
-                                                    if (!state.diagram?.data?.resources) throw new Error("Missing `state.diagram.data.resources`");
-                                                    setState({
-                                                        ...state,
-                                                        diagram: {
-                                                            ...state.diagram,
-                                                            data: {
-                                                                ...state.diagram?.data,
-                                                                layers
-                                                            }
-                                                        }
-                                                    })
-                                                }}
-                                                onSelectDiagramLayer={(diagramLayer: DiagramLayer) => {
-                                                    setState({
-                                                        ...state,
-                                                        selectedDiagramLayer: diagramLayer,
-                                                        menuMode: 'diagramLayersDetail'
-                                                    });
-                                                }}
-                                            />
-                                        }
-                                        {
-                                            state.menuMode === 'diagramLayersDetail' &&
-                                            state.selectedDiagramLayer &&
-                                            <DiagramLayersDetailComponent
-                                                diagramPageState={state}
-                                                onSelectDiagramLayerTileGroup={(tileGroup: TileGroup) => {
-                                                    setState({
-                                                        ...state,
-                                                        selectedDiagramLayerTileGroup: tileGroup
-                                                    });
-                                                }}
-                                                onSelectBoarders={(tileGroup: TileGroup) => {
-                                                    setState({
-                                                        ...state,
-                                                        selectedDiagramLayerTileGroup: tileGroup,
-                                                        menuMode: 'none',
-                                                        menuState: 'layer_boarder_select_start'
-                                                    })
-                                                }}
-                                                onSave={updateDiagramLayerTileGroup}
-                                                onDelete={(tileGroup: TileGroup) => {
-                                                    let tileGroups = state.selectedDiagramLayer?.tileGroups || [];
-                                                    tileGroups = tileGroups.filter((t) => t.id !== tileGroup.id);
-                                                    if (!state.selectedDiagramLayer) throw new Error("Missing `state.selectedDiagramLayer`");
-                                                    let diagramLayer = {
-                                                        ...state.selectedDiagramLayer,
-                                                        tileGroups
-                                                    };
-                                                    updateDiagramLayer(diagramLayer);
-
-                                                }}
-                                            />
-                                        }
+                                        </div>
                                     </div>
-                                </div>
+
+                                }
+                                {
+                                    state.menuMode === 'tileDetail' &&
+                                    <div className="border-t border-slate-200 dark:border-slate-700">
+                                        {/* Components */}
+                                        <div className="space-y-8 mt-8 px-5">
+                                            <h2 className="text-2xl text-slate-800 dark:text-slate-100 font-bold mb-6">
+                                                Tile
+                                                Detail
+                                            </h2>
+                                            <div>
+                                                <div>
+                                                    <label className="block text-sm font-medium mb-1"
+                                                           htmlFor="selectedTileX">
+                                                        X
+                                                    </label>
+                                                    <input className="form-input w-full" type="text"
+                                                           placeholder="Y"
+                                                           readOnly={true}
+                                                           id="selectedTileX" value={state.selectedTile?.x}
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <label className="block text-sm font-medium mb-1"
+                                                           htmlFor="selectedTileY">
+                                                        Y
+                                                    </label>
+                                                    <input className="form-input w-full" type="text"
+                                                           placeholder="Y"
+                                                           readOnly={true}
+                                                           id="selectedTileY" value={state.selectedTile?.y}
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label className="block text-sm font-medium mb-1"
+                                                       htmlFor="country">
+                                                    Object
+                                                </label>
+                                                <select className="form-select"
+                                                        id="selectedDiagramObjectId"
+                                                        name="selectedDiagramObjectId"
+                                                        onChange={handleChange}>
+                                                    {
+                                                        state.diagramObjects && state.diagramObjects.map((diagramObject, index) => {
+                                                            return <option key={index} value={diagramObject._id}>
+                                                                {diagramObject.title}
+                                                            </option>
+                                                        })
+                                                    }
+                                                </select>
+                                                <button className="btn" type="button"
+                                                        onClick={onSetResourceClick}>Add
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                }
+
+
+                                {
+                                    state.menuMode === 'resourceDetail' &&
+                                    state.selectedResource &&
+                                    <ResourceDetailComponent
+                                        resource={state.selectedResource}
+                                        onDelete={onDeleteResourceClick}
+                                        onSave={onSaveDiagramClick}
+                                        pageMode={state.pageMode}
+                                    />
+                                }
+                                {
+                                    state.menuMode === 'diagramLayersList' &&
+                                    state.diagram &&
+                                    <DiagramLayersListComponent
+                                        diagramPageState={state}
+                                        onSave={updateDiagramLayer}
+                                        onDelete={(diagramLayer: DiagramLayer) => {
+                                            let layers = state.diagram?.data?.layers || [];
+                                            // if (!layers) throw new Error("Missing `layers`");
+                                            layers = layers.filter((layer) => layer.id !== diagramLayer.id);
+                                            if (!state.diagram?.data?.resources) throw new Error("Missing `state.diagram.data.resources`");
+                                            setState({
+                                                ...state,
+                                                diagram: {
+                                                    ...state.diagram,
+                                                    data: {
+                                                        ...state.diagram?.data,
+                                                        layers
+                                                    }
+                                                }
+                                            })
+                                        }}
+                                        onSelectDiagramLayer={(diagramLayer: DiagramLayer) => {
+                                            setState({
+                                                ...state,
+                                                selectedDiagramLayer: diagramLayer,
+                                                menuMode: 'diagramLayersDetail'
+                                            });
+                                        }}
+                                    />
+                                }
+                                {
+                                    state.menuMode === 'diagramLayersDetail' &&
+                                    state.selectedDiagramLayer &&
+                                    <DiagramLayersDetailComponent
+                                        diagramPageState={state}
+                                        onSelectDiagramLayerTileGroup={(tileGroup: TileGroup) => {
+                                            setState({
+                                                ...state,
+                                                selectedDiagramLayerTileGroup: tileGroup
+                                            });
+                                        }}
+                                        onSelectBoarders={(tileGroup: TileGroup) => {
+                                            setState({
+                                                ...state,
+                                                selectedDiagramLayerTileGroup: tileGroup,
+                                                menuMode: 'none',
+                                                menuState: 'layer_boarder_select_start'
+                                            })
+                                        }}
+                                        onSave={updateDiagramLayerTileGroup}
+                                        onDelete={(tileGroup: TileGroup) => {
+                                            let tileGroups = state.selectedDiagramLayer?.tileGroups || [];
+                                            tileGroups = tileGroups.filter((t) => t.id !== tileGroup.id);
+                                            if (!state.selectedDiagramLayer) throw new Error("Missing `state.selectedDiagramLayer`");
+                                            let diagramLayer = {
+                                                ...state.selectedDiagramLayer,
+                                                tileGroups
+                                            };
+                                            updateDiagramLayer(diagramLayer);
+
+                                        }}
+                                    />
+                                }
                             </div>
                         </div>
                     </ DiagramSidebarComponent>
