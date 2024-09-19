@@ -392,7 +392,11 @@ const SwimlanePage = () => {
     const resize = () => {
         state.pixiApp?.renderer.resize(window.innerWidth, window.innerHeight);
     }
-    window.addEventListener("resize", resize);
+    if (typeof window !== "undefined") {
+        // Client-side-only code
+        window.addEventListener("resize", resize);
+    }
+
     resize();
     /*   useEffect(() => resize(), []);*/
 
@@ -667,12 +671,11 @@ const SwimlanePage = () => {
 
 
             </Stage>
-            <FlyoutProvider initialState={true}>
+            <FlyoutProvider initialState={false}>
                 {
                     // shouldShowMenu() &&
                     <DiagramSidebarComponent>
                         <div className="sticky top-16 bg-white dark:bg-slate-900 overflow-x-hidden overflow-y-auto no-scrollbar shrink-0 border-r border-slate-200 dark:border-slate-700 md:w-[18rem] xl:w-[20rem] h-[calc(100dvh-64px)]">
-                            {/* #Marketing group */}
                             <div>
                                 {/* Group header */}
                                 <div className="sticky top-0 z-10">
