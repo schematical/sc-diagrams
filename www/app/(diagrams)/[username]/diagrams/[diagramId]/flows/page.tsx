@@ -11,6 +11,7 @@ import React, {ChangeEvent, MouseEventHandler, useEffect, useState} from 'react'
 import axios from "axios";
 import {GQLService} from "@/services/GQLService";
 import {useParams} from "next/navigation";
+import Image01 from "@/public/images/transactions-image-01.svg";
 
 
 interface DiagramListPageState {
@@ -51,12 +52,14 @@ export default function DiagramFlowListPage(): any {
         }*/
         refreshData();
     });
+
     async function onSave(event: any) {
         if (!state.selectedDiagramFlow) throw new Error("Missing `state.selectedDiagramFlow`");
-        event.preventDefault();
+        // event.preventDefault();
         const res = (await GQLService.createDiagramFlow(state.selectedDiagramFlow));
         window.location.href = `/${state.selectedDiagramFlow?.parentUri}/flows/${state.selectedDiagramFlow?._id}`;
     }
+
     const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const selectedDiagramFlow = state.selectedDiagramFlow;
         if (!selectedDiagramFlow) throw new Error("Missing  `state.selectedDiagram`");
@@ -93,40 +96,117 @@ export default function DiagramFlowListPage(): any {
         })
     }
     return (
-        <>
-
-            {
-                state.diagramFlows &&
-                state.diagramFlows.map((diagramFlow: DiagramFlow) => {
-                    return <DiagramFlowDetailComponent diagramFlow={diagramFlow}/>
-                })
-            }
-
-            {
+        <div className="bg-white dark:bg-slate-900">
+            <div>
+                {
                     !state.selectedDiagramFlow &&
-                    <button className="btn bg-indigo-500 hover:bg-indigo-600 text-white" onClick={onNewDiagramClick}>New Diagram Flow</button>
+                    <button className="btn bg-indigo-500 hover:bg-indigo-600 text-white m-5" onClick={onNewDiagramClick}>New
+                        Diagram
+                        Flow</button>
                 }
                 {
                     state.selectedDiagramFlow &&
-                    <form onSubmit={onSave}>
+                    <div className="border-t border-slate-200 dark:border-slate-700 pb-5">
+                        {/* Components */}
+                        <div className="space-y-8 mt-8 px-5">
+                            <h2 className="text-2xl text-slate-800 dark:text-slate-100 font-bold mb-6">
+                                Tile
+                                Detail
+                            </h2>
+                            <div>
+                                <div>
+                                    <label className="block text-sm font-medium mb-1"
+                                           htmlFor="selectedTileX">
+                                        Name
+                                    </label>
+                                    <input className="form-input w-full" type="text"
+                                           id="name"
+                                           name="name"
+                                           placeholder="Name"
+                                           value={state.selectedDiagramFlow.name}
+                                           onChange={handleChange}
+                                    />
 
-                        <div className="form-group">
-                            <label htmlFor="exampleInputEmail1">Name</label>
-                            <input name="name" className="form-control" value={state.selectedDiagramFlow.name}  onChange={handleChange} />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="exampleInputEmail1">Diagram Id</label>
-                            <input name="_id" className="form-control" value={state.selectedDiagramFlow?._id} onChange={handleChange} />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="exampleInputEmail1">Description</label>
-                            <input name="description" className="form-control" value={state.selectedDiagramFlow.description}  onChange={handleChange} />
-                        </div>
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium mb-1"
+                                           htmlFor="selectedTileX">
+                                        Id
+                                    </label>
+                                    <input className="form-input w-full" type="text"
+                                           id="_id"
+                                           name="_id"
+                                           placeholder="Name"
+                                           value={state.selectedDiagramFlow?._id}
+                                           onChange={handleChange}
+                                    />
 
-                        <button type="submit" className="btn btn-primary" >Save</button>
-                    </form>
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium mb-1"
+                                           htmlFor="description">
+                                        Id
+                                    </label>
+                                    <input className="form-input w-full" type="text"
+                                           id="description"
+                                           name="description"
+                                           placeholder="Name"
+                                           value={state.selectedDiagramFlow?.description}
+                                           onChange={handleChange}
+                                    />
+
+                                </div>
+                            </div>
+                            <button type="button" className="btn bg-indigo-500 hover:bg-indigo-600 text-white"  onClick={(e) => onSave(e) }>Save</button>
+                        </div>
+                    </div>
+
+
                 }
-        </>
+                {/* Table */}
+                <div className="overflow-x-auto">
+                    <table className="table-auto w-full dark:text-slate-300">
+                        {/* Table header */}
+                        <thead
+                            className="text-xs font-semibold uppercase text-slate-500 border-t border-b border-slate-200 dark:border-slate-700">
+                        <tr>
+                            {/* <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
+                                <div className="flex items-center">
+                                    <label className="inline-flex">
+                                        <span className="sr-only">Select all</span>
+                                        <input className="form-checkbox" type="checkbox"
+                                               onChange={handleSelectAllChange}
+                                               checked={isAllSelected}/>
+                                    </label>
+                                </div>
+                            </th>*/}
+                            <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                <div className="font-semibold text-left">Name</div>
+                            </th>
+                            <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                <div className="font-semibold text-left">Owner</div>
+                            </th>
+
+                        </tr>
+                        </thead>
+                        {/* Table body */}
+                        <tbody
+                            className="text-sm divide-y divide-slate-200 dark:divide-slate-700 border-b border-slate-200 dark:border-slate-700">
+                        {
+                            state.diagramFlows &&
+                            state.diagramFlows.map((diagramFlow: DiagramFlow) => {
+                                return <DiagramFlowDetailComponent diagramFlow={diagramFlow}/>
+                            })
+                        }
+                        </tbody>
+                    </table>
+
+                </div>
+
+
+
+            </div>
+        </div>
     );
 
 
@@ -135,51 +215,42 @@ export default function DiagramFlowListPage(): any {
 interface DiagramDetailComponentProps {
     diagramFlow: DiagramFlow
 }
+
 function DiagramFlowDetailComponent(props: DiagramDetailComponentProps) {
-    return <div
-        className="bg-white dark:bg-slate-800 shadow-md rounded border border-slate-200 dark:border-slate-700 p-5">
-        {/* Header */}
-        <header className="flex justify-between items-start space-x-3 mb-3">
-            {/* User */}
-            <div className="flex items-start space-x-3">
-                <Image className="rounded-full shrink-0" src={UserImage06} width={40} height={40} alt="User 06"/>
-                <div>
-                    <div className="leading-tight">
-                        <a className="text-sm font-semibold text-slate-800 dark:text-slate-100" href={`/${props.diagramFlow.parentUri}/flows/${props.diagramFlow._id}`}>
-                            {props.diagramFlow.name}
-                        </a>
-                    </div>
-                    <div className="inline-flex items-center">
-                        <div className="text-xs text-slate-500">
-                            {props.diagramFlow.parentUri}
-                        </div>
-                    </div>
+    return <tr>
+        {/*<td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
+            <div className="flex items-center">
+                <label className="inline-flex">
+                    <span className="sr-only">Select</span>
+                    <input className="form-checkbox" type="checkbox" onChange={handleCheckboxChange}
+                           checked={isSelected}/>
+                </label>
+            </div>
+        </td>*/}
+        <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap md:w-1/2">
+            <div className="flex items-center">
+                <div className="w-9 h-9 shrink-0 mr-2 sm:mr-3">
+                    <a href={`/${props.diagramFlow.parentUri}/flows/${props.diagramFlow._id}`}>
+                        <Image className="rounded-full" src={Image01} width={36} height={36}
+                               alt={props.diagramFlow.name || ""}/>
+                    </a>
+                </div>
+                <div className="font-medium text-slate-800 dark:text-slate-100">
+                    <a href={`/${props.diagramFlow.parentUri}/flows/${props.diagramFlow._id}`}>
+                        {props.diagramFlow.name}
+                    </a>
                 </div>
             </div>
-            {/* Menu button */}
-            <EditMenu align="right" className="shrink-0"/>
-        </header>
-        {/* Body */}
-        <div className="text-sm text-slate-800 dark:text-slate-100 space-y-2 mb-5">
-            <p>
-                {props.diagramFlow.description}
-            </p>
-            <div className="relative !my-4">
-                <Image className="block w-full" src={FeedImage01} width={590} height={332} alt="Feed 01"/>
-                <div className="absolute left-0 right-0 bottom-0 p-4 bg-black bg-opacity-25 backdrop-blur-md">
-                    <div className="flex items-center justify-between">
-                        {/*<div className="text-xs font-medium text-slate-300">togethernature.com</div>*/}
-                        <a className="text-xs font-medium text-indigo-400 hover:text-indigo-300"
-                           href={`/${props.diagramFlow.parentUri}/flows/${props.diagramFlow._id}`}>
-                            View Live Network Diagram-&gt;
-                        </a>
-                        <a className="text-xs font-medium text-indigo-400 hover:text-indigo-300"
-                           href={`/${props.diagramFlow.parentUri}/flows/${props.diagramFlow._id}/swimlane`}>
-                            View Swim Lane Diagram -&gt;
-                        </a>
-                    </div>
+        </td>
+
+        <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+            <div className="text-left">
+                <div
+                    className={`text-xs inline-flex font-medium rounded-full text-center px-2.5 py-1`}>
+                    {props.diagramFlow.parentUri}
                 </div>
             </div>
-        </div>
-    </div>
+        </td>
+
+    </tr>
 }

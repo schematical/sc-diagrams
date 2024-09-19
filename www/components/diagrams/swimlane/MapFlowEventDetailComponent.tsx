@@ -195,21 +195,6 @@ const MapFlowEventDetailComponent = (props: MapFlowEventDetailComponentProps) =>
                             </>
                         })
                     }
-
-
-                    <div>
-                        <label className="block text-sm font-medium mb-1" htmlFor="country">
-                            Type
-                        </label>
-                        <select className="form-select"
-                                id="type"
-                                name="type"
-                                value={state.mapFlowEvent.type}
-                                onChange={handleChange}>
-                            <option value="none">None</option>
-                            <option value="decision">Decision</option>
-                        </select>
-                    </div>
                 </div>
             </div>
         </>);
