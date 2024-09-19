@@ -12,10 +12,12 @@ interface ResourceDetailComponentProps {
     onDelete: (resource: Resource) => void;
     onSave: (resource: Resource) => void;
 }
+
 interface ResourceDetailComponentState {
     resource: Resource;
     showEdit?: boolean;
 }
+
 const ResourceDetailComponent = (props: ResourceDetailComponentProps) => {
 
     const [state, setState] = useState<ResourceDetailComponentState>({
@@ -27,15 +29,7 @@ const ResourceDetailComponent = (props: ResourceDetailComponentProps) => {
             resource: props.resource
         });
     }
-/*    const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-        const mapFlowEvent = state.mapFlowEvent;
-        (mapFlowEvent as any)[event.target.name] = event.target.value;
 
-        setState({
-            ...state,
-            mapFlowEvent
-        });
-    }*/
 
 
     function onDelete() {
@@ -52,13 +46,14 @@ const ResourceDetailComponent = (props: ResourceDetailComponentProps) => {
     }
 
     function handleClose() {
-        setState({...state, showEdit: false });
+        setState({...state, showEdit: false});
     }
 
     function onSave() {
         handleClose();
         props.onSave(state.resource);
     }
+
     const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const resource = state.resource;
         (resource as any)[event.target.name] = event.target.value;
@@ -73,86 +68,86 @@ const ResourceDetailComponent = (props: ResourceDetailComponentProps) => {
         <>
             {
                 props.pageMode === 'edit' &&
-                <>
-                    <h3>Resource</h3>
-                    <div className="form-group">
-                        <div className="input-group mb-3">
-                            <div className="input-group-prepend">
-                                <span className="input-group-text">Id</span>
+                <div className="border-t border-slate-200 dark:border-slate-700">
+                    {/* Components */}
+                    <div className="space-y-8 mt-8 px-5">
+                        <h2 className="text-2xl text-slate-800 dark:text-slate-100 font-bold mb-6">
+                            Resource
+                            Detail
+                        </h2>
+                        <div>
+                            <div>
+                                <label className="block text-sm font-medium mb-1" htmlFor="id">
+                                    X
+                                </label>
+                                <input className="form-input w-full" type="text" placeholder="ID"
+                                       readOnly={true}
+                                       id="id" name="id" value={state.resource?.id}
+                                />
                             </div>
-                            <input type="text" className="form-control"
-                                   id="id" name="id" readOnly={true} value={state.resource.id}/>
-                        </div>
-                        <div className="input-group mb-3">
-                            <div className="input-group-prepend">
-                                <span className="input-group-text" id="basic-addon1">X</span>
+                            <div>
+                                <label className="block text-sm font-medium mb-1" htmlFor="selectedTileX">
+                                    X
+                                </label>
+                                <input className="form-input w-full" type="text" placeholder="Y"
+                                       readOnly={true}
+                                       id="x" value={state.resource?.x}
+                                />
                             </div>
-                            <input type="text" className="form-control"
-                                   id="x" name="x" readOnly={true} value={state.resource.x}/>
-                        </div>
-                        <div className="input-group mb-3">
-                            <div className="input-group-prepend">
-                                <span className="input-group-text" id="basic-addon1">Y</span>
+                            <div>
+                                <label className="block text-sm font-medium mb-1" htmlFor="selectedTileY">
+                                    Y
+                                </label>
+                                <input className="form-input w-full" type="text" placeholder="Y"
+                                       readOnly={true}
+                                       id="y" value={state.resource?.y}
+                                />
                             </div>
-                            <input type="text" className="form-control"
-                                   id="y" name="y" readOnly={true} value={state.resource.y}/>
-                        </div>
-                        <div className="input-group mb-3">
-                            <div className="input-group-prepend">
-                                <span className="input-group-text" id="basic-addon1">name</span>
+                            <div>
+                                <label className="block text-sm font-medium mb-1" htmlFor="name">
+                                    Name
+                                </label>
+                                <input className="form-input w-full" type="text" placeholder="Name"
+                                       id="name" name="name" value={state.resource?.name}
+                                       onChange={handleChange}
+                                />
                             </div>
-                            <input type="text" className="form-control"
-                                   id="name" name="name" value={state.resource.name} onChange={handleChange}/>
-                        </div>
-                        <div className="input-group mb-3">
-                            <div className="input-group-prepend">
-                                <span className="input-group-text" id="basic-addon1">Size Multiplier</span>
-                            </div>
-                            <input className="form-control"
-                                   id="sizeMultiplier" name="sizeMultiplier" type="number" value={state.resource.sizeMultiplier} onChange={handleChange}/>
-                        </div>
 
-                        <div className="flex flex-wrap -space-x-px">
-                            <button className='btn bg-indigo-600 text-white rounded-none border-l-indigo-400 first:rounded-l last:rounded-r first:border-l-transparent' onClick={onSave}>Save changes</button>
-                            <button className="btn bg-indigo-500 hover:bg-indigo-600 text-indigo-100 rounded-none border-l-indigo-400 first:rounded-l last:rounded-r first:border-r-transparent" type="button"
+                            <div>
+                                <label className="block text-sm font-medium mb-1" htmlFor="sizeMultiplier">
+                                    Size Multiplier
+                                </label>
+                                <input className="form-input w-full" type="number" placeholder="Size Multiplier"
+
+                                       id="sizeMultiplier" name="sizeMultiplier" value={state.resource?.sizeMultiplier}
+                                       onChange={handleChange}
+                                />
+                            </div>
+                            <div className="flex flex-wrap -space-x-px pt-5">
+                                <button
+                                    className='btn bg-indigo-600 text-white rounded-none border-l-indigo-400 first:rounded-l last:rounded-r first:border-l-transparent'
+                                    onClick={onSave}>Save changes
+                                </button>
+                                <button
+                                    className="btn bg-indigo-500 hover:bg-indigo-600 text-indigo-100 rounded-none border-l-indigo-400 first:rounded-l last:rounded-r first:border-r-transparent"
+                                    type="button"
                                     onClick={() => setState({...state, showEdit: true})}>Notes
-                            </button>
-                            <button className="btn bg-indigo-500 hover:bg-indigo-600 text-indigo-100 rounded-none border-l-indigo-400 first:rounded-l last:rounded-r first:border-r-transparent" type="button"
+                                </button>
+                                <button
+                                    className="btn bg-indigo-500 hover:bg-indigo-600 text-indigo-100 rounded-none border-l-indigo-400 first:rounded-l last:rounded-r first:border-r-transparent"
+                                    type="button"
                                     onClick={onDelete}>Delete
-                            </button>
+                                </button>
+                            </div>
                         </div>
                     </div>
-                    {/*<div
-                        className="modal show"
-                        style={{ display: 'block', position: 'initial' }}
-                    >
-                        <Modal show={state.showEdit} onHide={handleClose}>
-                            <Modal.Header closeButton>
-                                <Modal.Title>Edit Event Interaction</Modal.Title>
-                            </Modal.Header>
-
-                            <Modal.Body>
-
-                                <h4>Notes</h4>
-                                <MDEditor
-                                    value={state.resource.notes}
-                                    onChange={setValue}
-                                />
-                            </Modal.Body>
-
-                            <Modal.Footer>
-                                <Button variant="secondary" onClick={handleClose}>Close</Button>
-                                <Button variant="primary" onClick={onSave}>Save changes</Button>
-                            </Modal.Footer>
-                        </Modal>
-                    </div>*/}
-                </>
+                </div>
             }
             {
                 props.pageMode === 'view' &&
                 <>
-                   <h3>{state.resource.name}</h3>
-                    <MDEditor.Markdown source={props.resource.notes as string} />
+                    <h3>{state.resource.name}</h3>
+                    <MDEditor.Markdown source={props.resource.notes as string}/>
                     {/*<div className="wmde-markdown" dangerouslySetInnerHTML={{__html: (marked.parse(props.resource.notes as string) as string)}} />*/}
                 </>
             }

@@ -50,7 +50,7 @@ import UserImage01 from "@/public/images/user-32-01.jpg";
 import SidebarLink from "@/components/ui/sidebar-link";
 import SidebarLinkGroup from "@/components/ui/sidebar-link-group";
 import {DiagramPageState} from "@/services/interfaces";
-
+import ChannelMenu from "@/components/channel-menu";
 
 
 export interface DiagramPageParams extends Params {
@@ -586,23 +586,15 @@ const DiagramPage = (/*props: DiagramPageProps*/) => {
                 {
                     shouldShowMenu() &&
                     <DiagramSidebarComponent>
-                        <div className="flex h-[100dvh] overflow-hidden">
+                  {/*      <div className="flex h-[100dvh] overflow-hidden">
                             <SidebarLinkGroup open={state.menuMode === 'mainMenu'}>
                                 {
                                     (handleClick, open) => {
                                         return (
                                             <>
-                                                <a
-                                                    href="#0"
-                                                    className={`block text-slate-200 truncate transition duration-150 'hover:text-white'
-                                                    }`}
-                                                    onClick={(e) => {
-                                                        e.preventDefault();
-                                                        handleClick()
-                                                    }}
-                                                >
-                                                    Test
-                                                </a>
+
+
+
 
                                                 <div className="lg:hidden lg:sidebar-expanded:block 2xl:block">
                                                     <ul className={`pl-9 mt-1 ${!open && 'hidden'}`}>
@@ -649,37 +641,43 @@ const DiagramPage = (/*props: DiagramPageProps*/) => {
                                     }
                                 }
                             </SidebarLinkGroup>
-                        </div>
+                        </div>*/}
 
                         {
                             state.menuMode === 'tileDetail' &&
-                            <div className="px-5 py-4">
-                                {/* Search form */}
-                                <form className="relative">
+                            <div className="border-t border-slate-200 dark:border-slate-700">
+                                {/* Components */}
+                                <div className="space-y-8 mt-8 px-5">
+                                    <h2 className="text-2xl text-slate-800 dark:text-slate-100 font-bold mb-6">
+                                        Tile
+                                        Detail
+                                    </h2>
                                     <div>
-                                        <label className="block text-sm font-medium mb-1"
-                                               htmlFor="selectedTileX">
+                                        <div>
+                                            <label className="block text-sm font-medium mb-1" htmlFor="selectedTileX">
                                             X
-                                        </label>
-                                        <input className="form-input w-full pl-9 bg-white dark:bg-slate-800"
-                                               type="text" readOnly={true}
-                                               id="selectedTileX" value={state.selectedTile?.x}/>
+                                            </label>
+                                            <input className="form-input w-full" type="text" placeholder="Y"
+                                                   readOnly={true}
+                                                   id="selectedTileX" value={state.selectedTile?.x}
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium mb-1" htmlFor="selectedTileY">
+                                                Y
+                                            </label>
+                                            <input className="form-input w-full" type="text" placeholder="Y"
+                                                   readOnly={true}
+                                                   id="selectedTileY" value={state.selectedTile?.y}
+                                            />
+                                        </div>
                                     </div>
                                     <div>
-                                        <label className="block text-sm font-medium mb-1" htmlFor="selectedTileY">
-                                            Y
+                                        <label className="block text-sm font-medium mb-1" htmlFor="country">
+                                            Object
                                         </label>
-                                        <input className="form-input w-full pl-9 bg-white dark:bg-slate-800"
-                                               type="text" readOnly={true}
-                                               id="selectedTileY" value={state.selectedTile?.y}/>
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-medium mb-1" htmlFor="selectedTileY">
-                                            Object:
-                                        </label>
-                                        <select name="selectedDiagramObjectId" className="custom-select"
-                                                id="inputGroupSelect04" onChange={handleChange}>
-                                            <option value="NONE">None</option>
+                                        <select className="form-select"
+                                                id="selectedDiagramObjectId" name="selectedDiagramObjectId" onChange={handleChange}>
                                             {
                                                 state.diagramObjects && state.diagramObjects.map((diagramObject, index) => {
                                                     return <option key={index} value={diagramObject._id}>
@@ -687,17 +685,14 @@ const DiagramPage = (/*props: DiagramPageProps*/) => {
                                                     </option>
                                                 })
                                             }
-
                                         </select>
-
                                         <button className="btn" type="button"
                                                 onClick={onSetResourceClick}>Add
                                         </button>
-
                                     </div>
-
-                                </form>
+                                </div>
                             </div>
+
                         }
 
 
@@ -780,107 +775,108 @@ const DiagramPage = (/*props: DiagramPageProps*/) => {
                 }
 
                 {/*<div className="grow flex flex-col md:translate-x-0 transition-transform duration-300 ease-in-out">*/}
-                    {
-                        state.innerHeight &&
-                        <>
+                {
+                    state.innerHeight &&
+                    <>
 
-                            <Stage width={state.innerWidth} height={state.innerHeight} style={{display: 'inline', width: '100%', height: '100%' }} onMount={(app) => {
-                                app.resizeTo = window;
-                                setState({
-                                    ...state,
-                                    pixiApp: app
-                                })
-                            }}>
-                                <Sprite
-                                    image={process.env.NEXT_PUBLIC_ASSET_URL + "/images/diagrams/bkgdSky.png"}
-                                    height={state.innerHeight}
-                                    width={state.innerWidth}
-                                    x={0}
-                                    y={0}
+                        <Stage width={state.innerWidth} height={state.innerHeight}
+                               style={{display: 'inline', width: '100%', height: '100%'}} onMount={(app) => {
+                            app.resizeTo = window;
+                            setState({
+                                ...state,
+                                pixiApp: app
+                            })
+                        }}>
+                            <Sprite
+                                image={process.env.NEXT_PUBLIC_ASSET_URL + "/images/diagrams/bkgdSky.png"}
+                                height={state.innerHeight}
+                                width={state.innerWidth}
+                                x={0}
+                                y={0}
 
-                                />
-                                {
-                                    state.diagram &&
-                                    state.diagramObjects &&
-                                    state.pixiApp &&
-                                    <PixiViewportComponentExt
-                                        // app={state.pixiApp}
-                                        height={ state.pixiApp.screen.height} // 1000} //
-                                        width={state.pixiApp.screen.width} // 1000} //
-                                        ref={viewportRef}
-                                    >
-                                        <BackgroundComponent/>
-                                        {
-                                            state.diagram?.data?.layers?.map((diagramLayer: DiagramLayer) => {
-                                                if (!state.diagram) throw new Error("Missing `state.diagram`");
-                                                return <DiagramLayerComponent diagramLayer={diagramLayer}/>;
-                                            })
-                                        }
-                                        {
-                                            globalState.diagramMode === "map" &&
-                                            grid.map(({x, y}, index) => {
-                                                // convert the screen coordinate to isometric coordinate
+                            />
+                            {
+                                state.diagram &&
+                                state.diagramObjects &&
+                                state.pixiApp &&
+                                <PixiViewportComponentExt
+                                    // app={state.pixiApp}
+                                    height={state.pixiApp.screen.height} // 1000} //
+                                    width={state.pixiApp.screen.width} // 1000} //
+                                    ref={viewportRef}
+                                >
+                                    <BackgroundComponent/>
+                                    {
+                                        state.diagram?.data?.layers?.map((diagramLayer: DiagramLayer) => {
+                                            if (!state.diagram) throw new Error("Missing `state.diagram`");
+                                            return <DiagramLayerComponent diagramLayer={diagramLayer}/>;
+                                        })
+                                    }
+                                    {
+                                        globalState.diagramMode === "map" &&
+                                        grid.map(({x, y}, index) => {
+                                            // convert the screen coordinate to isometric coordinate
 
-                                                return (
-                                                    <TileComponent
-                                                        key={index}
-                                                        onTileInteraction={onTileInteraction}
-                                                        x={x}
-                                                        y={y}
-                                                    />
-                                                )
-                                            })
-                                        }
-
-                                        {
-                                            state.mapFlow?.data?.interactions.map((mapFlowEventInteraction, index) => {
-                                                if (!state.diagram) throw new Error("Missing `state.diagram`")
-                                                if (
-                                                    state.selectedMapFlowEventInteraction?.id !== mapFlowEventInteraction.id
-                                                ) {
-                                                    return <></>;
-                                                }
-                                                return <MapFlowEventInteractionComponent
+                                            return (
+                                                <TileComponent
                                                     key={index}
-                                                    diagram={state.diagram}
-                                                    mapFlow={state.mapFlow as DiagramFlow}
-                                                    diagramFlowEventInteraction={mapFlowEventInteraction}
-                                                    diagramObject={getDiagramObject('file-basic')}
-                                                    onMapFlowEventInteractionClick={onMapFlowEventInteractionEvent}
-                                                    globalState={globalState}
-                                                    viewport={viewportRef.current as Viewport}
+                                                    onTileInteraction={onTileInteraction}
+                                                    x={x}
+                                                    y={y}
                                                 />
-                                            })
-                                        }
-                                        {
-                                            state.diagram.data?.resources.map((resource, index) => {
+                                            )
+                                        })
+                                    }
+
+                                    {
+                                        state.mapFlow?.data?.interactions.map((mapFlowEventInteraction, index) => {
+                                            if (!state.diagram) throw new Error("Missing `state.diagram`")
+                                            if (
+                                                state.selectedMapFlowEventInteraction?.id !== mapFlowEventInteraction.id
+                                            ) {
+                                                return <></>;
+                                            }
+                                            return <MapFlowEventInteractionComponent
+                                                key={index}
+                                                diagram={state.diagram}
+                                                mapFlow={state.mapFlow as DiagramFlow}
+                                                diagramFlowEventInteraction={mapFlowEventInteraction}
+                                                diagramObject={getDiagramObject('file-basic')}
+                                                onMapFlowEventInteractionClick={onMapFlowEventInteractionEvent}
+                                                globalState={globalState}
+                                                viewport={viewportRef.current as Viewport}
+                                            />
+                                        })
+                                    }
+                                    {
+                                        state.diagram.data?.resources.map((resource, index) => {
 
 
-                                                return <ResourceComponent
-                                                    key={index}
-                                                    resource={resource}
-                                                    diagramObject={getDiagramObject(resource.objectId)}
-                                                    onResourceInteraction={onResourceInteraction}
-                                                    globalState={globalState}
-                                                />
-                                            })
-                                        }
+                                            return <ResourceComponent
+                                                key={index}
+                                                resource={resource}
+                                                diagramObject={getDiagramObject(resource.objectId)}
+                                                onResourceInteraction={onResourceInteraction}
+                                                globalState={globalState}
+                                            />
+                                        })
+                                    }
 
 
-                                        {
-                                            notationState.currentNotations.map((notationData, index) => {
-                                                return <NotationComponent index={index} notation={notationData.notation}
-                                                                          block={notationData.block}
-                                                                          utilFunctions={utilFunctions}/>
-                                            })
+                                    {
+                                        notationState.currentNotations.map((notationData, index) => {
+                                            return <NotationComponent index={index} notation={notationData.notation}
+                                                                      block={notationData.block}
+                                                                      utilFunctions={utilFunctions}/>
+                                        })
 
-                                        }
-                                    </PixiViewportComponentExt>
-                                }
+                                    }
+                                </PixiViewportComponentExt>
+                            }
 
-                            </Stage>
-                        </>
-                    }
+                        </Stage>
+                    </>
+                }
                 {/*</div>*/}
 
                 <div className="fixed bottom-0 z-30">
@@ -922,7 +918,7 @@ const DiagramPage = (/*props: DiagramPageProps*/) => {
                         {
                             state.pageMode === 'view' &&
                             state.mapFlow &&
-                            <>
+                            <div className="flex flex-wrap -space-x-px px-4">
 
                                 {
                                     globalState.playMode === "playing" &&
@@ -947,7 +943,7 @@ const DiagramPage = (/*props: DiagramPageProps*/) => {
                                 >
                                     <i className="fa fa-ship" aria-hidden="true"></i>
                                 </a>
-                            </>
+                            </div>
                         }
                         <div className="m-3 w-24">
                             {/* Start */}
@@ -958,7 +954,7 @@ const DiagramPage = (/*props: DiagramPageProps*/) => {
                                            onChange={onTogglePageMode}/>
                                     <label className="bg-slate-400 dark:bg-slate-700" htmlFor="switch-2">
                                         <span className="bg-white shadow-sm" aria-hidden="true"></span>
-                                        <span className="sr-only">Switch label</span>
+                                        <span className="sr-only">Edit</span>
                                     </label>
                                 </div>
                                 <div
