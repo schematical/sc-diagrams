@@ -10,9 +10,11 @@ interface MapFlowEventDetailComponentProps {
 
     onConnectOptionClick(mapFlowEvent: FlowEvent, option: FlowEventDecisionOption): void;
 }
+
 interface MapFlowEventDetailComponentState {
     mapFlowEvent: FlowEvent;
 }
+
 const MapFlowEventDetailComponent = (props: MapFlowEventDetailComponentProps) => {
 
     const [state, setState] = useState<MapFlowEventDetailComponentState>({
@@ -61,83 +63,123 @@ const MapFlowEventDetailComponent = (props: MapFlowEventDetailComponentProps) =>
     return (
 
         <>
-            <h3>Resource Details</h3>
-            <div className="form-group">
-                <div className="input-group mb-3">
-                    <div className="input-group-prepend">
-                        <span className="input-group-text" id="basic-addon1">Id</span>
+            <div className="border-t border-slate-200 dark:border-slate-700">
+                {/* Components */}
+                <div className="space-y-8 mt-8 px-5">
+                    <h2 className="text-2xl text-slate-800 dark:text-slate-100 font-bold mb-6">Event Detail</h2>
+                    <div>
+                        {/* Start */}
+                        <div>
+                            <label className="block text-sm font-medium mb-1" htmlFor="default">
+                                Id
+                            </label>
+                            <input className="form-input w-full" type="text" placeholder="Id" readOnly={true}
+                                   id="id" name="id" value={state.mapFlowEvent.id} onChange={handleChange}
+                            />
+                        </div>
+                        {/* End */}
                     </div>
-                    <input type="text" readOnly={true} className="form-control"
-                           id="id" name="id" value={state.mapFlowEvent.id} onChange={handleChange}/>
-                </div>
-                <div className="input-group mb-3">
-                    <div className="input-group-prepend">
-                        <span className="input-group-text" id="basic-addon1">Text</span>
+                    <div>
+                        {/* Start */}
+                        <div>
+                            <label className="block text-sm font-medium mb-1" htmlFor="default">
+                                Text
+                            </label>
+                            <input className="form-input w-full" type="text" placeholder="Text" readOnly={true}
+                                   id="text" name="text" value={state.mapFlowEvent.text} onChange={handleChange}/>
+                        </div>
+                        {/* End */}
                     </div>
-                    <input type="text" readOnly={false} className="form-control"
-                           id="text"  name="text" value={state.mapFlowEvent.text}  onChange={handleChange}/>
-                </div>
-                <div className="input-group mb-3">
-                    <div className="input-group-prepend">
-                        <span className="input-group-text" id="basic-addon1">Row</span>
-                    </div>
-                    <input type="text" readOnly={false} className="form-control"
-                           id="row"  name="row"  value={state.mapFlowEvent.row}  onChange={handleChange}/>
-                </div>
-                <div className="input-group mb-3">
-                    <div className="input-group-prepend">
-                        <span className="input-group-text" id="basic-addon1">Type</span>
-                    </div>
-                    <select  className="form-control"
-                           id="type"
-                             name="type"
-                             value={state.mapFlowEvent.type}
-                             onChange={handleChange}
-                    >
-                        <option value="none">None</option>
-                        <option value="decision">Decision</option>
-                    </select>
-                </div>
+                    <div>
+                        <div>
+                            <label className="block text-sm font-medium mb-1" htmlFor="default">
+                                Row
+                            </label>
+                            <input className="form-input w-full" type="text" placeholder="Row" readOnly={true}
+                                   id="row" name="row" value={state.mapFlowEvent.row} onChange={handleChange}/>
+                        </div>
 
-                <div>
-                    <button className="btn btn-outline-secondary" type="button"
-                            onClick={onUpdate}>Update
-                    </button>
-                    {
-                        state.mapFlowEvent.type !== 'decision' &&
-                        <button className="btn btn-outline-secondary" type="button"
-                                onClick={onConnect}>Connect
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium mb-1" htmlFor="country">
+                            Type
+                        </label>
+                        <select className="form-select"
+                                id="type"
+                                name="type"
+                                value={state.mapFlowEvent.type}
+                                onChange={handleChange}>
+                            <option value="none">None</option>
+                            <option value="decision">Decision</option>
+                        </select>
+                    </div>
+                    <div className="flex flex-wrap -space-x-px">
+                        <button
+                            className="btn bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700 hover:bg-slate-50 text-indigo-500 rounded-none first:rounded-l last:rounded-r"
+                            onClick={onUpdate}>
+                            Save
                         </button>
-                    }
-                    {
-                        state.mapFlowEvent.type === 'decision' &&
-                        <button className="btn btn-secondary" type="button"
+                        {
+                            state.mapFlowEvent.type !== 'decision' &&
+                            <button
+                                className="btn bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-900 text-slate-600 dark:text-slate-300 rounded-none first:rounded-l last:rounded-r"
+                                onClick={onConnect}>
+                                Connect
+                            </button>
+                        }
+                        {
+                            state.mapFlowEvent.type === 'decision' &&
+                            <button
+                                className="btn bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-900 text-slate-600 dark:text-slate-300 rounded-none first:rounded-l last:rounded-r"
                                 onClick={onAddOption}>Add Option
-                        </button>
+                            </button>
+                        }
+                    </div>
+                    {
+                        state.mapFlowEvent.options &&
+                        <h2 className="text-2xl text-slate-800 dark:text-slate-100 font-bold mb-6">Options</h2>
                     }
-                    <button className="btn btn-outline-danger" type="button"
-                            onClick={onDelete}>Delete
-                    </button>
-                </div>
-            </div>
-            <form>
-                {
-                    state.mapFlowEvent.options &&
-                    <h5>Options</h5>
-                }
-                {
-                    state.mapFlowEvent.options &&
-                    state.mapFlowEvent.options.map((option, index) => {
-                        return <div className="form-row">
-                            <div>
-                                <input type="text"
-                                       className="form-control"
-                                       placeholder="Option Name"
-                                       value={option.text}
-                                        onChange={(event: any) => {
-                                            if(!state.mapFlowEvent.options) throw new Error("Missing `state.mapFlowEvent.options`");
-                                            const options = state.mapFlowEvent.options;
-                                            options[index].text = event.target.value;
+                    {
+                        state.mapFlowEvent.options &&
+                        state.mapFlowEvent.options.map((option, index) => {
+                            return <>
+                                <div>
+                                    <label className="block text-sm font-medium mb-1" htmlFor="default">
+                                        Option Name
+                                    </label>
+                                    <input className="form-input w-full" type="text" placeholder="Option Name"
+                                           value={option.text}
+                                           onChange={(event: any) => {
+                                               if (!state.mapFlowEvent.options) throw new Error("Missing `state.mapFlowEvent.options`");
+                                               const options = state.mapFlowEvent.options;
+                                               options[index].text = event.target.value;
+
+                                               setState({
+                                                   ...state,
+                                                   mapFlowEvent: {
+                                                       ...state.mapFlowEvent,
+                                                       options
+                                                   }
+                                               });
+                                           }}/>
+                                </div>
+                                <div className="flex flex-wrap -space-x-px">
+                                    <button
+                                        className="btn bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700 hover:bg-slate-50 text-indigo-500 rounded-none first:rounded-l last:rounded-r"
+                                        onClick={(event) => {
+                                            event.preventDefault();
+                                            props.onConnectOptionClick(props.mapFlowEvent, option);
+                                        }}>
+                                        Connect
+                                    </button>
+                                    <button
+                                        className="btn bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700 hover:bg-slate-50 text-indigo-500 rounded-none first:rounded-l last:rounded-r"
+                                        onClick={(event) => {
+                                            event.preventDefault();
+                                            if (!state.mapFlowEvent.options) throw new Error("Missing `state.mapFlowEvent.options`");
+                                            const options = state.mapFlowEvent.options.filter((o) => {
+                                                return o.id !== option.id;
+                                            })
 
                                             setState({
                                                 ...state,
@@ -146,65 +188,59 @@ const MapFlowEventDetailComponent = (props: MapFlowEventDetailComponentProps) =>
                                                     options
                                                 }
                                             });
-                                        }}
-                                />
+                                        }}>
+                                        Delete
+                                    </button>
+                                </div>
+                            </>
+                        })
+                    }
 
 
-
-                                <button className="btn btn-primary" onClick={(event) => {
-                                    event.preventDefault();
-                                    props.onConnectOptionClick(props.mapFlowEvent, option);
-                                }}>
-                                    Connect
-                                </button>
-                                <button className="btn btn-danger" onClick={(event) => {
-                                    event.preventDefault();
-                                    if(!state.mapFlowEvent.options) throw new Error("Missing `state.mapFlowEvent.options`");
-                                    const options = state.mapFlowEvent.options.filter((o) => {
-                                        return o.id !== option.id;
-                                    })
-
-                                    setState({
-                                        ...state,
-                                        mapFlowEvent: {
-                                            ...state.mapFlowEvent,
-                                            options
-                                        }
-                                    });
-                                }}>
-                                    Delete
-                                </button>
-                            </div>
-                        </div>
-                    })
-                }
-            </form>
-
-
-
-            <div className="input-group">
-                {/* <select name="selectedDiagramObjectId" className="custom-select" id="inputGroupSelect04" onChange={handleChange}>
-                                            <option value="NONE">None</option>
-                                            {
-                                                state.diagramObjects && state.diagramObjects.map((diagramObject) => {
-                                                    return <option value={diagramObject.ObjectId}>
-                                                        {diagramObject.title}
-                                                    </option>
-                                                })
-                                            }
-
-                                        </select>*/}
-                <div className="input-group-append">
-                    {/*<button className="btn btn-outline-secondary" type="button"
-                            onClick={onAddResourceInteractionClick}>Add Interaction
-                    </button>
-                    <button className="btn btn-outline-danger" type="button"
-                            onClick={onDeleteResourceClick}>Delete
-                    </button>*/}
+                    <div>
+                        <label className="block text-sm font-medium mb-1" htmlFor="country">
+                            Type
+                        </label>
+                        <select className="form-select"
+                                id="type"
+                                name="type"
+                                value={state.mapFlowEvent.type}
+                                onChange={handleChange}>
+                            <option value="none">None</option>
+                            <option value="decision">Decision</option>
+                        </select>
+                    </div>
                 </div>
             </div>
-        </>
-    );
+        </>);
+
+    /*
+
+
+
+         <div className="input-group">
+             {/!* <select name="selectedDiagramObjectId" className="custom-select" id="inputGroupSelect04" onChange={handleChange}>
+                                         <option value="NONE">None</option>
+                                         {
+                                             state.diagramObjects && state.diagramObjects.map((diagramObject) => {
+                                                 return <option value={diagramObject.ObjectId}>
+                                                     {diagramObject.title}
+                                                 </option>
+                                             })
+                                         }
+
+                                     </select>*!/}
+             <div className="input-group-append">
+                 {/!*<button className="btn btn-outline-secondary" type="button"
+                         onClick={onAddResourceInteractionClick}>Add Interaction
+                 </button>
+                 <button className="btn btn-outline-danger" type="button"
+                         onClick={onDeleteResourceClick}>Delete
+                 </button>*!/}
+             </div>
+         </div>
+     </>
+ );*/
 
 }
 

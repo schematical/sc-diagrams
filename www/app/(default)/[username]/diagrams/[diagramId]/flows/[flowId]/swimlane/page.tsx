@@ -39,6 +39,9 @@ import { useParams } from 'next/navigation';
 import { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
 import { FlyoutProvider } from '@/app/flyout-context';
 import DiagramSidebarComponent from '../../../DiagramSidebarComponent';
+import ChannelMenu from "@/components/channel-menu";
+import DirectMessages from "@/app/(default)/messages/direct-messages";
+import Channels from "@/app/(default)/messages/channels";
 interface SwimlanePageState {
     toasts: iToast[];
     dataUri?: string;
@@ -668,28 +671,49 @@ const SwimlanePage = () => {
                 {
                     // shouldShowMenu() &&
                     <DiagramSidebarComponent>
-                        <div className="flex h-[100dvh] overflow-hidden">
-                            {
-                                state.menuMode === 'mapFlowEventDetail' &&
-                                state.selectedMapFlowEvent &&
-                                <MapFlowEventDetailComponent
-                                    mapFlowEvent={state.selectedMapFlowEvent}
-                                    onUpdate={updateMapFlowEvent}
-                                    onConnect={onConnectMapFlowEvent}
-                                    onDelete={onDeleteMapFlowEvent}
-                                    onConnectOptionClick={onConnectOptionClick}
-                                />
-                            }
-                            {
-                                state.menuMode === 'mapFlowEventInteractionDetail' &&
-                                state.selectedMapFlowEventInteraction &&
-                                <MapFlowEventInteractionDetailComponent
-                                    mapFlowEventInteraction={state.selectedMapFlowEventInteraction}
-                                    onDelete={onDeleteMapFlowEventInteraction}
-                                    onSave={onSave}
-                                />
-                            }
+                        <div className="sticky top-16 bg-white dark:bg-slate-900 overflow-x-hidden overflow-y-auto no-scrollbar shrink-0 border-r border-slate-200 dark:border-slate-700 md:w-[18rem] xl:w-[20rem] h-[calc(100dvh-64px)]">
+                            {/* #Marketing group */}
+                            <div>
+                                {/* Group header */}
+                                <div className="sticky top-0 z-10">
+                                    <div className="flex items-center bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700 px-5 h-16">
+                                        <div className="w-full flex items-center justify-between">
+                                            {/* Channel menu */}
+
+                                            {/* Edit button */}
+                                            <button className="p-1.5 shrink-0 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 shadow-sm ml-2">
+                                                <svg className="w-4 h-4 fill-current text-slate-500" viewBox="0 0 16 16">
+                                                    <path d="M11.7.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM4.6 14H2v-2.6l6-6L10.6 8l-6 6zM12 6.6L9.4 4 11 2.4 13.6 5 12 6.6z" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="flex h-[100dvh] overflow-hidden">
+                                {
+                                    state.menuMode === 'mapFlowEventDetail' &&
+                                    state.selectedMapFlowEvent &&
+                                    <MapFlowEventDetailComponent
+                                        mapFlowEvent={state.selectedMapFlowEvent}
+                                        onUpdate={updateMapFlowEvent}
+                                        onConnect={onConnectMapFlowEvent}
+                                        onDelete={onDeleteMapFlowEvent}
+                                        onConnectOptionClick={onConnectOptionClick}
+                                    />
+                                }
+                                {
+                                    state.menuMode === 'mapFlowEventInteractionDetail' &&
+                                    state.selectedMapFlowEventInteraction &&
+                                    <MapFlowEventInteractionDetailComponent
+                                        mapFlowEventInteraction={state.selectedMapFlowEventInteraction}
+                                        onDelete={onDeleteMapFlowEventInteraction}
+                                        onSave={onSave}
+                                    />
+                                }
+                            </div>
                         </div>
+                    </div>
+
                     </DiagramSidebarComponent>
                 }
             </FlyoutProvider>

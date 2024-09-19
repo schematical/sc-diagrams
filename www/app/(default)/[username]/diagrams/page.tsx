@@ -146,7 +146,7 @@ function DiagramDetailComponent(props: DiagramDetailComponentProps) {
                 <Image className="rounded-full shrink-0" src={UserImage06} width={40} height={40} alt="User 06"/>
                 <div>
                     <div className="leading-tight">
-                        <a className="text-sm font-semibold text-slate-800 dark:text-slate-100" href="#0">
+                        <a className="text-sm font-semibold text-slate-800 dark:text-slate-100" href={`/${props.diagram.parentUri}/diagrams/${props.diagram._id}`}>
                             {props.diagram.name}
                         </a>
                     </div>

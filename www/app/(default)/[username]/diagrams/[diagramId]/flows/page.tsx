@@ -145,7 +145,7 @@ function DiagramFlowDetailComponent(props: DiagramDetailComponentProps) {
                 <Image className="rounded-full shrink-0" src={UserImage06} width={40} height={40} alt="User 06"/>
                 <div>
                     <div className="leading-tight">
-                        <a className="text-sm font-semibold text-slate-800 dark:text-slate-100" href="#0">
+                        <a className="text-sm font-semibold text-slate-800 dark:text-slate-100" href={`/${props.diagramFlow.parentUri}/flows/${props.diagramFlow._id}`}>
                             {props.diagramFlow.name}
                         </a>
                     </div>
@@ -169,8 +169,13 @@ function DiagramFlowDetailComponent(props: DiagramDetailComponentProps) {
                 <div className="absolute left-0 right-0 bottom-0 p-4 bg-black bg-opacity-25 backdrop-blur-md">
                     <div className="flex items-center justify-between">
                         {/*<div className="text-xs font-medium text-slate-300">togethernature.com</div>*/}
-                        <a className="text-xs font-medium text-indigo-400 hover:text-indigo-300" href={`/${props.diagramFlow.parentUri}/flows/${props.diagramFlow._id}`}>
-                            View -&gt;
+                        <a className="text-xs font-medium text-indigo-400 hover:text-indigo-300"
+                           href={`/${props.diagramFlow.parentUri}/flows/${props.diagramFlow._id}`}>
+                            View Live Network Diagram-&gt;
+                        </a>
+                        <a className="text-xs font-medium text-indigo-400 hover:text-indigo-300"
+                           href={`/${props.diagramFlow.parentUri}/flows/${props.diagramFlow._id}/swimlane`}>
+                            View Swim Lane Diagram -&gt;
                         </a>
                     </div>
                 </div>

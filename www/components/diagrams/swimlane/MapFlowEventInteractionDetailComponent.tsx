@@ -76,56 +76,36 @@ const MapFlowEventInteractionDetailComponent = (props: MapFlowEventInteractionDe
     }
 
     return (
-
-        <>
-            <h3>Interaction</h3>
-            <div className="form-group">
-                {/*<div className="input-group mb-3">
-                    <div className="input-group-prepend">
-                        <span className="input-group-text" id="basic-addon1">Id</span>
+        <div className="border-t border-slate-200 dark:border-slate-700">
+            {/* Components */}
+            <div className="space-y-8 mt-8 px-5">
+                <h2 className="text-2xl text-slate-800 dark:text-slate-100 font-bold mb-6">Interaction Detail</h2>
+                {/*<div>
+                     Start
+                    <div>
+                        <label className="block text-sm font-medium mb-1" htmlFor="default">
+                            Id
+                        </label>
+                        <input className="form-input w-full" type="text" placeholder="Id" readOnly={true}
+                               id="id" name="id" value={state.mapFlowEvent.id} onChange={handleChange}
+                        />
                     </div>
-                    <input type="text" readOnly={true} className="form-control"
-                           id="id" name="id" value={state.mapFlowEvent.id} onChange={handleChange}/>
-                </div>
-                <div className="input-group mb-3">
-                    <div className="input-group-prepend">
-                        <span className="input-group-text" id="basic-addon1">Text</span>
-                    </div>
-                    <input type="text" readOnly={false} className="form-control"
-                           id="text"  name="text" value={state.mapFlowEvent.text}  onChange={handleChange}/>
-                </div>
-                <div className="input-group mb-3">
-                    <div className="input-group-prepend">
-                        <span className="input-group-text" id="basic-addon1">Row</span>
-                    </div>
-                    <input type="text" readOnly={false} className="form-control"
-                           id="row"  name="row"  value={state.mapFlowEvent.row}  onChange={handleChange}/>
-                </div>
-                <div className="input-group mb-3">
-                    <div className="input-group-prepend">
-                        <span className="input-group-text" id="basic-addon1">Type</span>
-                    </div>
-                    <select  className="form-control"
-                           id="type"
-                             name="type"
-                             value={state.mapFlowEvent.type}
-                             onChange={handleChange}
-                    >
-                        <option value="none">None</option>
-                        <option value="decision">Decision</option>
-                    </select>
+                     End
                 </div>*/}
-
-                <div>
-
-                    <button className="btn btn-outline-primary" type="button"
-                            onClick={() => setState({...state, showEdit: true})}>Edit
+                <div className="flex flex-wrap -space-x-px">
+                    <button
+                        className="btn bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700 hover:bg-slate-50 text-indigo-500 rounded-none first:rounded-l last:rounded-r"
+                        onClick={() => setState({...state, showEdit: true})}>
+                        Edit
                     </button>
-                    <button className="btn btn-outline-danger" type="button"
-                            onClick={onDelete}>Delete
+                    <button
+                        className="btn bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700 hover:bg-slate-50 text-indigo-500 rounded-none first:rounded-l last:rounded-r"
+                        onClick={onDelete}>
+                        Delete
                     </button>
                 </div>
             </div>
+
             <div
                 className="modal show"
                 style={{display: 'block', position: 'initial'}}
@@ -187,8 +167,9 @@ const MapFlowEventInteractionDetailComponent = (props: MapFlowEventInteractionDe
                 </ModalBasic>
 
             </div>
-        </>
+        </div>
     );
+
 
 }
 
