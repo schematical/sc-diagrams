@@ -1,7 +1,8 @@
 import React, {ChangeEvent, FormEvent, useState} from 'react';
-import {FlowEvent, FlowEventDecisionOption, FlowEventInteraction} from "../util";
+import {DiagramObject, FlowEvent, FlowEventDecisionOption, FlowEventInteraction} from "../util";
 
 interface MapFlowEventDetailComponentProps {
+    diagramObjects: DiagramObject[];
     mapFlowEvent: FlowEvent;
     onUpdate: (mapFlowEvent: FlowEvent) => void;
     onConnect: (mapFlowEvent: FlowEvent) => void
@@ -29,7 +30,13 @@ const MapFlowEventDetailComponent = (props: MapFlowEventDetailComponentProps) =>
     const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const mapFlowEvent = state.mapFlowEvent;
         (mapFlowEvent as any)[event.target.name] = event.target.value;
-
+        switch (event.target.name) {
+            case('updatedDiagramObjectId'):
+                if (event.target.value === 'None') {
+                    mapFlowEvent.updatedDiagramObjectId = undefined;
+                }
+                break;
+        }
         setState({
             ...state,
             mapFlowEvent
@@ -99,6 +106,26 @@ const MapFlowEventDetailComponent = (props: MapFlowEventDetailComponentProps) =>
                                    id="row" name="row" value={state.mapFlowEvent.row} onChange={handleChange}/>
                         </div>
 
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium mb-1"
+                               htmlFor="updatedDiagramObjectId">
+                            Update Object
+                        </label>
+                        <select className="form-select"
+                                id="updatedDiagramObjectId"
+                                name="updatedDiagramObjectId"
+                                value={state.mapFlowEvent?.updatedDiagramObjectId}
+                                onChange={handleChange}>
+                            <option value={undefined}>None</option>
+                            {
+                                props.diagramObjects && props.diagramObjects.map((diagramObject, index) => {
+                                    return <option key={index} value={diagramObject._id}>
+                                        {diagramObject.title}
+                                    </option>
+                                })
+                            }
+                        </select>
                     </div>
                     <div>
                         <label className="block text-sm font-medium mb-1" htmlFor="country">

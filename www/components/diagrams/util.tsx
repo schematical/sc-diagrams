@@ -242,6 +242,7 @@ export interface FlowEvent{
     id: string;
     resourceId: string;
     objectId?: string;
+    updatedDiagramObjectId?: string;
 
     row: number;
 
@@ -253,15 +254,7 @@ export interface FlowEventDecisionOption {
     id: string;
     text: string;
 }
-/*export interface FlowDecisionEvent extends FlowEvent{
 
-}*/
-export interface FlowStart extends FlowEvent{
-
-}
-export interface FlowStop extends FlowEvent{
-
-}
 
 
 

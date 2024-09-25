@@ -1,11 +1,12 @@
 import React, {ChangeEvent, FormEvent, useState} from 'react';
 
 
-import {FlowEvent, FlowEventInteraction, FlowEventInteractionEvent, Resource} from "../util";
+import {DiagramObject, FlowEvent, FlowEventInteraction, FlowEventInteractionEvent, Resource} from "../util";
 import MDEditor from "@uiw/react-md-editor";
 import {ContextStore} from "@uiw/react-md-editor/src/Context";
 
 interface ResourceDetailComponentProps {
+    diagramObjects: DiagramObject[];
     pageMode: 'view' | 'edit';
     resource: Resource;
 
@@ -64,7 +65,7 @@ const ResourceDetailComponent = (props: ResourceDetailComponentProps) => {
         props.onSave(state.resource);
     }
 
-    const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const resource = state.resource;
         (resource as any)[event.target.name] = event.target.value;
         setState({
@@ -88,7 +89,7 @@ const ResourceDetailComponent = (props: ResourceDetailComponentProps) => {
                         <div>
                             <div>
                                 <label className="block text-sm font-medium mb-1" htmlFor="id">
-                                    X
+                                    ID:
                                 </label>
                                 <input className="form-input w-full" type="text" placeholder="ID"
                                        readOnly={true}
@@ -122,7 +123,26 @@ const ResourceDetailComponent = (props: ResourceDetailComponentProps) => {
                                        onChange={handleChange}
                                 />
                             </div>
-
+                            <div>
+                                <label className="block text-sm font-medium mb-1"
+                                       htmlFor="objectId">
+                                    Update Object
+                                </label>
+                                <select className="form-select"
+                                        id="objectId"
+                                        name="objectId"
+                                        value={state.resource?.objectId}
+                                        onChange={handleChange}>
+                                    <option value={undefined}>None</option>
+                                    {
+                                        props.diagramObjects && props.diagramObjects.map((diagramObject, index) => {
+                                            return <option key={index} value={diagramObject._id}>
+                                                {diagramObject.title}
+                                            </option>
+                                        })
+                                    }
+                                </select>
+                            </div>
                             <div>
                                 <label className="block text-sm font-medium mb-1" htmlFor="sizeMultiplier">
                                     Size Multiplier

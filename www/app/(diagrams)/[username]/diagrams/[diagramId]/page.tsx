@@ -412,13 +412,16 @@ const DiagramPage = (/*props: DiagramPageProps*/) => {
                 const mapFlowEvent = state.mapFlow?.data?.events.find((e) => e.id === event.diagramFlowEventInteraction.event2);
                 const resource2 = getResourceFromMapFlowEventId(state.diagram, state.mapFlow, event.diagramFlowEventInteraction.event2);
                 if (!resource2) throw new Error("Missing `resource`");
+                if(mapFlowEvent?.updatedDiagramObjectId) {
+                    resource2.objectId = mapFlowEvent?.updatedDiagramObjectId;
+                    updateResource(resource2);
+                }
                 if (mapFlowEvent?.text) {
                     displayNotation(
                         resource2,
                         mapFlowEvent
                     );
                     pause();
-
                 }
 
 
@@ -727,7 +730,7 @@ const DiagramPage = (/*props: DiagramPageProps*/) => {
                                         onDelete={onDeleteResourceClick}
                                         onSave={onResouceDetailSave} //onSaveDiagramClick}updateResource
                                         pageMode={state.pageMode}
-                                    />
+                                        diagramObjects={state.diagramObjects || []}/>
                                 }
                                 {
                                     state.menuMode === 'diagramLayersList' &&

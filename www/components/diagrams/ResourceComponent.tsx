@@ -28,6 +28,7 @@ interface ResourceComponentState{
     frames?: PIXI.Texture[];
     count: number;
     yoffset: number;
+    currendObjectId?: string;
 }
 interface ResourceComponentProps{
     resource: Resource;
@@ -42,7 +43,8 @@ const ResourceComponent = (props: ResourceComponentProps) => {
     const [state, setState] =useState<ResourceComponentState>({
         loaded: false,
         count: 0,
-        yoffset: 0
+        yoffset: 0,
+
     });
     const spriteRef = createRef<PIXI.AnimatedSprite>();
     const refreshData = async () => {
@@ -53,6 +55,7 @@ const ResourceComponent = (props: ResourceComponentProps) => {
         setState({
             ...state,
             frames,
+            currendObjectId: props.diagramObject._id,
             loaded: true,
         });
 
@@ -74,7 +77,10 @@ const ResourceComponent = (props: ResourceComponentProps) => {
     })
 
     useEffect( () => {
-        if(state.loaded) {
+        if(
+            state.loaded &&
+            state.currendObjectId === props.diagramObject._id
+        ) {
             return;
         }
 

@@ -687,6 +687,7 @@ const SwimlanePage = () => {
                                         onConnect={onConnectMapFlowEvent}
                                         onDelete={onDeleteMapFlowEvent}
                                         onConnectOptionClick={onConnectOptionClick}
+                                        diagramObjects={state.diagramObjects || []}
                                     />
                                 }
                                 {
