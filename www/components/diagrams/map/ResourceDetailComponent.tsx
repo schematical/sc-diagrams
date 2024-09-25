@@ -44,7 +44,17 @@ const ResourceDetailComponent = (props: ResourceDetailComponentProps) => {
             resource
         });
     }
-
+    function onToggleFloat(event: any) {
+        const newState = {
+            ...state,
+            resource:{
+                ...state.resource,
+                float: event.target.checked
+            }
+        };
+        console.log("newState:", newState)
+        setState(newState);
+    }
     function handleClose() {
         setState({...state, showEdit: false});
     }
@@ -122,6 +132,20 @@ const ResourceDetailComponent = (props: ResourceDetailComponentProps) => {
                                        id="sizeMultiplier" name="sizeMultiplier" value={state.resource?.sizeMultiplier}
                                        onChange={handleChange}
                                 />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium mb-1" htmlFor="sizeMultiplier">
+                                    Float
+                                </label>
+                                <div className="form-switch">
+                                    <input type="checkbox" id="switch-2" className="sr-only"
+                                           checked={state.resource.float || false}
+                                           onChange={onToggleFloat}/>
+                                    <label className="bg-slate-400 dark:bg-slate-700" htmlFor="switch-2">
+                                        <span className="bg-white shadow-sm" aria-hidden="true"></span>
+                                        <span className="sr-only">Float</span>
+                                    </label>
+                                </div>
                             </div>
                             <div className="flex flex-wrap -space-x-px pt-5">
                                 <button

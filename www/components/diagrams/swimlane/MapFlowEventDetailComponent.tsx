@@ -85,7 +85,7 @@ const MapFlowEventDetailComponent = (props: MapFlowEventDetailComponentProps) =>
                             <label className="block text-sm font-medium mb-1" htmlFor="default">
                                 Text
                             </label>
-                            <input className="form-input w-full" type="text" placeholder="Text" readOnly={true}
+                            <input className="form-input w-full" type="text" placeholder="Text"
                                    id="text" name="text" value={state.mapFlowEvent.text} onChange={handleChange}/>
                         </div>
                         {/* End */}
@@ -125,6 +125,13 @@ const MapFlowEventDetailComponent = (props: MapFlowEventDetailComponentProps) =>
                                 className="btn bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-900 text-slate-600 dark:text-slate-300 rounded-none first:rounded-l last:rounded-r"
                                 onClick={onConnect}>
                                 Connect
+                            </button>
+                        }
+                        {
+                            <button
+                                className="btn bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-900 text-slate-600 dark:text-slate-300 rounded-none first:rounded-l last:rounded-r"
+                                onClick={onDelete}>
+                                Delete
                             </button>
                         }
                         {

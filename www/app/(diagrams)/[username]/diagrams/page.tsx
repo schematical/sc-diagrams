@@ -12,6 +12,8 @@ import axios from "axios";
 import {GQLService} from "@/services/GQLService";
 import {useParams} from "next/navigation";
 import Image01 from '@/public/images/transactions-image-01.svg'
+import DeleteButton from "@/components/delete-button";
+import SearchForm from "@/components/search-form";
 
 
 interface DiagramListPageState {
@@ -100,12 +102,29 @@ export default function DiagramListPage() {
             <div>
                 {/* Table */}
                 <div className="overflow-x-auto">
+                    <div className="sm:flex sm:justify-between sm:items-center mb-4 md:mb-2">
+
+
+                        {/* Right: Actions */}
+                        <div className="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
+
+
+
+                            {/* Export button */}
+                            <a href={`/${params.username}/diagrams/new`} className="btn bg-indigo-500 hover:bg-indigo-600 text-white m-5">
+                                New Diagram
+                            </a>
+
+                        </div>
+
+                    </div>
+
                     <table className="table-auto w-full dark:text-slate-300">
                         {/* Table header */}
                         <thead
                             className="text-xs font-semibold uppercase text-slate-500 border-t border-b border-slate-200 dark:border-slate-700">
                         <tr>
-                           {/* <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
+                            {/* <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
                                 <div className="flex items-center">
                                     <label className="inline-flex">
                                         <span className="sr-only">Select all</span>
@@ -159,7 +178,7 @@ function DiagramDetailComponent(props: DiagramDetailComponentProps) {
         </td>*/}
         <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap md:w-1/2">
             <div className="flex items-center">
-                <div className="w-9 h-9 shrink-0 mr-2 sm:mr-3">
+            <div className="w-9 h-9 shrink-0 mr-2 sm:mr-3">
                     <a  href={`/${props.diagram.parentUri}/diagrams/${props.diagram._id}`}>
                         <Image className="rounded-full" src={Image01} width={36} height={36}
                                alt={props.diagram.name}/>

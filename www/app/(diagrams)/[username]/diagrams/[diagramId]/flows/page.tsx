@@ -110,7 +110,7 @@ export default function DiagramFlowListPage(): any {
                         {/* Components */}
                         <div className="space-y-8 mt-8 px-5">
                             <h2 className="text-2xl text-slate-800 dark:text-slate-100 font-bold mb-6">
-                                Tile
+                                Flow
                                 Detail
                             </h2>
                             <div>
@@ -145,7 +145,7 @@ export default function DiagramFlowListPage(): any {
                                 <div>
                                     <label className="block text-sm font-medium mb-1"
                                            htmlFor="description">
-                                        Id
+                                        Description
                                     </label>
                                     <input className="form-input w-full" type="text"
                                            id="description"

@@ -579,6 +579,12 @@ const DiagramPage = (/*props: DiagramPageProps*/) => {
         };
         updateDiagramLayer(diagramLayer, tileGroup);
     }
+
+    function onResouceDetailSave(res: Resource) {
+        updateResource(res);
+        // onSaveDiagramClick();
+    }
+
     return (
         <>
             <FlyoutProvider initialState={true}>
@@ -719,7 +725,7 @@ const DiagramPage = (/*props: DiagramPageProps*/) => {
                                     <ResourceDetailComponent
                                         resource={state.selectedResource}
                                         onDelete={onDeleteResourceClick}
-                                        onSave={onSaveDiagramClick}
+                                        onSave={onResouceDetailSave} //onSaveDiagramClick}updateResource
                                         pageMode={state.pageMode}
                                     />
                                 }

@@ -85,11 +85,13 @@ const DiagramEditPage = () => {
             parentUri: state.diagram.parentUri,
             description: state.diagram.description,
         }));
+
         setState({
             loaded: true,
             // ...state,
             diagram: res
-        })
+        });
+        document.location.href = `/${params.username}/diagrams/${res._id}`;
     }
    /* const handleUploadChange = async (event: any) => {
         event.preventDefault();

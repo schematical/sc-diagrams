@@ -234,7 +234,7 @@ const DiagramObjectEditPage = () => {
                                     <label className="block text-sm font-medium mb-1" htmlFor="imageSrcFile">ImageSRC
                                         File
                                         Upload</label>
-                                    <input name="imageSrcFile" className="form-control" type='file'
+                                    <input name="imageSrcFile" className="form-control" type='file' accept="audio/*,video/*,image/*"
                                            onChange={handleUploadChange}/>
                                 </div>
 
@@ -243,7 +243,9 @@ const DiagramObjectEditPage = () => {
                                 <div className="sm:w-1/3">
                                     <label className="block text-sm font-medium mb-1" htmlFor="jsonSrc">JSON SRC</label>
                                     <input id="jsonSrc" className="form-input w-full" name="jsonSrc" type='text'
-                                           value={state.diagramobject.jsonSrc} onChange={handleChange}/>
+                                           value={state.diagramobject.jsonSrc} onChange={handleChange}
+                                           accept="text/*"
+                                    />
                                 </div>
                                 <div className="sm:w-1/3">
                                     <label className="block text-sm font-medium mb-1" htmlFor="jsonSrcFile">jsonSrc File

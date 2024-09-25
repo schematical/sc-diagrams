@@ -155,9 +155,11 @@ const SwimlanePage = () => {
 
     }
     function onDropZoneClick(event: DropzoneComponentProps) {
+        console.log("event.resource.id: ", event.resource.id);
         const resource = state.diagram?.data?.resources.find((r) => r.id === event.resource.id);
         if(!resource) throw new Error("Could not find `resource`");
         if(!state.mapFlow?.data) throw new Error("Missing `state.mapFlow.data`");
+        console.log("Found Resource: ", resource);
         const mapFlowEvent: FlowEvent = {
             id: `res-${Math.floor(Math.random() * 99999)}`,
             row: event.row,
