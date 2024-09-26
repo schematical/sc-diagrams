@@ -288,7 +288,7 @@ const DiagramPage = (/*props: DiagramPageProps*/) => {
         }
         const resources = state.diagram?.data?.resources || [];
         const newResource = {
-            id: 'res-' + resources.length,
+            id: 'res-' + resources.length + '-' + Math.floor(Math.random() * 99999),
             x: state.selectedTile.x,
             y: state.selectedTile.y,
             objectId: state.selectedDiagramObjectId
@@ -379,9 +379,11 @@ const DiagramPage = (/*props: DiagramPageProps*/) => {
         let newIndex = 0;
         if (state.selectedMapFlowEventInteraction) {
             const index = state.mapFlow?.data?.interactions.findIndex((rr) => {
+                console.log("rr.id === state.selectedMapFlowEventInteraction?.id", rr.id, " === ", state.selectedMapFlowEventInteraction?.id);
                 return rr.id === state.selectedMapFlowEventInteraction?.id;
             });
             newIndex = index + increment;
+            console.log(newIndex, " = ", index, " + ", increment);
         }
 
         if (newIndex < 0) {
@@ -389,7 +391,7 @@ const DiagramPage = (/*props: DiagramPageProps*/) => {
         } else if (newIndex >= state.mapFlow?.data?.interactions.length) {
             newIndex = 0;
         }
-
+    console.log("state.mapFlow?.data?.interactions[newIndex]: ", state.mapFlow?.data?.interactions[newIndex].id)
         setState({
             ...state,
             /* mapFlow: {
