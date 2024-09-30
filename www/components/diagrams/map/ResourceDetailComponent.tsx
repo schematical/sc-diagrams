@@ -190,9 +190,17 @@ const ResourceDetailComponent = (props: ResourceDetailComponentProps) => {
             {
                 props.pageMode === 'view' &&
                 <>
-                    <h3>{state.resource.name}</h3>
-                    <MDEditor.Markdown source={props.resource.notes as string}/>
-                    {/*<div className="wmde-markdown" dangerouslySetInnerHTML={{__html: (marked.parse(props.resource.notes as string) as string)}} />*/}
+                    <div className="border-t border-slate-200 dark:border-slate-700">
+                        {/* Components */}
+                        <div className="space-y-8 mt-8 px-5">
+                            <h2 className="text-2xl text-slate-800 dark:text-slate-100 font-bold mb-6">
+                                {state.resource.name}
+                            </h2>
+
+                            <MDEditor.Markdown source={props.resource.notes as string}/>
+                            {/*<div className="wmde-markdown" dangerouslySetInnerHTML={{__html: (marked.parse(props.resource.notes as string) as string)}} />*/}
+                        </div>
+                    </div>
                 </>
             }
         </>

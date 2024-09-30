@@ -219,6 +219,7 @@ const MapFlowEventInteractionComponent = (props: MapFlowEventInteractionComponen
                 <AnimatedSprite
                     ref={spriteRef}
                     // interactive={true}
+
                     anchor={{ x: .5, y: 1}}
                     textures={state.frames}
                     isPlaying={true}

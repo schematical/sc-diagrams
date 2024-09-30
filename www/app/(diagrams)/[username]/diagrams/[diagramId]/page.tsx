@@ -341,11 +341,12 @@ const DiagramPage = (/*props: DiagramPageProps*/) => {
     }
 
 
-    function updateResource(targetResource: Resource) {
-        if (!state.diagram) {
+    function updateResource(targetResource: Resource, options?: { useState?: DiagramPageState, returnState: boolean}) {
+        const _state = options?.useState || state;
+        if (!_state.diagram) {
             throw new Error("No `state.diagram`");
         }
-        const resources: Resource[] = state.diagram.data?.resources.map((resource) => {
+        const resources: Resource[] = _state.diagram.data?.resources.map((resource) => {
             if (
                 resource.x !== targetResource?.x ||
                 resource.y !== targetResource?.y
@@ -355,23 +356,25 @@ const DiagramPage = (/*props: DiagramPageProps*/) => {
             return targetResource;
         }) || [];
         const newState: DiagramPageState = {
-            ...state,
-            selectedResource: JSON.parse(state.selectedResourceJSON || "{}"),
+            ..._state,
+            selectedResource: JSON.parse(_state.selectedResourceJSON || "{}"),
             diagram: {
-                ...state.diagram,
+                ..._state.diagram,
                 data: {
-                    ...state.diagram.data,
+                    ..._state.diagram.data,
                     resources
                 }
             }
         };
 
-        console.log(newState);
+        if(options?.returnState){
+            return newState;
+        }
         setState(newState);
     }
 
 
-    function onIncrementMapFlowInteraction(increment: number) {
+    function onIncrementMapFlowInteraction(increment: number, options?: { returnState: boolean}) {
 
         if (!state.mapFlow?.data) {
             throw new Error("Missing `state.mapFlow.data`");
@@ -392,14 +395,18 @@ const DiagramPage = (/*props: DiagramPageProps*/) => {
             newIndex = 0;
         }
     console.log("state.mapFlow?.data?.interactions[newIndex]: ", state.mapFlow?.data?.interactions[newIndex].id)
-        setState({
+        const newState = {
             ...state,
             /* mapFlow: {
                  ...state.mapFlow,
                  resourceInteractions: resourceInteractions
              },*/
             selectedMapFlowEventInteraction: state.mapFlow?.data?.interactions[newIndex]
-        })
+        };
+        if (options?.returnState){
+            return newState;
+        }
+        setState(newState);
     }
 
 
@@ -410,13 +417,17 @@ const DiagramPage = (/*props: DiagramPageProps*/) => {
             case('cycle_done'):
                 // Check to see if there is an `endNotation`.
 
-                onIncrementMapFlowInteraction(1);
+                let newState: any = onIncrementMapFlowInteraction(1, { returnState: true });
                 const mapFlowEvent = state.mapFlow?.data?.events.find((e) => e.id === event.diagramFlowEventInteraction.event2);
                 const resource2 = getResourceFromMapFlowEventId(state.diagram, state.mapFlow, event.diagramFlowEventInteraction.event2);
                 if (!resource2) throw new Error("Missing `resource`");
                 if(mapFlowEvent?.updatedDiagramObjectId) {
                     resource2.objectId = mapFlowEvent?.updatedDiagramObjectId;
-                    updateResource(resource2);
+                    const newState2 = updateResource(resource2, { useState: newState, returnState: true });
+                    newState = {
+                        ...newState,
+                        ...newState2
+                    }
                 }
                 if (mapFlowEvent?.text) {
                     displayNotation(
@@ -425,7 +436,7 @@ const DiagramPage = (/*props: DiagramPageProps*/) => {
                     );
                     pause();
                 }
-
+                setState(newState);
 
         }
     }
@@ -870,7 +881,7 @@ const DiagramPage = (/*props: DiagramPageProps*/) => {
                                                 diagram={state.diagram}
                                                 mapFlow={state.mapFlow as DiagramFlow}
                                                 diagramFlowEventInteraction={mapFlowEventInteraction}
-                                                diagramObject={getDiagramObject('file-basic')}
+                                                diagramObject={getDiagramObject('file-light')}
                                                 onMapFlowEventInteractionClick={onMapFlowEventInteractionEvent}
                                                 globalState={globalState}
                                                 viewport={viewportRef.current as Viewport}
