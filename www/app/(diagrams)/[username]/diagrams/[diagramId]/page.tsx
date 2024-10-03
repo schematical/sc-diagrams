@@ -6,6 +6,7 @@
 import React, {ChangeEvent, useEffect, useMemo, useRef, useState} from 'react';
 import {PixiComponent, Sprite, Stage} from '@pixi/react';
 import {useParams} from 'next/navigation'
+import * as diagram from '../../../../../public/tf-parse-diagram.json'
 
 import axios from "axios";
 import {
@@ -129,7 +130,8 @@ const DiagramPage = (/*props: DiagramPageProps*/) => {
         ) {
             throw new Error("Missing uri params");
         }
-        const diagram: Diagram = await GQLService.getDiagramById({parentUri: params.username, _id: params.diagramId});
+        // const diagram: Diagram = await GQLService.getDiagramById({parentUri: params.username, _id: params.diagramId});
+
         delete ((diagram as any).__typename);
         const diagramObjects = (await GQLService.listDiagramObject({parentUri: 'schematical' /*params.username*/})).Items;
         const newState = {
