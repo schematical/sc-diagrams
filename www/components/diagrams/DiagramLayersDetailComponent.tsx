@@ -86,14 +86,6 @@ export const DiagramLayersDetailComponent = (props: DiagramLayersDetailComponent
                             </h2>
 
                             <div>
-                                <label className="block text-sm font-medium mb-1" htmlFor="name">
-                                    Name
-                                </label>
-                                <input className="form-input w-full" type="text" placeholder="Name"
-                                       id="name" name="name" onChange={handleChange}
-                                       value={state.selectedDiagramLayerTileGroup.name}/>
-                            </div>
-                            <div>
                                 <label className="block text-sm font-medium mb-1" htmlFor="id">
                                     Id
                                 </label>
@@ -103,19 +95,19 @@ export const DiagramLayersDetailComponent = (props: DiagramLayersDetailComponent
                             </div>
 
                             <div className="input-group mb-3">
-                                <div className="input-group-prepend">
-                                    <span className="input-group-text">Name</span>
-                                </div>
+                                <label className="block text-sm font-medium mb-1" htmlFor="name">
+                                    Name
+                                </label>
                                 <input type="text" className="form-control"
-                                       id="id" name="id" onChange={handleChange}
-                                       value={state.selectedDiagramLayerTileGroup.id}/>
+                                       id="name" name="name" onChange={handleChange}
+                                       value={state.selectedDiagramLayerTileGroup.name}/>
                             </div>
                             <div className="input-group mb-3">
                                 <div className="input-group-prepend">
-                                    <span className="input-group-text">Name</span>
+                                <span className="input-group-text">Color</span>
                                 </div>
                                 <input type="color" className="form-control"
-                                       id="id" name="id" onChange={handleChange}
+                                       id="color" name="color" onChange={handleChange}
                                        value={state.selectedDiagramLayerTileGroup.color}/>
                             </div>
 
