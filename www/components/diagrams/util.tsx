@@ -43,7 +43,7 @@ export interface DiagramLayer {
     tileGroups: TileGroup[];
 }
 export interface TileGroup {
-    color?: number;
+    color?: string;
     id: string;
     name: string;
     startPos?: Block;

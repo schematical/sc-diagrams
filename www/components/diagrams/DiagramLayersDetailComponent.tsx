@@ -53,7 +53,7 @@ export const DiagramLayersDetailComponent = (props: DiagramLayersDetailComponent
                                     <div className="flex items-center truncate">
                                         <div className="truncate">
                                             <span
-                                                className="text-sm font-medium text-slate-800 dark:text-slate-100">
+                                                className="text-sm font-medium text-slate-800 dark:text-slate-100" style={{ color: tileGroup.color}}>
                                                     {tileGroup.name}
                                                 <div
                                                     className="text-xs font-medium text-slate-500">
