@@ -79,7 +79,7 @@ interface DiagramPageProps {
 */
 
 const DiagramPage = (/*props: DiagramPageProps*/) => {
-    // PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
+    PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
     PIXI.settings.RESOLUTION = 4;
     /*    ;
         PIXI.settings.PRECISION_FRAGMENT = PRECISION.HIGH;
@@ -824,9 +824,10 @@ const DiagramPage = (/*props: DiagramPageProps*/) => {
 
                         <Stage width={state.innerWidth} height={state.innerHeight}
                                style={{display: 'inline', width: '100%', height: '100%'}}
+                               options={{autoDensity: true }}
                                onMount={(app) => {
-                                  // app.renderer.resolution = window.devicePixelRatio;
-                            app.resizeTo = window;
+
+                                app.resizeTo = window;
                             setState({
                                 ...state,
                                 pixiApp: app

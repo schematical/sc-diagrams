@@ -49,9 +49,11 @@ const ResourceComponent = (props: ResourceComponentProps) => {
     const spriteRef = createRef<PIXI.AnimatedSprite>();
     const refreshData = async () => {
         const sheet = await Assets.load(props.diagramObject.jsonSrc);
-        const frames = Object.keys(sheet.data.frames).map(frame =>
-            PIXI.Texture.from(frame)
-        );
+        const frames = Object.keys(sheet.data.frames).map(frame => {
+           const texture = PIXI.Texture.from(frame);
+           texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
+           return texture;
+        });
         setState({
             ...state,
             frames,
@@ -152,6 +154,7 @@ const ResourceComponent = (props: ResourceComponentProps) => {
                     onmouseover={onmouseover}
                     onmouseout={onmouseout}
                     onclick={onClick}
+
                 />
             }
             {
