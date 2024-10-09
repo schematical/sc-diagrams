@@ -80,7 +80,8 @@ interface DiagramPageProps {
 
 const DiagramPage = (/*props: DiagramPageProps*/) => {
     // PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
-    /*    PIXI.settings.RESOLUTION = 4;
+    PIXI.settings.RESOLUTION = 4;
+    /*    ;
         PIXI.settings.PRECISION_FRAGMENT = PRECISION.HIGH;
         PIXI.settings.ROUND_PIXELS = true;*/
 
@@ -130,7 +131,7 @@ const DiagramPage = (/*props: DiagramPageProps*/) => {
         ) {
             throw new Error("Missing uri params");
         }
-        // const diagram: Diagram = await GQLService.getDiagramById({parentUri: params.username, _id: params.diagramId});
+        const diagram: Diagram = await GQLService.getDiagramById({parentUri: params.username, _id: params.diagramId});
 
         delete ((diagram as any).__typename);
         const diagramObjects = (await GQLService.listDiagramObject({parentUri: 'schematical' /*params.username*/})).Items;
@@ -822,7 +823,9 @@ const DiagramPage = (/*props: DiagramPageProps*/) => {
                     <>
 
                         <Stage width={state.innerWidth} height={state.innerHeight}
-                               style={{display: 'inline', width: '100%', height: '100%'}} onMount={(app) => {
+                               style={{display: 'inline', width: '100%', height: '100%'}}
+                               onMount={(app) => {
+                                  // app.renderer.resolution = window.devicePixelRatio;
                             app.resizeTo = window;
                             setState({
                                 ...state,
