@@ -677,7 +677,7 @@ const SwimlanePage = () => {
                     <DiagramSidebarComponent>
                         <div className="sticky top-16 bg-white dark:bg-slate-900 overflow-x-hidden overflow-y-auto no-scrollbar shrink-0 border-r border-slate-200 dark:border-slate-700 md:w-[18rem] xl:w-[20rem] h-[calc(100dvh-64px)]">
                             <div>
-                                <div className="flex h-[100dvh] overflow-hidden">
+                                <div className="flex overflow-hidden pb-20">
                                 {
                                     state.menuMode === 'mapFlowEventDetail' &&
                                     state.selectedMapFlowEvent &&

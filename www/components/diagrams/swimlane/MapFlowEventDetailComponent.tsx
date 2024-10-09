@@ -179,7 +179,7 @@ const MapFlowEventDetailComponent = (props: MapFlowEventDetailComponentProps) =>
                             return <>
                                 <div>
                                     <label className="block text-sm font-medium mb-1" htmlFor="default">
-                                        Option Name
+                                        Option Name ( {index} / {state.mapFlowEvent.options?.length})
                                     </label>
                                     <input className="form-input w-full" type="text" placeholder="Option Name"
                                            value={option.text}

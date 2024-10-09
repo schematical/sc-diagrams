@@ -42,7 +42,7 @@ const ResourceComponent = (props: ResourceComponentProps) => {
 
     const [state, setState] =useState<ResourceComponentState>({
         loaded: false,
-        count: 0,
+        count: props.resource.float ? (Math.round(Math.random() * 100)/ 100) : 0,
         yoffset: 0,
 
     });

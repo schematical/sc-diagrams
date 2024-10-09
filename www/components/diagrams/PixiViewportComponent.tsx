@@ -32,8 +32,8 @@ export const PixiViewportComponent = PixiComponent('Viewport', {
         });
 
         viewport.drag().pinch().wheel().clampZoom({
-            minScale:.25,
-            maxScale: 4
+            minScale:.1,
+            maxScale: 8
         })
         // props.onCreate(viewport);
         return viewport as DisplayObject;
