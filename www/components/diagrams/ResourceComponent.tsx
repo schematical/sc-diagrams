@@ -48,6 +48,9 @@ const ResourceComponent = (props: ResourceComponentProps) => {
     });
     const spriteRef = createRef<PIXI.AnimatedSprite>();
     const refreshData = async () => {
+        if(!props.diagramObject.jsonSrc){
+            throw new Error('Missing `props.diagramObject.jsonSrc`');
+        }
         const sheet = await Assets.load(props.diagramObject.jsonSrc);
         const frames = Object.keys(sheet.data.frames).map(frame => {
            const texture = PIXI.Texture.from(frame);
@@ -150,7 +153,7 @@ const ResourceComponent = (props: ResourceComponentProps) => {
                     initialFrame={Math.floor(Math.random() * state.frames.length)}
                     animationSpeed={0.2}
                     x={screenX} // + app.screen.width / 2} // center horizontally
-                    y={screenY + (state.yoffset  * 32)} //  + app.screen.height / 4} // align the y axis to one fourth of the screen
+                    y={screenY + (state.yoffset  * 32) + (props.diagramObject.data?.yoffset || 0)} //  + app.screen.height / 4} // align the y axis to one fourth of the screen
                     onmouseover={onmouseover}
                     onmouseout={onmouseout}
                     onclick={onClick}

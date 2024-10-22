@@ -21,7 +21,6 @@ export interface PixiComponentViewportProps extends ViewportProps {
 }
 export const PixiViewportComponent = PixiComponent('Viewport', {
     create: (props: PixiComponentViewportProps) => {
-            console.log("CREATING VIEW PORT")
         const viewport = new Viewport({
             events: props.app.renderer.events,
             screenWidth: props.app.view.width, // window.innerWidth, // props.width,

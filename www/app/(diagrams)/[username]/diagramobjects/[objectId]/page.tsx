@@ -10,14 +10,20 @@ import {updateDiagramObject} from "@/services/graphql";
 
 interface DiagramObjectEditPageState {
     loaded?: boolean;
-    diagramobject?: any
+    diagramobject?: DiagramObject
 }
 
 const DiagramObjectEditPage = () => {
     const params = useParams();
 
     const [state, setState] = useState<DiagramObjectEditPageState>({
-        diagramobject: {}
+        diagramobject: {
+            _id: '',
+            title: '',
+            description: '',
+            parentUri: params.username as string,
+
+        }
     });
 
     const refreshData = async () => {
@@ -26,14 +32,15 @@ const DiagramObjectEditPage = () => {
                 loaded: true,
                 // ...state,
                 diagramobject: {
-                    parentUri: params.username,
-                    Username: params.username
+                    ...state.diagramobject,
+                    parentUri: params.username as string,
+                    // Username: params.username as string
                 }
             })
             return
         }
 
-        const res: DiagramObject[] = (await GQLService.getDiagramObjectById({
+        const res: DiagramObject = (await GQLService.getDiagramObjectById({
             parentUri: params.username,
             _id: params.objectId
         }));
@@ -53,8 +60,15 @@ const DiagramObjectEditPage = () => {
             });
         }*/
     const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const diagramobject = state.diagramobject;
-        diagramobject[event.target.name] = event.target.value;
+        const diagramobject: any = state.diagramobject;
+        diagramobject.data = diagramobject.data || {}
+        switch (event.target.name){
+            case('yoffset'):
+                diagramobject.data[event.target.name] = parseInt(event.target.value);
+                break;
+            default:
+                diagramobject[event.target.name] = event.target.value;
+        }
         console.log("State.diagramobject:", state.diagramobject);
         setState({
             ...state,
@@ -73,14 +87,17 @@ const DiagramObjectEditPage = () => {
                }
            }
        );*/
-
+        if(!state.diagramobject) {
+            throw new Error("Missing `state.diagramobject`");
+        }
         const res: DiagramObject = (await GQLService.updateDiagramObject({
             _id: state.diagramobject._id,
             parentUri: state.diagramobject.parentUri,
             title: state.diagramobject.title,
             description: state.diagramobject.description,
             imageSrc: state.diagramobject.imageSrc,
-            jsonSrc: state.diagramobject.jsonSrc
+            jsonSrc: state.diagramobject.jsonSrc,
+            data: state.diagramobject.data
         }));
         setState({
             loaded: true,
@@ -132,6 +149,9 @@ const DiagramObjectEditPage = () => {
                 }
             }
         );*/
+        if(!state.diagramobject) {
+            throw new Error("Missing `state.diagramobject`");
+        }
         const res = await GQLService.uploadDiagramObject({
             _id: state.diagramobject._id,
             parentUri: state.diagramobject.parentUri,
@@ -222,6 +242,13 @@ const DiagramObjectEditPage = () => {
                                     <input id="description" name="description"
                                            value={state.diagramobject.description} onChange={handleChange}
                                            className="form-input w-full" type="text"/>
+                                </div>
+                                <div className="sm:w-1/3">
+                                    <label className="block text-sm font-medium mb-1"
+                                           htmlFor="yoffset">Y Offset</label>
+                                    <input id='yoffset' name="yoffset" className="form-input w-full"
+                                           value={state.diagramobject?.data?.yoffset}
+                                           onChange={handleChange} type='number'/>
                                 </div>
                             </div>
                             <div className="sm:flex sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 mt-5">

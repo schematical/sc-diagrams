@@ -92,13 +92,17 @@ export interface Diagram {
     }
     // resourceInteractions: ResourceInteraction[];
 }
-export interface DiagramObject extends Block {
+export interface DiagramObject/* extends Block*/ {
     _id: string;
     parentUri: string;
     title: string;
-    imageSrc: string;
-    jsonSrc: string;
+    imageSrc?: string;
+    jsonSrc?: string;
     description?: string;
+    yoffset?: number;
+    data?: {
+        yoffset?: number
+    };
 }
 export interface Notation {
     text?: string;

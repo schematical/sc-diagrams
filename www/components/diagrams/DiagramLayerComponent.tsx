@@ -13,7 +13,7 @@ import {
 } from '@pixi/react';
 
 import {Block, DiagramLayer, DiagramObject, GlobalState, Resource, screen_to_isometric} from './util';
-import {Assets, Color, TextStyle} from "pixi.js";
+import {AlphaFilter, Assets, Color, TextStyle} from "pixi.js";
 import {OutlineFilter} from "@pixi/filter-outline";
 import {ColorReplaceFilter} from "@pixi/filter-color-replace";
 
@@ -99,18 +99,23 @@ const DiagramLayerComponent = (props: DiagramLayerComponentProps) => {
                     for(let x = realStart.x; x < realEnd.x; x++) {
                         for(let y = realStart.y; y < realEnd.y; y++) {
                             const [screenX, screenY] = screen_to_isometric(x, y);
-                            const color =  new Color(tileGroup.color).toArray();
+                            const colorStr = tileGroup.color;
+                            const color =  new Color(colorStr);
+
                             tileSprites.push(<Sprite
                                 interactive={true}
                                 image={process.env.NEXT_PUBLIC_ASSET_URL + '/images/diagrams/floor-group-purplet.png'}
                                 x={screenX} // + app.screen.width / 2} // center horizontally
                                 y={screenY} // + app.screen.height / 4} // align the y axis to one fourth of the screen
                                 anchor={{ x: .5, y: 1}}
-                                filters = {[new ColorReplaceFilter(
+                                filters = {[
+                                    new ColorReplaceFilter(
                                 [85/255.0, 10/255.0, 81/255.0],
-                                    color , // [0/255.0, 0/255.0, 0/255.0],
+                                    color.toArray() , // [0/255.0, 0/255.0, 0/255.0],
                                 0.001
-                            )]}
+                            ),
+                                    new AlphaFilter(.5)
+                                ]}
                             />);
                         }
                     }

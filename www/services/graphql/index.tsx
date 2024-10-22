@@ -99,6 +99,7 @@ query listDiagramObject($input: DiagramObjectFilterInput) {
       imageSrc
       jsonSrc
       description
+      data
     }
   }
 }
@@ -114,6 +115,7 @@ query getDiagramObjectById($input: BasicFilterInput!) {
     imageSrc
     jsonSrc
     description
+    data
   }
 }
 `;
@@ -171,6 +173,7 @@ mutation createDiagramObject($input: DiagramObjectCreateInput!) {
     imageSrc
     jsonSrc
     description
+    data
   }
 }
 `;
@@ -185,6 +188,7 @@ mutation updateDiagramObject($input: DiagramObjectUpdateInput!) {
     imageSrc
     jsonSrc
     description
+    data
   }
 }
 `;
