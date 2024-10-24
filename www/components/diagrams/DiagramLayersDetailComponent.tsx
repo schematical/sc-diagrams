@@ -8,6 +8,7 @@ interface DiagramLayersDetailComponentProps {
     diagramPageState: DiagramPageState;
     onDelete: (tileGroup: TileGroup) => void;
     onSave: (tileGroup: TileGroup) => void;
+    onSaveDiagramLayer: (diagramLayer: DiagramLayer) => void;
     onSelectDiagramLayerTileGroup: (tileGroup: TileGroup) => void;
 }
 
@@ -29,7 +30,15 @@ export const DiagramLayersDetailComponent = (props: DiagramLayersDetailComponent
             selectedDiagramLayerTileGroup
         });
     }
+    function onToggleDiagramLayerDisplay(event: any) {
 
+        const diagramLayer = {
+            ...props.diagramPageState.selectedDiagramLayer,
+            display: !!event.target.checked
+
+        };
+        props.onSaveDiagramLayer(diagramLayer as DiagramLayer);
+    }
     return <div className="border-t border-slate-200 dark:border-slate-700">
         <div className="space-y-8 mt-8 px-5">
 
@@ -38,6 +47,21 @@ export const DiagramLayersDetailComponent = (props: DiagramLayersDetailComponent
                     className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase mb-3">
                     Layer: {props.diagramPageState.selectedDiagramLayer?.name}
                 </div>
+                <div className="pb-5">
+                    <label className="block text-sm font-medium mb-1" htmlFor="sizeMultiplier">
+                        Display
+                    </label>
+                    <div className="form-switch">
+                        <input type="checkbox" id="switch-2" className="sr-only"
+                               checked={props.diagramPageState.selectedDiagramLayer?.display}
+                               onChange={onToggleDiagramLayerDisplay}/>
+                        <label className="bg-slate-400 dark:bg-slate-700" htmlFor="switch-2">
+                            <span className="bg-white shadow-sm" aria-hidden="true"></span>
+                            <span className="sr-only">Display</span>
+                        </label>
+                    </div>
+                </div>
+                <h3>Tile Groups</h3>
                 <ul className="mb-6">
                     {
                         props.diagramPageState.selectedDiagramLayer?.tileGroups.map((tileGroup: TileGroup, index) => {
@@ -53,7 +77,8 @@ export const DiagramLayersDetailComponent = (props: DiagramLayersDetailComponent
                                     <div className="flex items-center truncate">
                                         <div className="truncate">
                                             <span
-                                                className="text-sm font-medium text-slate-800 dark:text-slate-100" style={{ color: tileGroup.color}}>
+                                                className="text-sm font-medium text-slate-800 dark:text-slate-100"
+                                                style={{color: tileGroup.color}}>
                                                     {tileGroup.name}
                                                 <div
                                                     className="text-xs font-medium text-slate-500">
@@ -104,7 +129,7 @@ export const DiagramLayersDetailComponent = (props: DiagramLayersDetailComponent
                             </div>
                             <div className="input-group mb-3">
                                 <div className="input-group-prepend">
-                                <span className="input-group-text">Color</span>
+                                    <span className="input-group-text">Color</span>
                                 </div>
                                 <input type="color" className="form-control"
                                        id="color" name="color" onChange={handleChange}

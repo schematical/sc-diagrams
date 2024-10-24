@@ -167,6 +167,7 @@ const ResourceDetailComponent = (props: ResourceDetailComponentProps) => {
                                     </label>
                                 </div>
                             </div>
+
                             <div className="flex flex-wrap -space-x-px pt-5">
                                 <button
                                     className='btn bg-indigo-600 text-white rounded-none border-l-indigo-400 first:rounded-l last:rounded-r first:border-l-transparent'

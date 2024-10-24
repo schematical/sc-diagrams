@@ -41,6 +41,7 @@ export interface DiagramLayer {
     id: string;
     name: string,
     tileGroups: TileGroup[];
+    display?: boolean;
 }
 export interface TileGroup {
     color?: string;

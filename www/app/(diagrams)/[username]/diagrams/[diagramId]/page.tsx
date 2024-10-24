@@ -798,6 +798,7 @@ const DiagramPage = (/*props: DiagramPageProps*/) => {
                                                 menuState: 'layer_boarder_select_start'
                                             })
                                         }}
+                                        onSaveDiagramLayer={updateDiagramLayer}
                                         onSave={updateDiagramLayerTileGroup}
                                         onDelete={(tileGroup: TileGroup) => {
                                             let tileGroups = state.selectedDiagramLayer?.tileGroups || [];
@@ -855,6 +856,9 @@ const DiagramPage = (/*props: DiagramPageProps*/) => {
                                     {
                                         state.diagram?.data?.layers?.map((diagramLayer: DiagramLayer) => {
                                             if (!state.diagram) throw new Error("Missing `state.diagram`");
+                                            if(!diagramLayer.display) {
+                                                return <></>;
+                                            }
                                             return <DiagramLayerComponent diagramLayer={diagramLayer}/>;
                                         })
                                     }

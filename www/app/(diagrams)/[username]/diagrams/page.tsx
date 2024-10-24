@@ -14,6 +14,7 @@ import {useParams} from "next/navigation";
 import Image01 from '@/public/images/transactions-image-01.svg'
 import DeleteButton from "@/components/delete-button";
 import SearchForm from "@/components/search-form";
+import BasicDropDown, {BasicDropDownOption} from "@/components/diagrams/BasicDropDown";
 
 
 interface DiagramListPageState {
@@ -178,8 +179,8 @@ function DiagramDetailComponent(props: DiagramDetailComponentProps) {
         </td>*/}
         <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap md:w-1/2">
             <div className="flex items-center">
-            <div className="w-9 h-9 shrink-0 mr-2 sm:mr-3">
-                    <a  href={`/${props.diagram.parentUri}/diagrams/${props.diagram._id}`}>
+                <div className="w-9 h-9 shrink-0 mr-2 sm:mr-3">
+                    <a href={`/${props.diagram.parentUri}/diagrams/${props.diagram._id}`}>
                         <Image className="rounded-full" src={Image01} width={36} height={36}
                                alt={props.diagram.name}/>
                     </a>
@@ -196,7 +197,34 @@ function DiagramDetailComponent(props: DiagramDetailComponentProps) {
             <div className="text-left">
                 <div
                     className={`text-xs inline-flex font-medium rounded-full text-center px-2.5 py-1`}>
-                        {props.diagram.parentUri}
+                    {props.diagram.parentUri}
+                </div>
+            </div>
+        </td>
+        <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+            <div className="text-left">
+                <div
+                    className={`text-xs inline-flex font-medium rounded-full text-center px-2.5 py-1`}>
+                    <BasicDropDown  options={[
+                        {
+                            id: 0,
+                            text: "Options",
+                        },
+                        {
+                            id: 1,
+                            text: "Duplicate",
+                            callback: (option: BasicDropDownOption) => {
+
+                            }
+                        },
+                        {
+                            id: 2,
+                            text: "Delete",
+                            callback: (option: BasicDropDownOption) => {
+
+                            }
+                        }
+                    ]}/>
                 </div>
             </div>
         </td>

@@ -46,7 +46,7 @@ export const DiagramLayersListComponent = (props: DiagramLayersListComponentProp
                 </div>
                 <ul className="mb-6">
                     {
-                        props.diagramPageState.diagram?.data?.layers?.map((diagramLayer: DiagramLayer) => {
+                        props.diagramPageState.diagram?.data?.layers?.map((diagramLayer: DiagramLayer, index) => {
                             return <li className="pb-2">
                                 <button
                                     className="flex items-center justify-between w-full p-2 rounded bg-indigo-500/30"
@@ -68,14 +68,13 @@ export const DiagramLayersListComponent = (props: DiagramLayersListComponentProp
                 </ul>
 
 
-
                 {
                     state.selectedDiagramLayer &&
                     <div className="border-t border-slate-200 dark:border-slate-700">
                         {/* Components */}
                         <div className="space-y-8 mt-8 px-5">
                             <h2 className="text-2xl text-slate-800 dark:text-slate-100 font-bold mb-6">
-                                Resource
+                                Layer
                                 Detail
                             </h2>
 
@@ -84,31 +83,38 @@ export const DiagramLayersListComponent = (props: DiagramLayersListComponentProp
                                     Name
                                 </label>
                                 <input className="form-input w-full" type="text" placeholder="ID"
-                                       id="name" name="name" onChange={handleChange} value={state.selectedDiagramLayer.name}
+                                       id="name" name="name" onChange={handleChange}
+                                       value={state.selectedDiagramLayer.name}
                                 />
                             </div>
                             <div>
                                 <label className="block text-sm font-medium mb-1" htmlFor="id">
-                                   ID
+                                    ID
                                 </label>
                                 <input className="form-input w-full" type="text" placeholder="ID"
-                                       id="id" name="id" readOnly={true} onChange={handleChange} value={state.selectedDiagramLayer.id}
+                                       id="id" name="id" readOnly={true} onChange={handleChange}
+                                       value={state.selectedDiagramLayer.id}
                                 />
                             </div>
+
 
 
                             <div className="flex flex-wrap items-center -m-1.5">
                                 <div className="m-1.5">
                                     <div className="flex flex-wrap -space-x-px">
-                                        <button className="btn bg-indigo-600 text-white rounded-none border-l-indigo-400 first:rounded-l last:rounded-r first:border-l-transparent" onClick={() => props.onSave(state.selectedDiagramLayer as DiagramLayer)}>
+                                        <button
+                                            className="btn bg-indigo-600 text-white rounded-none border-l-indigo-400 first:rounded-l last:rounded-r first:border-l-transparent"
+                                            onClick={() => props.onSave(state.selectedDiagramLayer as DiagramLayer)}>
                                             Save changes
                                         </button>
-                                        <button className="btn bg-indigo-500 hover:bg-indigo-600 text-indigo-100 rounded-none border-l-indigo-400 first:rounded-l last:rounded-r first:border-r-transparent"
-                                                onClick={() => props.onSelectDiagramLayer(state.selectedDiagramLayer as DiagramLayer) }>
+                                        <button
+                                            className="btn bg-indigo-500 hover:bg-indigo-600 text-indigo-100 rounded-none border-l-indigo-400 first:rounded-l last:rounded-r first:border-r-transparent"
+                                            onClick={() => props.onSelectDiagramLayer(state.selectedDiagramLayer as DiagramLayer)}>
                                             View Groups
                                         </button>
-                                        <button className="btn bg-indigo-500 hover:bg-indigo-600 text-indigo-100 rounded-none border-l-indigo-400 first:rounded-l last:rounded-r first:border-r-transparent"
-                                                onClick={() => props.onSave(state.selectedDiagramLayer as DiagramLayer)}>
+                                        <button
+                                            className="btn bg-indigo-500 hover:bg-indigo-600 text-indigo-100 rounded-none border-l-indigo-400 first:rounded-l last:rounded-r first:border-r-transparent"
+                                            onClick={() => props.onSave(state.selectedDiagramLayer as DiagramLayer)}>
                                             Delete
                                         </button>
                                     </div>
@@ -139,7 +145,8 @@ export const DiagramLayersListComponent = (props: DiagramLayersListComponentProp
             </div>
         </div>
     </div>;
-        {/*
+    {/*
 
-    </>;*/}
+    </>;*/
+    }
 }
