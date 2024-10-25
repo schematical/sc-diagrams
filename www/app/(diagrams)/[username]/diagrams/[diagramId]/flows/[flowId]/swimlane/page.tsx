@@ -42,8 +42,9 @@ import DiagramSidebarComponent from '../../../DiagramSidebarComponent';
 import ChannelMenu from "@/components/channel-menu";
 import DirectMessages from "@/app/(default)/messages/direct-messages";
 import Channels from "@/app/(default)/messages/channels";
+import NotificationService from "@/services/NotificationService";
 interface SwimlanePageState {
-    toasts: iToast[];
+
     dataUri?: string;
     loaded?: boolean;
 
@@ -93,7 +94,6 @@ const SwimlanePage = () => {
         diagramMode: "map"
     });
     const [state, setState] = useState<SwimlanePageState>({
-        toasts: [],
         pageMode: 'view',
         menuState: 'none',
         menuMode: 'none',
@@ -142,15 +142,16 @@ const SwimlanePage = () => {
         if (!state.mapFlow) throw new Error("Missing `state.mapFlow`");
         try {
             const res = await GQLService.createDiagramFlow(state.mapFlow);
-            addToast({
-                header:"Success",
-                body: "Save successful"
+
+            NotificationService.showNotification({
+                header: "Success",
+                text: "Map Flow Saved"
             })
         }catch(err: any) {
-            addToast({
-                header:"Error",
-                body: err.message
-            });
+            NotificationService.showNotification({
+                header: "Error",
+                text: err.message
+            })
         }
 
     }
@@ -309,7 +310,7 @@ const SwimlanePage = () => {
                 event1: state.selectedMapFlowEvent.id,
                 event2: mapFlowEvent.id,
                 eventOption1: state.selectedMapFlowEventDecisionOption?.id || undefined,
-                id: `fei-${Math.floor(Math.random() * 9999)}`
+                id: `fei-${Math.floor(Math.random() * 999999)}`
             };
             let interactions = state.mapFlow.data.interactions || [];
             interactions.push(mapFlowEventInteraction);
@@ -364,31 +365,10 @@ const SwimlanePage = () => {
             state.menuMode !== 'none'
         );
     }
-    function addToast(toast: iToast) {
-        const toasts = state.toasts;
-        toasts.push(toast);
-        setState({
-            ...state,
-            toasts
-        });
-    }
 
-    function closeToast(index: number) {
-        let toasts = state.toasts;
-        toasts = toasts.filter((t, i) => i !== index);
-        setState({
-            ...state,
-            toasts
-        });
-    }
 
-    function onViewportCreate(viewport: Viewport): void {
-        console.log("onViewportCreate");
-        /*    setState({
-                ...state,
-                viewport
-            })*/
-    }
+
+
 
 
     const resize = () => {

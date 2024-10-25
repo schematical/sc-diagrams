@@ -15,6 +15,8 @@ import Image01 from '@/public/images/transactions-image-01.svg'
 import DeleteButton from "@/components/delete-button";
 import SearchForm from "@/components/search-form";
 import BasicDropDown, {BasicDropDownOption} from "@/components/diagrams/BasicDropDown";
+import {deleteDiagram} from "@/services/graphql";
+import NotificationService from "@/services/NotificationService";
 
 
 interface DiagramListPageState {
@@ -141,6 +143,9 @@ export default function DiagramListPage() {
                             <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div className="font-semibold text-left">Owner</div>
                             </th>
+                            <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                <div className="font-semibold text-left">Options</div>
+                            </th>
 
                         </tr>
                         </thead>
@@ -214,14 +219,18 @@ function DiagramDetailComponent(props: DiagramDetailComponentProps) {
                             id: 1,
                             text: "Duplicate",
                             callback: (option: BasicDropDownOption) => {
-
+                                NotificationService.showNotification({
+                                   header: "Test",
+                                   text:"ASDASDASD"
+                                });
                             }
                         },
                         {
                             id: 2,
                             text: "Delete",
-                            callback: (option: BasicDropDownOption) => {
-
+                            callback: async (option: BasicDropDownOption) => {
+                                const res = (await GQLService.deleteDiagram(`${props.diagram.parentUri}/diagrams/${props.diagram._id}`))
+                                console.log(res);
                             }
                         }
                     ]}/>

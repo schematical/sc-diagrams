@@ -4,7 +4,7 @@ import {decodeToken, isExpired} from "react-jwt";
 import {
     cancelStripeSubscription,
     createDiagram, createDiagramFlow, createDiagramObject,
-    createPaymentIntent, createStripePaymentMethod, createStripeSubscription, deleteStripeSubscription,
+    createPaymentIntent, createStripePaymentMethod, createStripeSubscription, deleteDiagram, deleteStripeSubscription,
     detachStripePaymentMethod,
     finishSignUp,
     getDiagramById,
@@ -223,6 +223,22 @@ export class GQLService {
             .catch(GQLService.catchError);
 
         return response?.data?.updateDiagram;
+
+    }
+    public static async deleteDiagram(query: any) {
+        await this.checkAuth()
+
+        const response = await client
+            .mutate({
+                mutation: gql( deleteDiagram),
+                variables: {
+                    input: query,
+                },
+
+            })
+            .catch(GQLService.catchError);
+
+        return response?.data?.deleteDiagram;
 
     }
     public static async createDiagramObject(query: any) {

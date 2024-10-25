@@ -7,6 +7,7 @@ import {getJwt} from "@/services/util";
 import {DiagramObject} from "@/components/diagrams/util";
 import {GQLService} from "@/services/GQLService";
 import {updateDiagramObject} from "@/services/graphql";
+import NotificationService from "@/services/NotificationService";
 
 interface DiagramObjectEditPageState {
     loaded?: boolean;
@@ -103,6 +104,10 @@ const DiagramObjectEditPage = () => {
             loaded: true,
             // ...state,
             diagramobject: res
+        })
+        NotificationService.showNotification({
+            header: "Success",
+            text: "Diagram Object Saved"
         })
     }
     const handleUploadChange = async (event: any) => {

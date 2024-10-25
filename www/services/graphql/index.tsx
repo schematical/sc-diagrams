@@ -161,6 +161,13 @@ mutation updateDiagram( $input: DiagramUpdateInput!) {
   }
 }
 `;
+export const deleteDiagram = `
+mutation deleteDiagram($id: ID!) {
+  deleteDiagram(id: $id) {
+    deletedCount
+  }
+}
+`;
 
 export const createDiagramObject = `
 mutation createDiagramObject($input: DiagramObjectCreateInput!) {
