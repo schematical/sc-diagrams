@@ -31,6 +31,7 @@ interface MapFlowEventInteractionComponentState{
     endPos: Block;
     speed: number;
     cycleCount: number;
+    passedHalfWay: boolean;
 }
 interface MapFlowEventInteractionComponentProps{
     diagram: Diagram;
@@ -55,6 +56,7 @@ const MapFlowEventInteractionComponent = (props: MapFlowEventInteractionComponen
             ...state,
             count: 0,
             cycleCount: 0,
+            passedHalfWay: false,
             mapFlowEventInteractionId: props.diagramFlowEventInteraction.id,
             startPos: {
                 x: startX,
@@ -73,6 +75,7 @@ const MapFlowEventInteractionComponent = (props: MapFlowEventInteractionComponen
         loaded: false,
         count: 0,
         cycleCount: 0,
+        passedHalfWay: false,
         startPos: {
             x: 0,
             y: 0
@@ -106,6 +109,16 @@ const MapFlowEventInteractionComponent = (props: MapFlowEventInteractionComponen
         );
         let count = state.count + (state.speed * delta);
         let cycleCount = state.cycleCount;
+        let passedHalfWay = state.passedHalfWay;
+
+        if (count > .5 && !passedHalfWay) {
+            passedHalfWay = true
+            props.onMapFlowEventInteractionClick && props.onMapFlowEventInteractionClick({
+                diagramFlowEventInteraction: props.diagramFlowEventInteraction,
+                type: 'cycle_half'
+            });
+
+        }
         if (count > 1) {
             count = 0;
             cycleCount += 1;
@@ -115,13 +128,13 @@ const MapFlowEventInteractionComponent = (props: MapFlowEventInteractionComponen
                     diagramFlowEventInteraction: props.diagramFlowEventInteraction,
                     type: 'cycle_done'
                 });
-
             }
         }
         setState({
             ...state,
             count,
-            cycleCount
+            cycleCount,
+            passedHalfWay
         });
     })
     if (

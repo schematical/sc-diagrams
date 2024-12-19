@@ -399,9 +399,11 @@ const DiagramPage = (/*props: DiagramPageProps*/) => {
           pause();
 
         }
+      break;
 
 
     }
+
   }
 
   function displayNotation(block: Block, notation: Notation) {

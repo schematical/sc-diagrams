@@ -51,6 +51,7 @@ import SidebarLink from "@/components/ui/sidebar-link";
 
 import {DiagramPageState} from "@/services/interfaces";
 import UserImage01 from "@/public/images/user-32-01.jpg";
+import NotificationService from "@/services/NotificationService";
 
 
 export interface DiagramPageParams extends Params {
@@ -339,8 +340,18 @@ const DiagramPage = (/*props: DiagramPageProps*/) => {
 
     const onSaveDiagramClick = async () => {
         if (!state.diagram) throw new Error("Missing `state.diagram`");
-        const res = await GQLService.updateDiagram(state.diagram);
-        console.log("onSaveDiagramClick - res", res);
+        try {
+            const res = await GQLService.updateDiagram(state.diagram);
+            NotificationService.showNotification({
+                header: "Success",
+                text: "Diagram Saved"
+            });
+        }catch (err: any){
+            NotificationService.showNotification({
+                header: "Error",
+                text: err.message
+            })
+        }
     }
 
 
@@ -440,7 +451,12 @@ const DiagramPage = (/*props: DiagramPageProps*/) => {
                     pause();
                 }
                 setState(newState);
-
+            break;
+            case('cycle_half'):
+                if(event.diagramFlowEventInteraction.payload?.text) {
+                    pause();
+                }
+            break;
         }
     }
 

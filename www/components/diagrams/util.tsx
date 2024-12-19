@@ -125,7 +125,7 @@ export interface GlobalState {
 }
 export interface FlowEventInteractionEvent {
     diagramFlowEventInteraction: FlowEventInteraction,
-    type: 'cycle_done' | 'cycle_tick'
+    type: 'cycle_done' | 'cycle_tick' | 'cycle_half'
 }
 export function generateGrid<T extends Block = Block>(
     rows: number,
