@@ -1,8 +1,5 @@
 "use client"
-/*export const metadata = {
-  title: 'Dashboard - Mosaic',
-  description: 'Page description',
-}*/
+
 import React, {ChangeEvent, useEffect, useMemo, useRef, useState} from 'react';
 import {PixiComponent, Sprite, Stage} from '@pixi/react';
 import {useParams} from 'next/navigation'

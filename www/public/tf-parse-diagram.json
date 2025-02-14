@@ -1,0 +1,295 @@
+{
+   "description": "",
+   "name": "TF Import Test",
+   "_id": "tf-import-test",
+   "data": {
+      "resources": [
+         {
+            "name": "root.resource.aws_acm_certificate",
+            "id": "root.resource.aws_acm_certificate",
+            "objectId": "vault",
+            "x": -16,
+            "y": -16
+         },
+         {
+            "name": "root.resource.aws_api_gateway_rest_api",
+            "id": "root.resource.aws_api_gateway_rest_api",
+            "objectId": "apigateway-instance",
+            "x": -14,
+            "y": -16
+         },
+         {
+            "name": "root.resource.aws_elasticache_cluster",
+            "id": "root.resource.aws_elasticache_cluster",
+            "objectId": "redis-server",
+            "x": -12,
+            "y": -16
+         },
+         {
+            "name": "root.resource.aws_route53_record",
+            "id": "root.resource.aws_route53_record",
+            "objectId": "route53",
+            "x": -10,
+            "y": -16
+         },
+         {
+            "name": "root.resource.aws_route53_zone",
+            "id": "root.resource.aws_route53_zone",
+            "objectId": "route53",
+            "x": -8,
+            "y": -16
+         },
+         {
+            "name": "root.module.dev_env_schematical_com.module.nextjs_lambda.module.apigateway_env.resource.aws_route53_record",
+            "id": "root.module.dev_env_schematical_com.module.nextjs_lambda.module.apigateway_env.resource.aws_route53_record",
+            "objectId": "route53",
+            "x": -13,
+            "y": -14
+         },
+         {
+            "name": "root.module.dev_env_schematical_com.module.nextjs_lambda.module.cloudfront.resource.aws_route53_record",
+            "id": "root.module.dev_env_schematical_com.module.nextjs_lambda.module.cloudfront.resource.aws_route53_record",
+            "objectId": "route53",
+            "x": -13,
+            "y": -8
+         },
+         {
+            "name": "root.module.dev_env_schematical_com.module.nextjs_lambda.module.cloudfront.resource.aws_s3_bucket",
+            "id": "root.module.dev_env_schematical_com.module.nextjs_lambda.module.cloudfront.resource.aws_s3_bucket",
+            "objectId": "s3-bucket-basic",
+            "x": -11,
+            "y": -8
+         },
+         {
+            "name": "root.module.dev_env_schematical_com.module.nextjs_lambda.module.lambda_service.resource.aws_lambda_function",
+            "id": "root.module.dev_env_schematical_com.module.nextjs_lambda.module.lambda_service.resource.aws_lambda_function",
+            "objectId": "server-lambda",
+            "x": -13,
+            "y": 6
+         },
+         {
+            "name": "root.module.nextjs_lambda_frontend_base.resource.aws_api_gateway_rest_api",
+            "id": "root.module.nextjs_lambda_frontend_base.resource.aws_api_gateway_rest_api",
+            "objectId": "apigateway-instance",
+            "x": -1,
+            "y": -16
+         },
+         {
+            "name": "root.module.nextjs_lambda_frontend_base.resource.aws_acm_certificate",
+            "id": "root.module.nextjs_lambda_frontend_base.resource.aws_acm_certificate",
+            "objectId": "vault",
+            "x": 1,
+            "y": -16
+         },
+         {
+            "name": "root.module.prod_env_schematical_com.module.nextjs_lambda.module.apigateway_env.resource.aws_route53_record",
+            "id": "root.module.prod_env_schematical_com.module.nextjs_lambda.module.apigateway_env.resource.aws_route53_record",
+            "objectId": "route53",
+            "x": 4,
+            "y": -14
+         },
+         {
+            "name": "root.module.prod_env_schematical_com.module.nextjs_lambda.module.cloudfront.resource.aws_route53_record",
+            "id": "root.module.prod_env_schematical_com.module.nextjs_lambda.module.cloudfront.resource.aws_route53_record",
+            "objectId": "route53",
+            "x": 4,
+            "y": -8
+         },
+         {
+            "name": "root.module.prod_env_schematical_com.module.nextjs_lambda.module.cloudfront.resource.aws_s3_bucket",
+            "id": "root.module.prod_env_schematical_com.module.nextjs_lambda.module.cloudfront.resource.aws_s3_bucket",
+            "objectId": "s3-bucket-basic",
+            "x": 6,
+            "y": -8
+         },
+         {
+            "name": "root.module.prod_env_schematical_com.module.nextjs_lambda.module.lambda_service.resource.aws_lambda_function",
+            "id": "root.module.prod_env_schematical_com.module.nextjs_lambda.module.lambda_service.resource.aws_lambda_function",
+            "objectId": "server-lambda",
+            "x": 4,
+            "y": 6
+         }
+      ],
+      "layers": [
+         {
+            "id": "modules",
+            "name": "Modules",
+            "tileGroups": [
+               {
+                  "color": "#660066",
+                  "id": "root.module.dev_env_schematical_com",
+                  "name": "root.module.dev_env_schematical_com",
+                  "startPos": {
+                     "x": -15,
+                     "y": -16
+                  },
+                  "endPos": {
+                     "x": -2,
+                     "y": 14
+                  }
+               },
+               {
+                  "color": "#006600",
+                  "id": "root.module.dev_env_schematical_com.module.nextjs_lambda",
+                  "name": "root.module.dev_env_schematical_com.module.nextjs_lambda",
+                  "startPos": {
+                     "x": -14,
+                     "y": -15
+                  },
+                  "endPos": {
+                     "x": -3,
+                     "y": 12
+                  }
+               },
+               {
+                  "color": "#660066",
+                  "id": "root.module.dev_env_schematical_com.module.nextjs_lambda.module.apigateway_env",
+                  "name": "root.module.dev_env_schematical_com.module.nextjs_lambda.module.apigateway_env",
+                  "startPos": {
+                     "x": -13,
+                     "y": -14
+                  },
+                  "endPos": {
+                     "x": -4,
+                     "y": -9
+                  }
+               },
+               {
+                  "color": "#660066",
+                  "id": "root.module.dev_env_schematical_com.module.nextjs_lambda.module.cloudfront",
+                  "name": "root.module.dev_env_schematical_com.module.nextjs_lambda.module.cloudfront",
+                  "startPos": {
+                     "x": -13,
+                     "y": -8
+                  },
+                  "endPos": {
+                     "x": -4,
+                     "y": 0
+                  }
+               },
+               {
+                  "color": "#660066",
+                  "id": "root.module.dev_env_schematical_com.module.nextjs_lambda.module.buildpipeline",
+                  "name": "root.module.dev_env_schematical_com.module.nextjs_lambda.module.buildpipeline",
+                  "startPos": {
+                     "x": -13,
+                     "y": 1
+                  },
+                  "endPos": {
+                     "x": -4,
+                     "y": 5
+                  }
+               },
+               {
+                  "color": "#660066",
+                  "id": "root.module.dev_env_schematical_com.module.nextjs_lambda.module.lambda_service",
+                  "name": "root.module.dev_env_schematical_com.module.nextjs_lambda.module.lambda_service",
+                  "startPos": {
+                     "x": -13,
+                     "y": 6
+                  },
+                  "endPos": {
+                     "x": -4,
+                     "y": 10
+                  }
+               },
+               {
+                  "color": "#660066",
+                  "id": "root.module.nextjs_lambda_frontend_base",
+                  "name": "root.module.nextjs_lambda_frontend_base",
+                  "startPos": {
+                     "x": -1,
+                     "y": -16
+                  },
+                  "endPos": {
+                     "x": 1,
+                     "y": 14
+                  }
+               },
+               {
+                  "color": "#660066",
+                  "id": "root.module.prod_env_schematical_com",
+                  "name": "root.module.prod_env_schematical_com",
+                  "startPos": {
+                     "x": 2,
+                     "y": -16
+                  },
+                  "endPos": {
+                     "x": 15,
+                     "y": 14
+                  }
+               },
+               {
+                  "color": "#006600",
+                  "id": "root.module.prod_env_schematical_com.module.nextjs_lambda",
+                  "name": "root.module.prod_env_schematical_com.module.nextjs_lambda",
+                  "startPos": {
+                     "x": 3,
+                     "y": -15
+                  },
+                  "endPos": {
+                     "x": 14,
+                     "y": 12
+                  }
+               },
+               {
+                  "color": "#660066",
+                  "id": "root.module.prod_env_schematical_com.module.nextjs_lambda.module.apigateway_env",
+                  "name": "root.module.prod_env_schematical_com.module.nextjs_lambda.module.apigateway_env",
+                  "startPos": {
+                     "x": 4,
+                     "y": -14
+                  },
+                  "endPos": {
+                     "x": 13,
+                     "y": -9
+                  }
+               },
+               {
+                  "color": "#660066",
+                  "id": "root.module.prod_env_schematical_com.module.nextjs_lambda.module.cloudfront",
+                  "name": "root.module.prod_env_schematical_com.module.nextjs_lambda.module.cloudfront",
+                  "startPos": {
+                     "x": 4,
+                     "y": -8
+                  },
+                  "endPos": {
+                     "x": 13,
+                     "y": 0
+                  }
+               },
+               {
+                  "color": "#660066",
+                  "id": "root.module.prod_env_schematical_com.module.nextjs_lambda.module.buildpipeline",
+                  "name": "root.module.prod_env_schematical_com.module.nextjs_lambda.module.buildpipeline",
+                  "startPos": {
+                     "x": 4,
+                     "y": 1
+                  },
+                  "endPos": {
+                     "x": 13,
+                     "y": 5
+                  }
+               },
+               {
+                  "color": "#660066",
+                  "id": "root.module.prod_env_schematical_com.module.nextjs_lambda.module.lambda_service",
+                  "name": "root.module.prod_env_schematical_com.module.nextjs_lambda.module.lambda_service",
+                  "startPos": {
+                     "x": 4,
+                     "y": 6
+                  },
+                  "endPos": {
+                     "x": 13,
+                     "y": 10
+                  }
+               }
+            ]
+         }
+      ]
+   },
+   "username": "schematical",
+   "createdAt": "2024-10-08T20:39:38.148Z",
+   "updatedAt": "2024-10-08T20:39:38.148Z",
+   "parentUri": "schematical"
+}
