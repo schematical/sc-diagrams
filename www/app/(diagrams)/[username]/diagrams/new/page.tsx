@@ -89,7 +89,7 @@ const DiagramEditPage = () => {
         setState({
             loaded: true,
             // ...state,
-            diagram: res
+            diagram: res as any
         });
         document.location.href = `/${params.username}/diagrams/${res._id}`;
     }

@@ -49,8 +49,8 @@ export default function DiagramObjectListPage() {
                 parentUri: params.username as string,
                 imageSrc: "",
                 jsonSrc: "",
-                x: 0,
-                y: 0
+                // x: 0,
+                // y: 0
             }
         }
         setState({
@@ -281,7 +281,12 @@ function DiagramObjectDetailComponent(props: DiagramObjectDetailComponentProps) 
             {/* Image */}
             <div className="relative">
                 <a href={`/${props.diagramObject.parentUri}/diagramobjects/${props.diagramObject._id}`}>
-                    <Image className="" src={props.diagramObject.imageSrc} width={301} height={226} alt={props.diagramObject.title}/>
+                    {
+                        props.diagramObject.imageSrc &&
+                        <Image className="" src={props.diagramObject.imageSrc} width={301} height={226} alt={props.diagramObject.title}/> ||
+                        <span>Missing ImageSRC</span>
+                    }
+
                 </a>
                 {/* Like button */}
                 {/*<button className="absolute top-0 right-0 mt-4 mr-4">

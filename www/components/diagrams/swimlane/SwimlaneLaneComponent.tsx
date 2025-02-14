@@ -42,6 +42,9 @@ const SwimlaneLaneComponent = (props: SwimlaneLaneComponentProps) => {
     });
     const spriteRef = createRef<PIXI.NineSlicePlane>();
     const refreshData = async () => {
+        if(!props.diagramObject.jsonSrc){
+            throw new Error("Missing `props.diagramObject.jsonSrc`");
+        }
         const sheet = await Assets.load(props.diagramObject.jsonSrc);
         const frames = Object.keys(sheet.data.frames).map(frame =>
             PIXI.Texture.from(frame)

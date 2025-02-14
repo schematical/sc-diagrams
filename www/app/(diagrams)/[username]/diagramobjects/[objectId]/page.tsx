@@ -36,7 +36,7 @@ const DiagramObjectEditPage = () => {
                     ...state.diagramobject,
                     parentUri: params.username as string,
                     // Username: params.username as string
-                }
+                } as any
             })
             return
         }
